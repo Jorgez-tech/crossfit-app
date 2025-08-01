@@ -20,13 +20,26 @@ El propósito de Crossfit-app es ofrecer una plataforma integral para la gestió
 - Atletas que desean consultar WODs, registrar sus marcas y ver su progreso.
 - Administradores de box que buscan digitalizar la operación y mejorar la experiencia de sus usuarios.
 
+
 ## 2. Estructura y Arquitectura
 
-- Monorepo: `crossfit-app/`
-  - `api/`: Backend Express
-  - `frontend/`: App Vue
-- Scripts compartidos (ejemplo: `concurrently` para desarrollo conjunto)
-- Configuración de CORS y proxy
+La solución está organizada como un monorepo para facilitar el desarrollo, la integración y el despliegue conjunto de backend y frontend.
+
+### 2.1 Monorepo
+- Carpeta raíz: `crossfit-app/`
+- Subcarpetas principales:
+  - `api/`: Contiene el backend Express (Node.js), responsable de la lógica de negocio, gestión de datos y exposición de la API REST.
+  - `frontend/`: Contiene la aplicación Vue.js, encargada de la interfaz de usuario y la interacción con la API.
+
+### 2.2 Scripts Compartidos
+- En la raíz se definen scripts globales (por ejemplo, `npm run dev`) usando herramientas como `concurrently` para levantar backend y frontend en paralelo.
+- Los scripts permiten iniciar ambos servicios fácilmente y centralizan tareas comunes.
+
+### 2.3 Configuración de CORS y Proxy
+- El backend Express está configurado con CORS para aceptar peticiones del frontend en desarrollo (`http://localhost:8080`).
+- El frontend puede usar un proxy (configurable en `vue.config.js`) para redirigir peticiones API durante el desarrollo, evitando problemas de CORS y facilitando la integración local.
+
+Esta arquitectura permite un flujo de trabajo ágil, escalable y fácilmente integrable con herramientas de CI/CD y despliegue moderno.
 
 ## 3. Fases de Desarrollo
 

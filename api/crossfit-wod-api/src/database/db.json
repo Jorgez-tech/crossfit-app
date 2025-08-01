@@ -3,98 +3,98 @@
     {
       "id": "61dbae02-c147-4e28-863c-db7bd402b2d6",
       "name": "Tommy V",
-      "mode": "For Time",
+      "mode": "Por tiempo",
       "equipment": [
-        "barbell",
-        "rope"
+        "barra",
+        "cuerda"
       ],
       "exercises": [
         "21 thrusters",
-        "12 rope climbs, 15 ft",
+        "12 subidas de cuerda, 4.5 m",
         "15 thrusters",
-        "9 rope climbs, 15 ft",
+        "9 subidas de cuerda, 4.5 m",
         "9 thrusters",
-        "6 rope climbs, 15 ft"
+        "6 subidas de cuerda, 4.5 m"
       ],
       "createdAt": "4/20/2022, 2:21:56 PM",
       "updatedAt": "4/20/2022, 2:21:56 PM",
       "trainerTips": [
-        "Split the 21 thrusters as needed",
-        "Try to do the 9 and 6 thrusters unbroken",
-        "RX Weights: 115lb/75lb"
+        "Divide los 21 thrusters según sea necesario",
+        "Intenta hacer los 9 y 6 thrusters sin pausa",
+        "Pesos RX: 52kg/34kg"
       ]
     },
     {
       "id": "4a3d9aaa-608c-49a7-a004-66305ad4ab50",
-      "name": "Dead Push-Ups",
+      "name": "Flexiones Muertas",
       "mode": "AMRAP 10",
       "equipment": [
-        "barbell"
+        "barra"
       ],
       "exercises": [
-        "15 deadlifts",
-        "15 hand-release push-ups"
+        "15 pesos muertos",
+        "15 flexiones con liberación de manos"
       ],
       "createdAt": "1/25/2022, 1:15:44 PM",
       "updatedAt": "3/10/2022, 8:21:56 AM",
       "trainerTips": [
-        "Deadlifts are meant to be light and fast",
-        "Try to aim for unbroken sets",
-        "RX Weights: 135lb/95lb"
+        "Los pesos muertos deben ser ligeros y rápidos",
+        "Intenta hacer series sin pausa",
+        "Pesos RX: 61kg/43kg"
       ]
     },
     {
       "id": "d8be2362-7b68-4ea4-a1f6-03f8bc4eede7",
-      "name": "Heavy DT",
-      "mode": "5 Rounds For Time",
+      "name": "DT Pesado",
+      "mode": "5 rondas por tiempo",
       "equipment": [
-        "barbell",
-        "rope"
+        "barra",
+        "cuerda"
       ],
       "exercises": [
-        "12 deadlifts",
-        "9 hang power cleans",
-        "6 push jerks"
+        "12 pesos muertos",
+        "9 cargadas colgando",
+        "6 empujes de hombros"
       ],
       "createdAt": "11/20/2021, 5:39:07 PM",
       "updatedAt": "4/22/2022, 5:49:18 PM",
       "trainerTips": [
-        "Aim for unbroken push jerks",
-        "The first three rounds might feel terrible, but stick to it",
-        "RX Weights: 205lb/145lb"
+        "Haz los empujes de hombros sin pausa",
+        "Las primeras tres rondas pueden ser duras, ¡sigue adelante!",
+        "Pesos RX: 93kg/66kg"
       ]
     },
     {
-      "name": "Core Buster",
+      "name": "Destruye Núcleo",
       "mode": "AMRAP 20",
       "equipment": [
         "rack",
-        "barbell",
+        "barra",
         "abmat"
       ],
       "exercises": [
-        "15 toes to bars",
+        "15 pies a la barra",
         "10 thrusters",
-        "30 abmat sit-ups"
+        "30 abdominales con abmat"
       ],
       "trainerTips": [
-        "Split your toes to bars in two sets maximum",
-        "Go unbroken on the thrusters",
-        "Take the abmat sit-ups as a chance to normalize your breath"
+        "Divide los pies a la barra en máximo dos series",
+        "Haz los thrusters sin pausa",
+        "Aprovecha los abdominales para recuperar el aliento"
       ],
       "id": "a24d2618-01d1-4682-9288-8de1343e53c7",
       "createdAt": "4/22/2022, 5:50:17 PM",
       "updatedAt": "4/22/2022, 5:50:17 PM"
     },
     {
-      "name": "Test Workout",
+      "name": "Entrenamiento de Prueba",
       "mode": "AMRAP 12",
       "equipment": [
-        "barbell"
+        "barra"
       ],
       "exercises": [
-        "10 squats",
-        "10 push-ups"
+        "10 sentadillas",
+        "10 flexiones"
       ],
       "trainerTips": [
         "Mantén el ritmo",

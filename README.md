@@ -46,12 +46,7 @@ Consulta los README de cada subproyecto para instrucciones de despliegue especí
 
 ## Estado actual y Roadmap
 
-- [x] Prototipo funcional (API y frontend)
-- [x] Navegación y consumo de API
-- [x] Estructura de componentes Vue
-- [ ] Migración completa a monorepo
-- [ ] Documentación y scripts compartidos
-- [ ] Autenticación (registro/login con JWT)
+ [x] Migración completa a monorepo
 - [ ] Persistencia en base de datos relacional
 - [ ] Despliegue conjunto (Docker, VPS, etc.)
 
@@ -62,6 +57,6 @@ Consulta los README de cada subproyecto para instrucciones de despliegue especí
 - La integración de base de datos se realiza al final para validar primero la lógica de negocio.
 
 ---
-¿Dudas? Abre un issue o revisa la documentación de cada subproyecto.
+¿Dudas? Abre un issue, revisa la documentación de cada subproyecto o consulta la [Guía de Desarrollo](./Informe_Desarrollo.md).
 
 > Mantén este README y los informes de desarrollo actualizados para facilitar la colaboración.

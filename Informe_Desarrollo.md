@@ -46,7 +46,7 @@ Describir el propósito del proyecto, los problemas que resuelve y los usuarios 
 - [x] Prototipo funcional
 - [x] Navegación y consumo de API
 - [x] Estructura de componentes
-- [ ] Migración a monorepo
+- [x] Migración a monorepo
 - [ ] Documentación y scripts compartidos
 - [ ] Autenticación
 - [ ] Base de datos relacional

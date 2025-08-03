@@ -70,13 +70,16 @@ Esta arquitectura permite un flujo de trabajo ágil, escalable y fácilmente int
 - Documentación con Swagger
 - Monitoreo/logging
 
+
 ## 4. Estado Actual y Próximos Pasos
 
 - [x] Prototipo funcional
 - [x] Navegación y consumo de API
 - [x] Estructura de componentes
 - [x] Migración a monorepo
-- [ ] Documentación y scripts compartidos
+- [x] Documentación y scripts compartidos
+  - Se consolidaron los README: uno global en la raíz, uno para frontend y uno para backend, cada uno con instrucciones específicas.
+  - Se eliminaron archivos y componentes innecesarios para mantener el repositorio limpio.
 - [ ] Autenticación
 - [ ] Base de datos relacional
 - [ ] Despliegue conjunto
@@ -89,13 +92,79 @@ Esta arquitectura permite un flujo de trabajo ágil, escalable y fácilmente int
 
 ## 6. Checklist de Funcionalidades y Pruebas
 
-- [x] Visualización de WODs
-- [x] Visualización de Members y Records
-- [x] Navegación entre vistas
-- [ ] Registro/login
-- [ ] Persistencia en base de datos
-- [ ] Despliegue en producción
 
----
 
 > Actualiza este informe en cada fase para mantener el seguimiento y facilitar la colaboración.
+
+## 7. Roadmap de Implementación y Próximos Pasos
+
+### Objetivos generales
+
+- Plataforma web para gestión de entrenamientos, miembros y progreso en un box de CrossFit.
+- Acceso diferenciado para entrenadores (gestión) y atletas (consulta y registro de avances).
+- Seguridad, escalabilidad y facilidad de uso desde el MVP.
+
+### Fases y tareas clave
+
+**Fase 1: Diseño de Datos y Modelos**
+- Definir modelos de datos: Usuario (entrenador/atleta), WOD, Progreso/Record.
+- Diagramar relaciones (ERD).
+- Elegir base de datos (SQLite para desarrollo, PostgreSQL para producción).
+
+**Fase 2: Backend (API RESTful con Node.js/Express)**
+- Registro y login con JWT.
+- Middleware de autenticación y autorización por rol.
+- Endpoints: registro, login, CRUD de WODs, registro de avances.
+- Validación de datos y manejo de errores.
+- Documentar API.
+
+**Fase 3: Frontend (Vue.js 3 + Pinia)**
+- Servicios para consumir la API (authService, wodService, progressService).
+- Componentes: login/registro, panel de entrenador, panel de atleta.
+- Guards de rutas según rol.
+- Manejo de estado global.
+
+**Fase 4: Pruebas e Integración Continua**
+- Pruebas unitarias y de integración.
+- Pruebas E2E de flujos críticos.
+- Configuración de CI.
+
+**Fase 5: Despliegue**
+- Configuración de entornos.
+- Despliegue backend y frontend.
+- Documentación de despliegue.
+
+### Checklist de entregables y hitos
+
+**Fase 1:**
+- [ ] Modelos de datos y ERD
+- [ ] Esquema de base de datos y datos de prueba
+
+**Fase 2:**
+- [ ] Endpoints de autenticación y CRUD WODs
+- [ ] Middleware de roles y seguridad
+- [ ] Documentación de API
+
+**Fase 3:**
+- [ ] Servicios frontend y componentes clave
+- [ ] Rutas protegidas y paneles por rol
+- [ ] Integración completa
+
+**Fase 4:**
+- [ ] Tests unitarios y E2E
+- [ ] CI configurado
+
+**Fase 5:**
+- [ ] App desplegada
+- [ ] Documentación de despliegue
+
+### Recomendaciones y buenas prácticas
+
+- Mantener el MVP simple: primero autenticación, roles y flujo básico de WODs y progreso.
+- Usar JWT para autenticación y roles, y bcrypt para passwords.
+- Documentar modelos y endpoints desde el inicio.
+- Priorizar la experiencia de usuario: navegación clara, feedback visual, formularios validados.
+- Revisar y ajustar el roadmap según feedback real.
+
+---
+Actualiza este roadmap y checklist en cada fase para mantener el seguimiento y facilitar la colaboración.

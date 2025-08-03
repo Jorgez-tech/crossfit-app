@@ -2,7 +2,7 @@
   <div>
     <h2>Records</h2>
     <ul>
-      <li v-for="record in records" :key="record.id">{{ record.description }}</li>
+      <li v-for="record in records" :key="record.id">{{ record.record }}</li>
     </ul>
   </div>
 </template>
@@ -16,7 +16,7 @@ export default {
   setup() {
     const recordStore = useRecordStore();
     api.getRecords().then(res => {
-      recordStore.setRecords(res.data);
+      recordStore.setRecords(res.data.data);
     });
     return { records: recordStore.records };
   }

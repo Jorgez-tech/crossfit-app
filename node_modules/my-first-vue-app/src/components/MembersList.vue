@@ -16,7 +16,7 @@ export default {
   setup() {
     const memberStore = useMemberStore();
     api.getMembers().then(res => {
-      memberStore.setMembers(res.data);
+      memberStore.setMembers(res.data.data);
     });
     return { members: memberStore.members };
   }

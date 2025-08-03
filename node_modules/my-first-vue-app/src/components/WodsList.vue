@@ -16,7 +16,7 @@ export default {
   setup() {
     const wodStore = useWodStore();
     api.getWods().then(res => {
-      wodStore.setWods(res.data);
+      wodStore.setWods(res.data.data);
     });
     return { wods: wodStore.wods };
   }

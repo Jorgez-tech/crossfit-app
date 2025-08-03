@@ -104,6 +104,42 @@
       "createdAt": "6/30/2025, 1:49:53 AM",
       "updatedAt": "6/30/2025, 1:49:53 AM"
     }
+    ,
+    {
+      "id": "d1e2f3g4-7890-4abc-8def-5678901234ef",
+      "name": "Cardio Extremo",
+      "mode": "Por tiempo",
+      "equipment": ["cuerda", "barra"],
+      "exercises": [
+        "100 saltos de cuerda",
+        "20 burpees",
+        "15 thrusters",
+        "400m carrera"
+      ],
+      "createdAt": "7/31/2025, 8:00:00 AM",
+      "updatedAt": "7/31/2025, 8:00:00 AM",
+      "trainerTips": [
+        "Haz los saltos de cuerda sin pausa",
+        "Mantén un ritmo constante en la carrera"
+      ]
+    },
+    {
+      "id": "e2f3g4h5-8901-4bcd-9efa-6789012345fa",
+      "name": "Fuerza Total",
+      "mode": "AMRAP 15",
+      "equipment": ["barra"],
+      "exercises": [
+        "10 pesos muertos",
+        "10 push press",
+        "10 sentadillas frontales"
+      ],
+      "createdAt": "7/31/2025, 8:05:00 AM",
+      "updatedAt": "7/31/2025, 8:05:00 AM",
+      "trainerTips": [
+        "Controla la técnica en cada repetición",
+        "No sacrifiques la forma por velocidad"
+      ]
+    }
   ],
   "members": [
     {
@@ -137,6 +173,22 @@
       "dateOfBirth": "08/04/1993",
       "email": "greg@mail.com",
       "password": "a6dcde7eceb689142f21a1e30b5fdb868ec4cd25d5537d67ac7e8c7816b0e862"
+    },
+    {
+      "id": "b1e2c3d4-5678-4abc-9def-1234567890ab",
+      "name": "Ana Torres",
+      "gender": "female",
+      "dateOfBirth": "15/02/1988",
+      "email": "ana.torres@mail.com",
+      "password": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "c2d3e4f5-6789-4bcd-8efa-2345678901bc",
+      "name": "Luis Fernández",
+      "gender": "male",
+      "dateOfBirth": "30/11/1995",
+      "email": "luis.fernandez@mail.com",
+      "password": "b6d81b360a5672d80c27430f39153e2cfa8b7b6b5b3b6b7b8b9b0b1b2b3b4b5b"
     }
   ],
   "records": [
@@ -159,6 +211,16 @@
       "id": "62251cfe-fdb6-4fa6-9a2d-c21be93ac78d",
       "workout": "4a3d9aaa-608c-49a7-a004-66305ad4ab50",
       "record": "145 reps"
+    },
+    {
+      "id": "e7f8g9h0-1234-4def-9abc-3456789012cd",
+      "workout": "61dbae02-c147-4e28-863c-db7bd402b2d6",
+      "record": "12:34 minutos"
+    },
+    {
+      "id": "f8g9h0i1-2345-4efa-8bcd-4567890123de",
+      "workout": "1600f95c-2057-4baa-935b-bc73770157d1",
+      "record": "20 rondas"
     }
   ]
 }

@@ -9,9 +9,12 @@ const app = express();
 
 // Configurar CORS para permitir conexiones desde la aplicación Vue
 app.use(cors({
-  origin: 'http://localhost:8080',
+  origin: [
+    'http://localhost:8080',
+    'http://192.168.100.8:8080'
+  ],
   credentials: true
-}));  // ← AGREGAR ESTAS LÍNEAS
+}));
 
 // Middleware to parse JSON request bodies
 app.use(bodyParser.json());

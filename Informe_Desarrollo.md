@@ -137,11 +137,21 @@ Esta arquitectura permite un flujo de trabajo ágil, escalable y fácilmente int
 ### Checklist de entregables y hitos
 
 **Fase 1:**
-- [ ] Modelos de datos y ERD
-- [ ] Esquema de base de datos y datos de prueba
+- [x] Modelos de datos y ERD
+- [x] Esquema de base de datos y datos de prueba
+### Avance reciente
+
+✔️ Se completó la definición de modelos, el ERD, la migración a base de datos relacional y la carga de datos de prueba mediante seeds y migraciones automatizadas.
+
+
+
+
 
 **Fase 2:**
-- [ ] Endpoints de autenticación y CRUD WODs
+- [x] Endpoints de autenticación (registro y login con JWT)
+✔️ Se implementaron los endpoints de autenticación (registro y login) usando JWT y bcrypt, integrados con la base de datos relacional.
+- [ ] CRUD WODs
+El siguiente objetivo es proteger y mejorar el CRUD de WODs y miembros usando autenticación y roles.
 - [ ] Middleware de roles y seguridad
 - [ ] Documentación de API
 

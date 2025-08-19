@@ -1,37 +1,27 @@
-const DB = require("./db.json");
-const { saveToDatabase } = require("./utils");
+const knex = require('./knex');
 
-const getRecordForWorkout = (workoutId) => {
+const getRecordForWorkout = async (workoutId) => {
   try {
-    const record = DB.records.filter((record) => record.workout === workoutId);
-    if (!record) {
-      throw {
-        status: 400,
-        message: `Can't find workout with the id '${workoutId}'`,
-      };
-    }
-    return record;
+    const records = await knex('records').where({ wod_id: workoutId }).select('*');
+    return records;
   } catch (error) {
     throw { status: error?.status || 500, message: error?.message || error };
   }
 };
 
-const getAllRecords = () => {
+const getAllRecords = async () => {
   try {
-    return DB.records;
+    return await knex('records').select('*');
   } catch (error) {
     throw { status: 500, message: error };
   }
 };
 
-const getOneRecord = (recordId) => {
+const getOneRecord = async (recordId) => {
   try {
-    const record = DB.records.find((record) => record.id === recordId);
+    const record = await knex('records').where({ id: recordId }).first();
     if (!record) {
-      throw {
-        status: 400,
-        message: `Can't find record with the id '${recordId}'`,
-      };
+      throw { status: 400, message: `Can't find record with the id '${recordId}'` };
     }
     return record;
   } catch (error) {
@@ -39,53 +29,40 @@ const getOneRecord = (recordId) => {
   }
 };
 
-const createNewRecord = (newRecord) => {
+const createNewRecord = async (newRecord) => {
   try {
-    DB.records.push(newRecord);
-    saveToDatabase(DB);
-    return newRecord;
+    const [id] = await knex('records').insert({
+      user_id: newRecord.user_id,
+      wod_id: newRecord.wod_id,
+      result: newRecord.result,
+      notes: newRecord.notes,
+      date: newRecord.date || knex.fn.now(),
+    });
+    return await knex('records').where({ id }).first();
   } catch (error) {
     throw { status: 500, message: error?.message || error };
   }
 };
 
-const updateOneRecord = (recordId, changes) => {
+const updateOneRecord = async (recordId, changes) => {
   try {
-    const indexForUpdate = DB.records.findIndex(
-      (record) => record.id === recordId
-    );
-    if (indexForUpdate === -1) {
-      throw {
-        status: 400,
-        message: `Can't find record with the id '${recordId}'`,
-      };
+    const updated = await knex('records').where({ id: recordId }).update(changes);
+    if (!updated) {
+      throw { status: 400, message: `Can't find record with the id '${recordId}'` };
     }
-    const updatedRecord = {
-      ...DB.records[indexForUpdate],
-      ...changes,
-      updatedAt: new Date().toLocaleString("en-US", { timeZone: "UTC" }),
-    };
-    DB.records[indexForUpdate] = updatedRecord;
-    saveToDatabase(DB);
-    return updatedRecord;
+    return await knex('records').where({ id: recordId }).first();
   } catch (error) {
     throw { status: error?.status || 500, message: error?.message || error };
   }
 };
 
-const deleteOneRecord = (recordId) => {
+const deleteOneRecord = async (recordId) => {
   try {
-    const indexForDeletion = DB.records.findIndex(
-      (record) => record.id === recordId
-    );
-    if (indexForDeletion === -1) {
-      throw {
-        status: 400,
-        message: `Can't find record with the id '${recordId}'`,
-      };
+    const deleted = await knex('records').where({ id: recordId }).del();
+    if (!deleted) {
+      throw { status: 400, message: `Can't find record with the id '${recordId}'` };
     }
-    DB.records.splice(indexForDeletion, 1);
-    saveToDatabase(DB);
+    return true;
   } catch (error) {
     throw { status: error?.status || 500, message: error?.message || error };
   }

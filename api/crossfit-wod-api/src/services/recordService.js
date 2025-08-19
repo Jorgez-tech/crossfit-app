@@ -1,53 +1,48 @@
 const Record = require("../database/Record");
 
-const getRecordForWorkout = (workoutId) => {
+const getRecordForWorkout = async (workoutId) => {
   try {
-    const record = Record.getRecordForWorkout(workoutId);
-    return record;
+    return await Record.getRecordForWorkout(workoutId);
   } catch (error) {
     throw error;
   }
 };
 
-const getAllRecords = () => {
+const getAllRecords = async () => {
   try {
-    const allRecords = Record.getAllRecords();
-    return allRecords;
+    return await Record.getAllRecords();
   } catch (error) {
     throw error;
   }
 };
 
-const getOneRecord = (recordId) => {
+const getOneRecord = async (recordId) => {
   try {
-    const record = Record.getOneRecord(recordId);
-    return record;
+    return await Record.getOneRecord(recordId);
   } catch (error) {
     throw error;
   }
 };
 
-const createNewRecord = (newRecord) => {
+const createNewRecord = async (newRecord) => {
   try {
-    const createdRecord = Record.createNewRecord(newRecord);
-    return createdRecord;
+    return await Record.createNewRecord(newRecord);
   } catch (error) {
     throw error;
   }
 };
 
-const updateOneRecord = (recordId, changes) => {
+const updateOneRecord = async (recordId, changes) => {
   try {
-    const updatedRecord = Record.updateOneRecord(recordId, changes);
-    return updatedRecord;
+    return await Record.updateOneRecord(recordId, changes);
   } catch (error) {
     throw error;
   }
 };
 
-const deleteOneRecord = (recordId) => {
+const deleteOneRecord = async (recordId) => {
   try {
-    Record.deleteOneRecord(recordId);
+    return await Record.deleteOneRecord(recordId);
   } catch (error) {
     throw error;
   }

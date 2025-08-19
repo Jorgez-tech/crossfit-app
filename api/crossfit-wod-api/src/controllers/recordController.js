@@ -1,8 +1,7 @@
 // In src/controllers/recordController.js
-const DB = require("../database/db.json");
 const recordService = require("../services/recordService");
 
-const getRecordForWorkout = (req, res) => {
+const getRecordForWorkout = async (req, res) => {
   const { workoutId } = req.params;
   if (!workoutId) {
     return res.status(400).send({
@@ -11,14 +10,19 @@ const getRecordForWorkout = (req, res) => {
     });
   }
 
-  // Filtrar los records que correspondan al workoutId
-  const records = DB.records.filter((record) => record.workout === workoutId);
-  res.send({ status: "OK", data: records });
+  try {
+    const records = await recordService.getRecordForWorkout(workoutId);
+    res.send({ status: "OK", data: records });
+  } catch (error) {
+    res
+      .status(error?.status || 500)
+      .send({ status: "FAILED", data: { error: error?.message || error } });
+  }
 };
 
-const getAllRecords = (req, res) => {
+const getAllRecords = async (req, res) => {
   try {
-    const allRecords = recordService.getAllRecords();
+    const allRecords = await recordService.getAllRecords();
     res.send({ status: "OK", data: allRecords });
   } catch (error) {
     res
@@ -27,7 +31,7 @@ const getAllRecords = (req, res) => {
   }
 };
 
-const getOneRecord = (req, res) => {
+const getOneRecord = async (req, res) => {
   const { recordId } = req.params;
   if (!recordId) {
     return res
@@ -38,7 +42,7 @@ const getOneRecord = (req, res) => {
       });
   }
   try {
-    const record = recordService.getOneRecord(recordId);
+    const record = await recordService.getOneRecord(recordId);
     res.send({ status: "OK", data: record });
   } catch (error) {
     res
@@ -47,25 +51,28 @@ const getOneRecord = (req, res) => {
   }
 };
 
-const createNewRecord = (req, res) => {
+const createNewRecord = async (req, res) => {
   const { body } = req;
-  if (!body.workout || !body.record) {
+  if (!body.user_id || !body.wod_id || !body.result) {
     return res
       .status(400)
       .send({
         status: "FAILED",
         data: {
           error:
-            "One of the following keys is missing or is empty in request body: 'workout', 'record'",
+            "One of the following keys is missing or is empty in request body: 'user_id', 'wod_id', 'result'",
         },
       });
   }
   const newRecord = {
-    workout: body.workout,
-    record: body.record,
+    user_id: body.user_id,
+    wod_id: body.wod_id,
+    result: body.result,
+    notes: body.notes,
+    date: body.date,
   };
   try {
-    const createdRecord = recordService.createNewRecord(newRecord);
+    const createdRecord = await recordService.createNewRecord(newRecord);
     res.status(201).send({ status: "OK", data: createdRecord });
   } catch (error) {
     res
@@ -74,7 +81,7 @@ const createNewRecord = (req, res) => {
   }
 };
 
-const updateOneRecord = (req, res) => {
+const updateOneRecord = async (req, res) => {
   const { recordId } = req.params;
   const { body } = req;
   if (!recordId) {
@@ -86,7 +93,7 @@ const updateOneRecord = (req, res) => {
       });
   }
   try {
-    const updatedRecord = recordService.updateOneRecord(recordId, body);
+    const updatedRecord = await recordService.updateOneRecord(recordId, body);
     res.send({ status: "OK", data: updatedRecord });
   } catch (error) {
     res
@@ -95,7 +102,7 @@ const updateOneRecord = (req, res) => {
   }
 };
 
-const deleteOneRecord = (req, res) => {
+const deleteOneRecord = async (req, res) => {
   const { recordId } = req.params;
   if (!recordId) {
     return res
@@ -106,7 +113,7 @@ const deleteOneRecord = (req, res) => {
       });
   }
   try {
-    recordService.deleteOneRecord(recordId);
+    await recordService.deleteOneRecord(recordId);
     res.status(204).send({ status: "OK" });
   } catch (error) {
     res

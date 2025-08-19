@@ -143,6 +143,9 @@ Esta arquitectura permite un flujo de trabajo ágil, escalable y fácilmente int
 
 ✔️ Se completó la definición de modelos, el ERD, la migración a base de datos relacional y la carga de datos de prueba mediante seeds y migraciones automatizadas.
 
+**Cambios recientes (registro):**
+- refactor: `Member` migrado de `db.json` a consultas con `knex` (commit 784b0da)
+
 
 
 

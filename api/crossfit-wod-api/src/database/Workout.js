@@ -1,23 +1,19 @@
 // In src/database/Workout.js
-const DB = require("./db.json");
-const { saveToDatabase } = require("./utils");
+const knex = require('./knex');
 
-const getAllWorkouts = () => {
+const getAllWorkouts = async () => {
   try {
-    return DB.workouts;
+    return await knex('wods').select('*');
   } catch (error) {
     throw { status: 500, message: error };
   }
 };
 
-const getOneWorkout = (workoutId) => {
+const getOneWorkout = async (workoutId) => {
   try {
-    const workout = DB.workouts.find((workout) => workout.id === workoutId);
+    const workout = await knex('wods').where({ id: workoutId }).first();
     if (!workout) {
-      throw {
-        status: 400,
-        message: `Can't find workout with the id '${workoutId}'`,
-      };
+      throw { status: 400, message: `Can't find workout with the id '${workoutId}'` };
     }
     return workout;
   } catch (error) {
@@ -25,69 +21,49 @@ const getOneWorkout = (workoutId) => {
   }
 };
 
-const createNewWorkout = (newWorkout) => {
+const createNewWorkout = async (newWorkout) => {
   try {
-    const isAlreadyAdded =
-      DB.workouts.findIndex((workout) => workout.name === newWorkout.name) > -1;
-    if (isAlreadyAdded) {
-      throw {
-        status: 400,
-        message: `Workout with the name '${newWorkout.name}' already exists`,
-      };
-    }
-    DB.workouts.push(newWorkout);
-    saveToDatabase(DB);
-    return newWorkout;
-  } catch (error) {
-    throw { status: error?.status || 500, message: error?.message || error };
-  }
-};
-
-const updateOneWorkout = (workoutId, changes) => {
-  try {
-    const isAlreadyAdded =
-      DB.workouts.findIndex((workout) => workout.name === changes.name) > -1;
-    if (isAlreadyAdded) {
-      throw {
-        status: 400,
-        message: `Workout with the name '${changes.name}' already exists`,
-      };
-    }
-    const indexForUpdate = DB.workouts.findIndex(
-      (workout) => workout.id === workoutId
-    );
-    if (indexForUpdate === -1) {
-      throw {
-        status: 400,
-        message: `Can't find workout with the id '${workoutId}'`,
-      };
-    }
-    const updatedWorkout = {
-      ...DB.workouts[indexForUpdate],
-      ...changes,
-      updatedAt: new Date().toLocaleString("en-US", { timeZone: "UTC" }),
+    // map expected fields to DB columns
+    const payload = {
+      name: newWorkout.name,
+      description: newWorkout.description || newWorkout.trainerTips || null,
+      exercises: typeof newWorkout.exercises === 'string' ? newWorkout.exercises : JSON.stringify(newWorkout.exercises || ''),
+      created_by: newWorkout.created_by || null,
+      created_at: newWorkout.createdAt || knex.fn.now(),
     };
-    DB.workouts[indexForUpdate] = updatedWorkout;
-    saveToDatabase(DB);
-    return updatedWorkout;
+    const [id] = await knex('wods').insert(payload);
+    return await knex('wods').where({ id }).first();
   } catch (error) {
     throw { status: error?.status || 500, message: error?.message || error };
   }
 };
 
-const deleteOneWorkout = (workoutId) => {
+const updateOneWorkout = async (workoutId, changes) => {
   try {
-    const indexForDeletion = DB.workouts.findIndex(
-      (workout) => workout.id === workoutId
-    );
-    if (indexForDeletion === -1) {
-      throw {
-        status: 400,
-        message: `Can't find workout with the id '${workoutId}'`,
-      };
+    // prepare update payload only with allowed columns
+    const payload = {};
+    if (changes.name) payload.name = changes.name;
+    if (changes.description) payload.description = changes.description;
+    if (changes.trainerTips) payload.description = changes.trainerTips;
+    if (changes.exercises) payload.exercises = typeof changes.exercises === 'string' ? changes.exercises : JSON.stringify(changes.exercises);
+
+    const updated = await knex('wods').where({ id: workoutId }).update(payload);
+    if (!updated) {
+      throw { status: 400, message: `Can't find workout with the id '${workoutId}'` };
     }
-    DB.workouts.splice(indexForDeletion, 1);
-    saveToDatabase(DB);
+    return await knex('wods').where({ id: workoutId }).first();
+  } catch (error) {
+    throw { status: error?.status || 500, message: error?.message || error };
+  }
+};
+
+const deleteOneWorkout = async (workoutId) => {
+  try {
+    const deleted = await knex('wods').where({ id: workoutId }).del();
+    if (!deleted) {
+      throw { status: 400, message: `Can't find workout with the id '${workoutId}'` };
+    }
+    return true;
   } catch (error) {
     throw { status: error?.status || 500, message: error?.message || error };
   }

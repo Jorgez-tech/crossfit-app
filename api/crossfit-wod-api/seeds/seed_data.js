@@ -1,7 +1,15 @@
 /**
  * Seed de datos de prueba para Alto Rendimiento 360
  * Ejecuta: npx knex seed:run
+ *
+ * NOTA: para desarrollo este seed crea 3 usuarios con contraseñas conocidas:
+ * - entrenador: 'entrenador123'
+ * - atletas: 'atleta123'
+ *
+ * El seed usa bcrypt para hashear las contraseñas antes de insertarlas.
  */
+
+const bcrypt = require('bcrypt');
 
 exports.seed = async function (knex) {
     // Borra datos existentes (orden importa por claves foráneas)
@@ -10,11 +18,18 @@ exports.seed = async function (knex) {
     await knex('wods').del();
     await knex('users').del();
 
+    // Passwords en claro (solo para desarrollo/test en local)
+    const trainerPassword = 'entrenador123';
+    const athletePassword = 'atleta123';
+
+    const passwordHashTrainer = await bcrypt.hash(trainerPassword, 10);
+    const passwordHashAthlete = await bcrypt.hash(athletePassword, 10);
+
     // Inserta usuarios
     await knex('users').insert([
-        { id: 1, name: 'Carlos Entrenador', email: 'carlos@box.com', password_hash: 'hash1', role: 'entrenador' },
-        { id: 2, name: 'Ana Atleta', email: 'ana@box.com', password_hash: 'hash2', role: 'atleta' },
-        { id: 3, name: 'Luis Atleta', email: 'luis@box.com', password_hash: 'hash3', role: 'atleta' }
+        { id: 1, name: 'Carlos Entrenador', email: 'carlos@box.com', password_hash: passwordHashTrainer, role: 'entrenador' },
+        { id: 2, name: 'Ana Atleta', email: 'ana@box.com', password_hash: passwordHashAthlete, role: 'atleta' },
+        { id: 3, name: 'Luis Atleta', email: 'luis@box.com', password_hash: passwordHashAthlete, role: 'atleta' }
     ]);
 
     // Inserta WODs

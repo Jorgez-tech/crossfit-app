@@ -3,6 +3,8 @@ const express = require("express");
 const workoutController = require("../../controllers/workoutController");
 // *** ADD ***
 const recordController = require("../../controllers/recordController");
+const authMiddleware = require('../../middleware/authMiddleware');
+const roleMiddleware = require('../../middleware/roleMiddleware');
 
 const router = express.Router();
 
@@ -13,10 +15,10 @@ router.get("/:workoutId", workoutController.getOneWorkout);
 // *** ADD ***
 router.get("/:workoutId/records", recordController.getRecordForWorkout);
 
-router.post("/", workoutController.createNewWorkout);
+router.post("/", authMiddleware, roleMiddleware('entrenador'), workoutController.createNewWorkout);
 
-router.patch("/:workoutId", workoutController.updateOneWorkout);
+router.patch("/:workoutId", authMiddleware, roleMiddleware('entrenador'), workoutController.updateOneWorkout);
 
-router.delete("/:workoutId", workoutController.deleteOneWorkout);
+router.delete("/:workoutId", authMiddleware, roleMiddleware('entrenador'), workoutController.deleteOneWorkout);
 
 module.exports = router;

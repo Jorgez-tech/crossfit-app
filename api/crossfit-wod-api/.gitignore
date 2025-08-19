@@ -1,3 +1,11 @@
+# Local env file
+.env
+
+# SQLite DB file (local dev)
+*.db
+
+# Node modules
+node_modules/
 # Logs
 logs
 *.log

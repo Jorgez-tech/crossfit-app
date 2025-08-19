@@ -2,14 +2,20 @@
  * Seed de datos de prueba para Alto Rendimiento 360
  * Ejecuta: npx knex seed:run
  *
- * NOTA: para desarrollo este seed crea 3 usuarios con contraseñas conocidas:
- * - entrenador: 'entrenador123'
- * - atletas: 'atleta123'
- *
- * El seed usa bcrypt para hashear las contraseñas antes de insertarlas.
+ * Seguridad: No incluya contraseñas reales en el repositorio. Este seed
+ * leerá contraseñas de las variables de entorno:
+ * - DEV_TRAINER_PASSWORD
+ * - DEV_ATHLETE_PASSWORD
+ * Si no existen, el seed genera contraseñas seguras al vuelo y las imprime
+ * en la salida estándar (solo para uso local).
  */
 
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
+
+function genPassword(len = 12) {
+    return crypto.randomBytes(Math.ceil(len * 3 / 4)).toString('base64').replace(/[^a-zA-Z0-9]/g, '').slice(0, len);
+}
 
 exports.seed = async function (knex) {
     // Borra datos existentes (orden importa por claves foráneas)
@@ -18,9 +24,16 @@ exports.seed = async function (knex) {
     await knex('wods').del();
     await knex('users').del();
 
-    // Passwords en claro (solo para desarrollo/test en local)
-    const trainerPassword = 'entrenador123';
-    const athletePassword = 'atleta123';
+    // Leer contraseñas desde variables de entorno o generarlas en tiempo de ejecución
+    const trainerPassword = process.env.DEV_TRAINER_PASSWORD || genPassword(12);
+    const athletePassword = process.env.DEV_ATHLETE_PASSWORD || genPassword(12);
+
+    // Aviso: solo imprimimos las credenciales cuando no vienen de variables de entorno
+    if (!process.env.DEV_TRAINER_PASSWORD || !process.env.DEV_ATHLETE_PASSWORD) {
+        console.log('Seed: credenciales generadas para desarrollo (no están en el repo):');
+        console.log(`  entrenador -> email: carlos@box.com  password: ${trainerPassword}`);
+        console.log(`  atleta     -> email: ana@box.com     password: ${athletePassword}`);
+    }
 
     const passwordHashTrainer = await bcrypt.hash(trainerPassword, 10);
     const passwordHashAthlete = await bcrypt.hash(athletePassword, 10);

@@ -1,18 +1,17 @@
 // In src/database/Member.js
-const DB = require("./db.json");
-const { saveToDatabase } = require("./utils");
+const knex = require('./knex');
 
-const getAllMembers = () => {
+const getAllMembers = async () => {
   try {
-    return DB.members;
+    return await knex('users').select('id', 'name', 'email', 'role');
   } catch (error) {
     throw { status: 500, message: error };
   }
 };
 
-const getOneMember = (memberId) => {
+const getOneMember = async (memberId) => {
   try {
-    const member = DB.members.find((m) => m.id === memberId);
+    const member = await knex('users').where({ id: memberId }).first();
     if (!member) {
       throw { status: 404, message: `Member with id '${memberId}' not found` };
     }
@@ -22,44 +21,37 @@ const getOneMember = (memberId) => {
   }
 };
 
-const createNewMember = (newMember) => {
+const createNewMember = async (newMember) => {
   try {
-    const isAlreadyAdded =
-      DB.members.findIndex((m) => m.email === newMember.email) > -1;
-    if (isAlreadyAdded) {
+    const existing = await knex('users').where({ email: newMember.email }).first();
+    if (existing) {
       throw { status: 400, message: `Member with email '${newMember.email}' already exists` };
     }
-    DB.members.push(newMember);
-    saveToDatabase(DB);
-    return newMember;
+    const [id] = await knex('users').insert(newMember);
+    return { id, ...newMember };
   } catch (error) {
     throw { status: error?.status || 500, message: error?.message || error };
   }
 };
 
-const updateOneMember = (memberId, changes) => {
+const updateOneMember = async (memberId, changes) => {
   try {
-    const index = DB.members.findIndex((m) => m.id === memberId);
-    if (index === -1) {
+    const updated = await knex('users').where({ id: memberId }).update(changes);
+    if (!updated) {
       throw { status: 404, message: `Member with id '${memberId}' not found` };
     }
-    const updatedMember = { ...DB.members[index], ...changes };
-    DB.members[index] = updatedMember;
-    saveToDatabase(DB);
-    return updatedMember;
+    return await knex('users').where({ id: memberId }).first();
   } catch (error) {
     throw { status: error?.status || 500, message: error?.message || error };
   }
 };
 
-const deleteOneMember = (memberId) => {
+const deleteOneMember = async (memberId) => {
   try {
-    const index = DB.members.findIndex((m) => m.id === memberId);
-    if (index === -1) {
+    const deleted = await knex('users').where({ id: memberId }).del();
+    if (!deleted) {
       throw { status: 404, message: `Member with id '${memberId}' not found` };
     }
-    DB.members.splice(index, 1);
-    saveToDatabase(DB);
     return true;
   } catch (error) {
     throw { status: error?.status || 500, message: error?.message || error };

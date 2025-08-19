@@ -2,45 +2,45 @@
 const { v4: uuid } = require("uuid");
 const Member = require("../database/Member");
 
-const getAllMembers = () => {
+const getAllMembers = async () => {
   try {
-    return Member.getAllMembers();
+    return await Member.getAllMembers();
   } catch (error) {
     throw error;
   }
 };
 
-const getOneMember = (memberId) => {
+const getOneMember = async (memberId) => {
   try {
-    return Member.getOneMember(memberId);
+    return await Member.getOneMember(memberId);
   } catch (error) {
     throw error;
   }
 };
 
-const createNewMember = (memberData) => {
+const createNewMember = async (memberData) => {
   const memberToInsert = {
     ...memberData,
     id: uuid(),
   };
   try {
-    return Member.createNewMember(memberToInsert);
+    return await Member.createNewMember(memberToInsert);
   } catch (error) {
     throw error;
   }
 };
 
-const updateOneMember = (memberId, changes) => {
+const updateOneMember = async (memberId, changes) => {
   try {
-    return Member.updateOneMember(memberId, changes);
+    return await Member.updateOneMember(memberId, changes);
   } catch (error) {
     throw error;
   }
 };
 
-const deleteOneMember = (memberId) => {
+const deleteOneMember = async (memberId) => {
   try {
-    return Member.deleteOneMember(memberId);
+    return await Member.deleteOneMember(memberId);
   } catch (error) {
     throw error;
   }

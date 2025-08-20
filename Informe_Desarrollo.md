@@ -145,6 +145,13 @@ Esta arquitectura permite un flujo de trabajo ágil, escalable y fácilmente int
 
 **Cambios recientes (registro):**
 - refactor: `Member` migrado de `db.json` a consultas con `knex` (commit 784b0da)
+ - seguridad: se eliminaron credenciales/valores por defecto del código (JWT y contraseñas); usar `.env` local para variables sensibles
+
+**Pruebas / Smoke test (registro):**
+- Fecha: 2025-08-19
+- Prueba: seed reproducible -> login como `carlos@box.com` -> creación de WOD protegido por rol `entrenador`.
+- Resultado: OK. Login devolvió token y la creación del WOD respondió 201 con el registro creado (ej. id: 3).
+- Scripts usados: `scripts/run_seed_and_check.js`, `scripts/smoke_test.js` (ubicados en `api/crossfit-wod-api/scripts`).
 
 
 

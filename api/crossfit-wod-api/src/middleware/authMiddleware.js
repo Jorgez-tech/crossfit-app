@@ -1,7 +1,10 @@
 // Middleware para verificar JWT
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'supersecreto';
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+    throw new Error('Environment variable JWT_SECRET is required for authMiddleware');
+}
 
 module.exports = function (req, res, next) {
     try {

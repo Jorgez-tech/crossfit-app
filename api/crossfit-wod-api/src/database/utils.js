@@ -1,9 +1,8 @@
-const fs = require("fs");
+// Deprecated: this project now uses Knex and a real database.
+// Keep a clear failure if any code path still imports this file.
 
-const saveToDatabase = (DB) => {
-  fs.writeFileSync("./src/database/db.json", JSON.stringify(DB, null, 2), {
-    encoding: "utf-8",
-  });
+module.exports = {
+  saveToDatabase: () => {
+    throw new Error('saveToDatabase is deprecated. Use Knex queries instead.');
+  },
 };
-
-module.exports = { saveToDatabase };

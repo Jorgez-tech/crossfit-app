@@ -82,6 +82,7 @@ Esta arquitectura permite un flujo de trabajo ágil, escalable y fácilmente int
   - Se eliminaron archivos y componentes innecesarios para mantener el repositorio limpio.
 - [ ] Autenticación
 - [ ] Base de datos relacional
+ - [x] Base de datos relacional
 - [ ] Despliegue conjunto
 
 ## 5. Decisiones Técnicas y Justificación
@@ -146,6 +147,7 @@ Esta arquitectura permite un flujo de trabajo ágil, escalable y fácilmente int
 **Cambios recientes (registro):**
 - refactor: `Member` migrado de `db.json` a consultas con `knex` (commit 784b0da)
  - seguridad: se eliminaron credenciales/valores por defecto del código (JWT y contraseñas); usar `.env` local para variables sensibles
+ - limpieza: se eliminó `src/database/utils.js` y las referencias a `db.json`; el proyecto usa Knex/SQLite en desarrollo
 
 **Pruebas / Smoke test (registro):**
 - Fecha: 2025-08-19

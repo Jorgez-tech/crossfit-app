@@ -1,6 +1,6 @@
 # CrossFit WOD API
 
-Una API RESTful completa para gestionar Workouts (WODs), Members y Records de CrossFit, desarrollada con Node.js y Express. Los datos se almacenan en un archivo JSON local (`db.json`). Inspirada en el diseño de API REST de freeCodeCamp.
+Una API RESTful completa para gestionar Workouts (WODs), Members y Records de CrossFit, desarrollada con Node.js y Express. Los datos ahora se almacenan en una base de datos relacional gestionada con Knex (SQLite en desarrollo). Inspirada en el diseño de API REST de freeCodeCamp.
 
 ## 🚀 Características
 
@@ -25,12 +25,11 @@ crossfit-wod-api/
 │   │   ├── workoutService.js
 │   │   ├── memberService.js
 │   │   └── recordService.js
-│   ├── database/             # Acceso a datos
-│   │   ├── db.json          # Base de datos local
+│   ├── database/             # Acceso a datos (Knex)
+│   │   ├── knex.js          # instancia de Knex
 │   │   ├── Workout.js
 │   │   ├── Member.js
-│   │   ├── Record.js
-│   │   └── utils.js
+│   │   └── Record.js
 │   └── v1/
 │       └── routes/           # Definición de rutas
 │           ├── workoutRoutes.js
@@ -315,10 +314,11 @@ Todos los errores se devuelven con el formato consistente:
 
 ## 🏗️ Notas de Desarrollo
 
-- Los datos se almacenan en `src/database/db.json`
-- No incluye autenticación ni autorización por defecto
-- Para desarrollo local, usa herramientas como Postman, Insomnia o curl
-- Los passwords se almacenan como strings (considera usar bcrypt en producción)
+- La capa de persistencia usa Knex.js; en desarrollo se utiliza SQLite (`ar360.db`).
+- Las migraciones y seeds están en las carpetas `migrations/` y `seeds/`.
+- Autenticación y autorización están disponibles mediante JWT y middleware en `src/middleware`.
+- Para desarrollo local, usa herramientas como Postman, Insomnia o curl.
+- Las contraseñas se almacenan hasheadas con bcrypt (seeds y registro usan hashing).
 - El servidor soporta hot reload durante el desarrollo
 
 ## 🚀 Mejoras Futuras

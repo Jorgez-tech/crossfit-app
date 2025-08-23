@@ -80,9 +80,8 @@ Esta arquitectura permite un flujo de trabajo ágil, escalable y fácilmente int
 - [x] Documentación y scripts compartidos
   - Se consolidaron los README: uno global en la raíz, uno para frontend y uno para backend, cada uno con instrucciones específicas.
   - Se eliminaron archivos y componentes innecesarios para mantener el repositorio limpio.
-- [ ] Autenticación
-- [ ] Base de datos relacional
- - [x] Base de datos relacional
+- [x] Autenticación
+- [x] Base de datos relacional
 - [ ] Despliegue conjunto
 
 ## 5. Decisiones Técnicas y Justificación
@@ -145,9 +144,11 @@ Esta arquitectura permite un flujo de trabajo ágil, escalable y fácilmente int
 ✔️ Se completó la definición de modelos, el ERD, la migración a base de datos relacional y la carga de datos de prueba mediante seeds y migraciones automatizadas.
 
 **Cambios recientes (registro):**
-- refactor: `Member` migrado de `db.json` a consultas con `knex` (commit 784b0da)
- - seguridad: se eliminaron credenciales/valores por defecto del código (JWT y contraseñas); usar `.env` local para variables sensibles
- - limpieza: se eliminó `src/database/utils.js` y las referencias a `db.json`; el proyecto usa Knex/SQLite en desarrollo
+- refactor: `Member`, `Record` y `Workout` migrados de `db.json` a consultas con `knex` (commits 784b0da, c0eb447, f9a6cdc)
+- feat: implementación completa de autenticación JWT con roles (commit 35f79d6)
+- seguridad: se eliminaron credenciales/valores por defecto del código (JWT y contraseñas); usar `.env` local para variables sensibles (commits cb1a7d1, 44defbd)
+- limpieza: se eliminó `src/database/utils.js` y las referencias a `db.json`; el proyecto usa Knex/SQLite en desarrollo (commit fcb7795)
+- chore: configuración de .gitignore para artefactos de build, archivos .env y bases de datos (commit 2cb77ba)
 
 **Pruebas / Smoke test (registro):**
 - Fecha: 2025-08-19
@@ -155,17 +156,28 @@ Esta arquitectura permite un flujo de trabajo ágil, escalable y fácilmente int
 - Resultado: OK. Login devolvió token y la creación del WOD respondió 201 con el registro creado (ej. id: 3).
 - Scripts usados: `scripts/run_seed_and_check.js`, `scripts/smoke_test.js` (ubicados en `api/crossfit-wod-api/scripts`).
 
+**Avance Completado (2025-08-22):**
+✔️ **Migración completa a base de datos relacional**: Todos los modelos (Member, Record, Workout) ahora usan Knex.js con SQLite en desarrollo.
+✔️ **Sistema de autenticación JWT completo**: Registro, login, middleware de autenticación y autorización por roles implementados.
+✔️ **Seguridad mejorada**: Eliminación de credenciales hardcodeadas, uso obligatorio de variables de entorno.
+✔️ **Limpieza de código**: Eliminación de archivos obsoletos (db.json, utils.js) y actualización de documentación.
+✔️ **Configuración de proyecto**: .gitignore actualizado para excluir artefactos de build y archivos sensibles.
+
+**Estado actual**: La rama `feature/auth-jwt` contiene un backend completamente funcional con autenticación JWT, base de datos relacional y endpoints protegidos por roles. Listo para integración con frontend y pruebas E2E.
+
 
 
 
 
 **Fase 2:**
 - [x] Endpoints de autenticación (registro y login con JWT)
-✔️ Se implementaron los endpoints de autenticación (registro y login) usando JWT y bcrypt, integrados con la base de datos relacional.
-- [ ] CRUD WODs
-El siguiente objetivo es proteger y mejorar el CRUD de WODs y miembros usando autenticación y roles.
-- [ ] Middleware de roles y seguridad
+- [x] CRUD WODs con autenticación y roles
+- [x] Middleware de roles y seguridad
 - [ ] Documentación de API
+
+✔️ Se implementaron los endpoints de autenticación (registro y login) usando JWT y bcrypt, integrados con la base de datos relacional.
+✔️ Se aplicaron middlewares de autenticación y autorización por roles a todas las rutas protegidas.
+✔️ Migración completa de la capa de datos de JSON a base de datos relacional con Knex.js.
 
 **Fase 3:**
 - [ ] Servicios frontend y componentes clave

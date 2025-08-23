@@ -163,7 +163,22 @@ Esta arquitectura permite un flujo de trabajo ágil, escalable y fácilmente int
 ✔️ **Limpieza de código**: Eliminación de archivos obsoletos (db.json, utils.js) y actualización de documentación.
 ✔️ **Configuración de proyecto**: .gitignore actualizado para excluir artefactos de build y archivos sensibles.
 
-**Estado actual**: La rama `feature/auth-jwt` contiene un backend completamente funcional con autenticación JWT, base de datos relacional y endpoints protegidos por roles. Listo para integración con frontend y pruebas E2E.
+**Avance de Integración Frontend Completado (2025-08-22):**
+✔️ **Integración completa con autenticación JWT**: Frontend Vue.js completamente integrado con el backend autenticado.
+✔️ **Servicios de autenticación**: `authService.js` implementado con localStorage, registro, login y logout.
+✔️ **Cliente API con interceptors**: `api.js` configurado con interceptors automáticos para JWT tokens.
+✔️ **Sistema de estado global**: Stores de Pinia para auth, wods, members y records con actions completas.
+✔️ **Guards de navegación**: Router configurado con protección de rutas por autenticación y roles.
+✔️ **Componentes completos implementados**:
+  - `LoginComponent.vue`: Formularios de login/registro con validación y roles
+  - `Dashboard.vue`: Panel principal con estadísticas y navegación contextual
+  - `WodsList.vue`: CRUD completo de WODs con autenticación y gestión por roles
+  - `MembersList.vue`: Gestión completa de miembros para entrenadores con filtros y búsqueda
+  - `RecordsList.vue`: Sistema completo de records con filtros avanzados y CRUD
+✔️ **UI responsive**: Diseño adaptativo para dispositivos móviles con validación de formularios.
+✔️ **Roles diferenciados**: Funcionalidades específicas para entrenadores (gestión completa) y atletas (acceso limitado).
+
+**Estado actual**: La rama `feature/auth-jwt` contiene una aplicación full-stack completamente funcional con autenticación JWT, base de datos relacional, frontend integrado y roles diferenciados. Lista para pruebas E2E y posible merge a main.
 
 
 
@@ -180,9 +195,14 @@ Esta arquitectura permite un flujo de trabajo ágil, escalable y fácilmente int
 ✔️ Migración completa de la capa de datos de JSON a base de datos relacional con Knex.js.
 
 **Fase 3:**
-- [ ] Servicios frontend y componentes clave
-- [ ] Rutas protegidas y paneles por rol
-- [ ] Integración completa
+- [x] Servicios frontend y componentes clave
+- [x] Rutas protegidas y paneles por rol
+- [x] Integración completa
+
+✔️ Se implementaron todos los servicios frontend (authService, api service con interceptors).
+✔️ Se crearon todos los componentes principales con autenticación y CRUD completo.
+✔️ Se configuraron rutas protegidas con guards de navegación y roles diferenciados.
+✔️ Integración full-stack completamente funcional con autenticación JWT.
 
 **Fase 4:**
 - [ ] Tests unitarios y E2E

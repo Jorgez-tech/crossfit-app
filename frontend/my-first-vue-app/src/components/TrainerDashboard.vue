@@ -1,18 +1,18 @@
 <template>
-  <div class="trainer-dashboard">
+  <div class="trainer-dashboard" data-cy="trainer-dashboard">
     <div class="dashboard-header">
       <div class="welcome-section">
         <h1>Panel de Entrenador</h1>
-        <p>Bienvenido, <strong>{{ authStore.user?.name }}</strong></p>
+        <p data-cy="welcome-message">Bienvenido, <strong>{{ authStore.user?.name }}</strong></p>
         <p class="subtitle">Gestiona tu box, WODs y atletas desde un solo lugar</p>
       </div>
       
       <div class="quick-actions">
-        <button @click="showCreateWodModal = true" class="action-btn primary">
+        <button @click="showCreateWodModal = true" class="action-btn primary" data-cy="create-wod-button">
           <span class="icon">+</span>
           Crear WOD
         </button>
-        <button @click="$router.push('/members')" class="action-btn secondary">
+        <button @click="$router.push('/members')" class="action-btn secondary" data-cy="manage-members-link">
           <span class="icon">👥</span>
           Gestionar Atletas
         </button>
@@ -24,7 +24,7 @@
     </div>
 
     <!-- Estadísticas principales -->
-    <div class="stats-grid">
+    <div class="stats-grid" data-cy="trainer-stats">
       <div class="stat-card">
         <div class="stat-icon">🏋️‍♂️</div>
         <div class="stat-content">

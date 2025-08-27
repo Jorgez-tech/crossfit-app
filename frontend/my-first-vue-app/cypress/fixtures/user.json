@@ -1,0 +1,16 @@
+{
+  "trainer": {
+    "id": 1,
+    "email": "carlos@box.com",
+    "name": "Carlos Mendoza",
+    "role": "entrenador",
+    "created_at": "2025-08-01T10:00:00Z"
+  },
+  "athlete": {
+    "id": 2,
+    "email": "ana@correo.com",
+    "name": "Ana Rodríguez",
+    "role": "atleta",
+    "created_at": "2025-08-15T10:00:00Z"
+  }
+}

@@ -1,14 +1,14 @@
 <template>
-  <div class="athlete-dashboard">
+  <div class="athlete-dashboard" data-cy="athlete-dashboard">
     <div class="dashboard-header">
       <div class="welcome-section">
         <h1>Panel de Atleta</h1>
-        <p>Hola, <strong>{{ authStore.user?.name }}</strong></p>
+        <p data-cy="welcome-message">Hola, <strong>{{ authStore.user?.name }}</strong></p>
         <p class="subtitle">Sigue tu progreso y supera tus límites</p>
       </div>
       
       <div class="quick-actions">
-        <button @click="showRecordModal = true" class="action-btn primary">
+        <button @click="showRecordModal = true" class="action-btn primary" data-cy="record-button">
           <span class="icon">📝</span>
           Registrar Record
         </button>
@@ -24,7 +24,7 @@
     </div>
 
     <!-- Estadísticas personales -->
-    <div class="stats-grid">
+    <div class="stats-grid" data-cy="athlete-stats">
       <div class="stat-card">
         <div class="stat-icon">🎯</div>
         <div class="stat-content">

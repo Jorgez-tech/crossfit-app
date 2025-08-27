@@ -41,14 +41,57 @@ La solución está organizada como un monorepo para facilitar el desarrollo, la 
 
 Esta arquitectura permite un flujo de trabajo ágil, escalable y fácilmente integrable con herramientas de CI/CD y despliegue moderno.
 
+## 2.4 Testing E2E con Cypress
+
+### Configuración de Cypress
+- **Framework:** Cypress 15.0.0 configurado para pruebas E2E
+- **Configuración:** `cypress.config.js` con baseUrl configurable
+- **Scripts NPM:** 
+  - `cy:open` - Modo interactivo
+  - `cy:run:auth` - Ejecutar solo pruebas de autenticación
+  - `test:e2e` - Ejecutar todas las pruebas E2E
+
+### Estructura de Pruebas
+- `00-basic-functionality.cy.js` - Pruebas básicas de funcionamiento
+- `01-authentication.cy.js` - Pruebas de autenticación y navegación
+- `02-access-control.cy.js` - Control de acceso por roles
+- `03-crud-operations.cy.js` - Operaciones CRUD
+- `04-integration-flows.cy.js` - Flujos de integración completos
+
+### Comandos Personalizados
+- `loginAsTrainer()` - Login automático como entrenador
+- `loginAsAthlete()` - Login automático como atleta
+- `mockBackend()` - Configuración de interceptors para mocks
+- `checkTrainerUI()` / `checkAthleteUI()` - Validación de elementos UI por rol
+
+### Elementos data-cy Implementados
+Todos los componentes principales cuentan con atributos `data-cy` para facilitar las pruebas automatizadas y garantizar la estabilidad de los tests.
+
 ## 3. Fases de Desarrollo
 
-### Fase 1: Prototipado y validación
+## 3. Fases de Desarrollo
+
+### Fase 1: Prototipado y validación ✅ COMPLETADO
 - Implementación base de API y frontend
 - Pruebas de endpoints y navegación
 - Demo funcional
 
-### Fase 2: Unificación y mejora estructural
+### Fase 2: Unificación y mejora estructural ✅ COMPLETADO
+- Integración completa frontend-backend
+- Mejoras en la arquitectura y navegación
+- Sistema de autenticación JWT implementado
+
+### Fase 3: Testing E2E y Atributos data-cy 🔄 EN PROGRESO
+- **✅ COMPLETADO:** Configuración de Cypress para pruebas E2E
+- **✅ COMPLETADO:** Agregados atributos data-cy a componentes principales:
+  - TrainerDashboard: `data-cy="trainer-dashboard"`, `data-cy="welcome-message"`, `data-cy="create-wod-button"`, `data-cy="manage-members-link"`, `data-cy="trainer-stats"`
+  - AthleteDashboard: `data-cy="athlete-dashboard"`, `data-cy="welcome-message"`, `data-cy="record-button"`, `data-cy="athlete-stats"`
+  - App.vue: Navegación condicional por autenticación, `data-cy="user-menu"`, `data-cy="logout-button"`
+  - LoginComponent: Formularios con atributos data-cy completos
+- **✅ COMPLETADO:** Optimización de interceptors de Cypress
+- **🔄 PARCIAL:** Algunos tests básicos aún requieren ajustes adicionales
+
+### Fase 4: Documentación API con Swagger 📋 PENDIENTE
 - Migración a monorepo
 - Configuración de scripts y documentación
 - Integración de CI/CD

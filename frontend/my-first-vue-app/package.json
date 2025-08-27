@@ -4,8 +4,17 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "serve:nolint": "vue-cli-service serve --skip-plugins @vue/cli-plugin-eslint",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "cy:run:auth": "cypress run --spec \"cypress/e2e/01-authentication.cy.js\"",
+    "cy:run:access": "cypress run --spec \"cypress/e2e/02-access-control.cy.js\"",
+    "cy:run:crud": "cypress run --spec \"cypress/e2e/03-crud-operations.cy.js\"",
+    "cy:run:integration": "cypress run --spec \"cypress/e2e/04-integration-flows.cy.js\"",
+    "test:e2e": "start-server-and-test serve:nolint http://localhost:8081 cy:run",
+    "test:e2e:open": "start-server-and-test serve:nolint http://localhost:8081 cy:open"
   },
   "dependencies": {
     "axios": "^1.10.0",
@@ -17,10 +26,12 @@
   "devDependencies": {
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
+    "@testing-library/cypress": "^10.0.3",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
     "@vue/compiler-sfc": "^3.5.12",
+    "cypress": "^15.0.0",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3"
   },
@@ -36,7 +47,13 @@
     "parserOptions": {
       "parser": "@babel/eslint-parser"
     },
-    "rules": {}
+    "rules": {
+      "vue/no-side-effects-in-computed-properties": "warn",
+      "no-unused-vars": "warn",
+      "vue/multi-word-component-names": "warn",
+      "no-case-declarations": "warn",
+      "no-console": "warn"
+    }
   },
   "browserslist": [
     "> 1%",

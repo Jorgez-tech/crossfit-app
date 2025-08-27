@@ -3,7 +3,7 @@
     <div class="login-card">
       <h2>{{ isRegisterMode ? 'Registro' : 'Iniciar Sesión' }}</h2>
       
-      <form @submit.prevent="handleSubmit" class="login-form">
+      <form @submit.prevent="handleSubmit" class="login-form" data-cy="login-form">
         <!-- Campos de registro -->
         <div v-if="isRegisterMode" class="form-group">
           <label for="name">Nombre completo:</label>
@@ -13,6 +13,7 @@
             type="text"
             required
             placeholder="Tu nombre completo"
+            data-cy="register-name-input"
           />
         </div>
 
@@ -24,6 +25,7 @@
             type="email"
             required
             placeholder="tu@email.com"
+            :data-cy="isRegisterMode ? 'register-email-input' : 'email-input'"
           />
         </div>
 
@@ -35,6 +37,7 @@
             type="password"
             required
             placeholder="Tu contraseña"
+            :data-cy="isRegisterMode ? 'register-password-input' : 'password-input'"
           />
         </div>
 
@@ -42,7 +45,7 @@
         <div v-if="isRegisterMode">
           <div class="form-group">
             <label for="role">Rol:</label>
-            <select id="role" v-model="form.role" required>
+            <select id="role" v-model="form.role" required data-cy="register-role-select">
               <option value="">Selecciona tu rol</option>
               <option value="atleta">Atleta</option>
               <option value="entrenador">Entrenador</option>
@@ -51,7 +54,7 @@
 
           <div class="form-group">
             <label for="gender">Género:</label>
-            <select id="gender" v-model="form.gender">
+            <select id="gender" v-model="form.gender" data-cy="register-gender-select">
               <option value="">Selecciona género</option>
               <option value="male">Masculino</option>
               <option value="female">Femenino</option>
@@ -65,6 +68,7 @@
               id="dateOfBirth"
               v-model="form.dateOfBirth"
               type="date"
+              data-cy="register-date-input"
             />
           </div>
         </div>
@@ -73,6 +77,7 @@
           type="submit" 
           class="submit-btn"
           :disabled="loading"
+          :data-cy="isRegisterMode ? 'register-button' : 'login-button'"
         >
           {{ loading ? 'Procesando...' : (isRegisterMode ? 'Registrarse' : 'Iniciar Sesión') }}
         </button>
@@ -81,17 +86,17 @@
       <div class="toggle-mode">
         <p>
           {{ isRegisterMode ? '¿Ya tienes cuenta?' : '¿No tienes cuenta?' }}
-          <button @click="toggleMode" class="link-btn">
+          <button @click="toggleMode" class="link-btn" data-cy="register-tab">
             {{ isRegisterMode ? 'Iniciar Sesión' : 'Registrarse' }}
           </button>
         </p>
       </div>
 
-      <div v-if="error" class="error-message">
+      <div v-if="error" class="error-message" data-cy="error-message">
         {{ error }}
       </div>
 
-      <div v-if="success" class="success-message">
+      <div v-if="success" class="success-message" data-cy="success-message">
         {{ success }}
       </div>
     </div>

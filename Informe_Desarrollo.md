@@ -1,4 +1,34 @@
 # Informe y Guía de Desarrollo
+ 
+---
+## 📋 Resumen Ejecutivo
+
+**Estado actual:**
+- Plataforma full-stack para gestión de entrenamientos, miembros y records en un box de CrossFit
+- Backend Express + base de datos relacional (Knex/SQLite)
+- Frontend Vue.js con autenticación JWT y roles
+- Infraestructura de testing E2E con Cypress
+- Documentación y scripts compartidos
+
+**Avance general:** ~75% completado
+
+**Próximos pasos:**
+1. Refinamiento final de pruebas E2E
+2. Documentación API con Swagger
+3. Despliegue y CI/CD
+
+---
+## 🗺️ Roadmap Visual
+
+| Fase | Descripción | Estado |
+|------|-------------|--------|
+| 1 | Prototipado y validación | ✔️ |
+| 2 | Integración y mejora estructural | ✔️ |
+| 3 | Testing E2E y data-cy | ⏳ (90%) |
+| 4 | Documentación API (Swagger) | ❌ |
+| 5 | Despliegue y CI/CD | ❌ |
+
+---
 
 
 ## 1. Objetivo y Alcance
@@ -149,6 +179,41 @@ Todos los componentes principales cuentan con atributos `data-cy` para facilitar
 
 ## 6. Checklist de Funcionalidades y Pruebas
 
+---
+## ✅ Checklist de Funcionalidades y Pruebas
+
+### Backend (API)
+- [x] CRUD completo de WODs
+- [x] CRUD completo de Members
+- [x] CRUD completo de Records
+- [x] Autenticación JWT
+- [x] Autorización por roles
+- [x] Validación de datos y manejo de errores
+- [x] Migración a base de datos relacional (Knex/SQLite)
+- [ ] Documentación Swagger
+- [ ] Tests unitarios (Jest/Supertest)
+
+### Frontend (Vue.js)
+- [x] Login y registro de usuarios
+- [x] Panel de entrenador (gestión de WODs y miembros)
+- [x] Panel de atleta (consulta y registro de records)
+- [x] Navegación protegida por roles
+- [x] UI responsive y validación de formularios
+- [x] Integración completa con API
+- [ ] Mejoras de UX/UI
+- [ ] Documentación de componentes
+
+### Testing
+- [x] Infraestructura Cypress E2E
+- [x] Pruebas de autenticación y navegación
+- [x] Pruebas de control de acceso por roles
+- [x] Pruebas CRUD y flujos de integración
+- [x] Comandos personalizados y mocks
+- [ ] Refinamiento de pruebas básicas
+- [ ] Integración de tests unitarios
+
+---
+
 
 
 > Actualiza este informe en cada fase para mantener el seguimiento y facilitar la colaboración.
@@ -282,3 +347,48 @@ Todos los componentes principales cuentan con atributos `data-cy` para facilitar
 
 ---
 Actualiza este roadmap y checklist en cada fase para mantener el seguimiento y facilitar la colaboración.
+
+## Guía de Uso y Pruebas
+
+### Guía de Uso
+
+1. **Requisitos Previos:**
+   - Asegúrate de tener Node.js y npm instalados en tu sistema.
+   - Configura las variables de entorno necesarias para la conexión a la base de datos y otros servicios.
+
+2. **Instalación:**
+   - Navega al directorio raíz del proyecto.
+   - Ejecuta el comando `npm install` para instalar las dependencias necesarias.
+
+3. **Ejecución del Backend:**
+   - Ve al directorio `api/crossfit-wod-api`.
+   - Ejecuta `node index.js` para iniciar el servidor.
+
+4. **Ejecución del Frontend:**
+   - Ve al directorio `frontend/my-first-vue-app`.
+   - Ejecuta `npm run serve` para iniciar la aplicación Vue.
+
+5. **Acceso a la Aplicación:**
+   - Abre un navegador y accede a `http://localhost:8080` para interactuar con la aplicación.
+
+### Guía de Pruebas
+
+1. **Pruebas Unitarias y de Integración (Backend):**
+   - Ve al directorio `api/crossfit-wod-api`.
+   - Ejecuta `npm test` para correr las pruebas.
+
+2. **Pruebas End-to-End (Frontend):**
+   - Ve al directorio `frontend/my-first-vue-app/cypress`.
+   - Ejecuta `npm run cypress:open` para abrir la interfaz de Cypress.
+   - Selecciona y ejecuta los casos de prueba disponibles.
+
+3. **Verificación de Base de Datos:**
+   - Usa el script `scripts/check_db.js` para verificar la integridad de la base de datos.
+
+4. **Cobertura de Pruebas:**
+   - Genera un reporte de cobertura ejecutando `npm run coverage` en el backend.
+
+5. **Resolución de Problemas:**
+   - Consulta los archivos `SOLUCION_PROBLEMAS.md` en los directorios correspondientes para guías de solución de errores comunes.
+
+---

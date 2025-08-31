@@ -1,159 +1,61 @@
 # my-first-vue-app
 
-Aplicación Vue para consultar y visualizar WODs (Workouts of the Day) de Crossfit usando la API [crossfit-wod-api](https://crossfit-wod-api.herokuapp.com/).
+Frontend Vue.js para la gestión y visualización de WODs, miembros y records, integrado con la API CrossFit WOD y autenticación JWT.
 
-## Funcionalidades implementadas
+---
+## 📋 Resumen Ejecutivo
 
-- Visualización de WODs diarios y aleatorios.
-- Integración con la API crossfit-wod-api para obtener datos en tiempo real.
-- Interfaz sencilla en App.vue para mostrar los resultados.
-- Manejo de estados de carga y error al consultar la API.
+- Visualización y gestión de WODs
+- Paneles diferenciados para entrenador y atleta
+- Autenticación JWT y roles
+- Testing E2E con Cypress
+- UI responsive y validación de formularios
 
-## Integración con la API crossfit-wod-api
+---
+## Instalación y Ejecución
 
-La app realiza peticiones HTTP a la API para obtener información de los WODs. Ejemplo de endpoint utilizado:
-```
-GET https://crossfit-wod-api.herokuapp.com/wods/random
-```
-La respuesta se muestra directamente en la interfaz principal.
-
-## Ejemplo de uso
-
-Al iniciar la aplicación, se muestra un WOD aleatorio obtenido de la API. Puedes actualizar el WOD o implementar filtros según tus necesidades.
-
-```vue
-<!-- Ejemplo de cómo se consume la API en App.vue -->
-<template>
-  <div>
-    <button @click="getRandomWod">Obtener WOD aleatorio</button>
-    <div v-if="loading">Cargando...</div>
-    <div v-else-if="error">{{ error }}</div>
-    <div v-else>
-      <h2>{{ wod.name }}</h2>
-      <p>{{ wod.description }}</p>
-    </div>
-  </div>
-</template>
-<script>
-export default {
-  data() {
-    return {
-      wod: {},
-      loading: false,
-      error: null
-    }
-  },
-  methods: {
-    async getRandomWod() {
-      this.loading = true;
-      this.error = null;
-      try {
-        const res = await fetch('https://crossfit-wod-api.herokuapp.com/wods/random');
-        this.wod = await res.json();
-      } catch (e) {
-        this.error = 'Error al obtener el WOD';
-      }
-      this.loading = false;
-    }
-  },
-  mounted() {
-    this.getRandomWod();
-  }
-}
-</script>
-```
-
-## Detalles técnicos
-
-- Proyecto creado con Vue CLI.
-- Uso de fetch para consumir la API.
-- Estructura principal en App.vue.
-- Puedes agregar componentes para mejorar la experiencia de usuario.
-
-## Sugerencias para futuras mejoras
-
-- Agregar filtros por tipo de WOD.
-- Implementar autenticación si la API lo permite.
-- Mejorar el diseño con Vuetify o BootstrapVue.
-- Guardar WODs favoritos en localStorage.
-
-## Personalización y configuración
-
-Puedes modificar App.vue para cambiar la forma en que se muestran los WODs o agregar nuevas funcionalidades. Consulta la documentación de Vue para más detalles.
-
-## Requisitos previos
-
-- Node.js >= 14.x
-- npm >= 6.x
-- Vue CLI >= 4.x
-
-## Estructura de carpetas
-
-```
-my-first-vue-app/
-├── node_modules/
-├── public/
-│   └── index.html
-├── src/
-│   ├── App.vue
-│   ├── main.js
-│   └── components/
-├── package.json
-└── README.md
-```
-
-- `src/App.vue`: Componente principal.
-- `src/components/`: Componentes reutilizables.
-- `public/index.html`: Archivo HTML base.
-
-## Guía de despliegue
-
-Puedes desplegar la aplicación en servicios como Netlify, Vercel o GitHub Pages.
-
-### Netlify
-
-1. Haz un build de producción:
+1. Instala las dependencias:
+   ```sh
+   npm install
    ```
-   npm run build
+2. Inicia la aplicación en modo desarrollo:
+   ```sh
+   npm run serve
    ```
-2. Sube la carpeta `dist/` a Netlify.
+3. Accede a `http://localhost:8080`
 
-### Vercel
+---
+## Estructura principal
 
-1. Instala Vercel CLI:
-   ```
-   npm i -g vercel
-   ```
-2. Ejecuta:
-   ```
-   vercel
-   ```
+- `src/App.vue`: Componente principal
+- `src/components/`: Componentes reutilizables
+- `src/services/`: Servicios para consumir la API y autenticación
+- `src/stores/`: Estado global con Pinia
+- `src/router.js`: Rutas protegidas por roles
 
+---
 ## Testing
 
-Si agregas pruebas, puedes ejecutarlas con:
-```
-npm run test:unit
-```
-*(Agrega pruebas en `tests/unit` si lo deseas)*
+- Pruebas E2E con Cypress:
+  ```sh
+  npm run cypress:open
+  ```
+- Archivos de pruebas en `cypress/e2e/`
+- Comandos personalizados y mocks implementados
 
+---
+## Mejoras Futuras
+
+- [ ] Mejoras de UX/UI
+- [ ] Documentación de componentes
+- [ ] Despliegue en Netlify/Vercel
+
+---
 ## Contribución
 
-Las contribuciones son bienvenidas. Para colaborar:
+1. Fork y rama para tu mejora
+2. Commit y push
+3. Pull Request
 
-1. Haz un fork del repositorio.
-2. Crea una rama con tu mejora:
-   ```
-   git checkout -b feature/nueva-funcionalidad
-   ```
-3. Haz commit y push de tus cambios.
-4. Abre un Pull Request.
-
-## Licencia
-
-Este proyecto está bajo la licencia MIT.
-
-### Referencias
-
-- [Vue CLI Configuration Reference](https://cli.vuejs.org/config/)
-- [crossfit-wod-api](https://crossfit-wod-api.herokuapp.com/)
+---
+Consulta la [Guía de Desarrollo](../../Informe_Desarrollo.md) y el README global para más detalles y buenas prácticas.

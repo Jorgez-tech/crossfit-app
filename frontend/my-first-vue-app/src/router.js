@@ -3,7 +3,6 @@ import { useAuthStore } from './stores/main';
 
 // Importaciones de componentes
 import HomeView from './components/HelloWorld.vue';
-import TodoList from './components/TodoList.vue';
 import CrossfitWods from './components/CrossfitWods.vue';
 import LoginComponent from './components/LoginComponent.vue';
 import Dashboard from './components/Dashboard.vue';
@@ -17,16 +16,6 @@ const routes = [
       requiresAuth: false,
       title: 'Inicio',
       breadcrumb: 'Inicio'
-    }
-  },
-  {
-    path: '/todos',
-    name: 'Todos',
-    component: TodoList,
-    meta: {
-      requiresAuth: false,
-      title: 'Lista de Tareas',
-      breadcrumb: 'Tareas'
     }
   },
   {

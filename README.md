@@ -10,6 +10,22 @@ Plataforma full-stack para la gestión de entrenamientos, miembros y records en 
 **Avance general:** ~75% completado
 
 ---
+## Estado de Limpieza y Avance Global (2025-09-01)
+
+**Limpieza y validación profesional completada:**
+- Eliminación de archivos y carpetas obsoletos (db.json, seeds, migrations vacías, utils.js).
+- `.gitignore` actualizado para excluir artefactos de build, archivos sensibles y carpetas de configuración.
+- Validación completa de backend, frontend y suite de pruebas E2E (Cypress).
+- Documentación y scripts revisados y actualizados.
+- Proyecto sincronizado y mergeado en la rama principal `main`.
+- Rama de limpieza global eliminada en local y remoto.
+
+**Estado actual del proyecto:**
+- Estructura profesional y limpia, sin archivos ni carpetas innecesarias.
+- Todos los cambios reflejados en la rama principal y en el repositorio remoto.
+- Listo para avanzar a las siguientes fases: refinamiento de pruebas, documentación Swagger y despliegue.
+
+---
 ## Estructura del proyecto
 
 - `api/`: Backend Express (Node.js)

@@ -4,3 +4,8 @@ frontend/my-first-vue-app/dist/
 # Local env and DB
 .env
 *.db
+
+# IDE config and temp files
+.vscode/
+.vs/
+*.log

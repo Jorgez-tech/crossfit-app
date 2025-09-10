@@ -1,32 +1,31 @@
 <template>
   <div class="crossfit-wods">
-    <h2 style="color: red;">✅ Componente CrossfitWods cargado</h2>
     <header class="wods-header">
       <h2>🏋️ CrossFit WODs</h2>
-      <button @click="fetchWods" class="refresh-btn" :disabled="loading">
+      <button @click="fetchWods" class="refresh-btn" :disabled="loading" :aria-label="loading ? 'Cargando entrenamientos' : 'Actualizar lista de entrenamientos'">
         {{ loading ? 'Cargando...' : 'Actualizar' }}
       </button>
     </header>
 
     <!-- Loading state -->
-    <div v-if="loading" class="loading">
-      <div class="spinner"></div>
+    <div v-if="loading" class="loading" role="status" aria-live="polite">
+      <div class="spinner" aria-hidden="true"></div>
       <p>Cargando entrenamientos...</p>
     </div>
 
     <!-- Error state -->
-    <div v-else-if="error" class="error">
+    <div v-else-if="error" class="error" role="alert" aria-live="assertive">
       <p>❌ Error al cargar los WODs: {{ error }}</p>
-      <button @click="fetchWods" class="retry-btn">Reintentar</button>
+      <button @click="fetchWods" class="retry-btn" aria-label="Reintentar carga de entrenamientos">Reintentar</button>
     </div>
 
     <!-- WODs List -->
-    <div v-else-if="wods.length > 0" class="wods-grid">
-      <div v-for="wod in wods" :key="wod.id" class="wod-card">
-        <div class="wod-header">
+    <div v-else-if="wods.length > 0" class="wods-grid" role="grid" aria-label="Lista de entrenamientos disponibles">
+      <article v-for="wod in wods" :key="wod.id" class="wod-card" role="gridcell">
+        <header class="wod-header">
           <h3>{{ wod.name }}</h3>
-          <span class="wod-mode">{{ wod.mode }}</span>
-        </div>
+          <span class="wod-mode" :aria-label="`Modalidad: ${wod.mode}`">{{ wod.mode }}</span>
+        </header>
         <div class="wod-content">
           <p class="wod-equipment">
             <strong>Equipamiento:</strong> 
@@ -34,7 +33,7 @@
           </p>
           <div class="wod-exercises">
             <h4>Ejercicios:</h4>
-            <ul>
+            <ul role="list">
               <li v-for="exercise in wod.exercises" :key="exercise">
                 {{ exercise }}
               </li>
@@ -45,33 +44,33 @@
             <p>{{ wod.trainerTips }}</p>
           </div>
         </div>
-        <div class="wod-actions">
-          <button @click="selectWod(wod)" class="select-btn">
+        <footer class="wod-actions">
+          <button @click="selectWod(wod)" class="select-btn" :aria-label="`Seleccionar entrenamiento ${wod.name}`">
             Seleccionar WOD
           </button>
-        </div>
-      </div>
+        </footer>
+      </article>
     </div>
 
     <!-- Empty state -->
-    <div v-else class="empty-state">
+    <div v-else class="empty-state" role="status">
       <h3>No hay WODs disponibles</h3>
       <p>Conecta con tu API de CrossFit para ver los entrenamientos</p>
     </div>
 
     <!-- Selected WOD Modal -->
-    <div v-if="selectedWod" class="modal-overlay" @click="closeModal">
+    <div v-if="selectedWod" class="modal-overlay" @click="closeModal" role="dialog" aria-modal="true" :aria-label="`Detalles del entrenamiento ${selectedWod.name}`">
       <div class="modal-content" @click.stop>
-        <div class="modal-header">
-          <h3>🎯 {{ selectedWod.name }}</h3>
-          <button @click="closeModal" class="close-btn">&times;</button>
-        </div>
-        <div class="modal-body">
+        <header class="modal-header">
+          <h3 id="modal-title">🎯 {{ selectedWod.name }}</h3>
+          <button @click="closeModal" class="close-btn" aria-label="Cerrar ventana de detalles">&times;</button>
+        </header>
+        <div class="modal-body" role="document">
           <p><strong>Modo:</strong> {{ selectedWod.mode }}</p>
           <p><strong>Equipamiento:</strong> {{ selectedWod.equipment?.join(', ') || 'Sin equipamiento' }}</p>
           <div class="exercises-detail">
             <h4>Plan de entrenamiento:</h4>
-            <ul>
+            <ul role="list">
               <li v-for="exercise in selectedWod.exercises" :key="exercise">
                 {{ exercise }}
               </li>
@@ -82,11 +81,11 @@
             <p>{{ selectedWod.trainerTips }}</p>
           </div>
         </div>
-        <div class="modal-footer">
-          <button @click="startWorkout" class="start-workout-btn">
+        <footer class="modal-footer">
+          <button @click="startWorkout" class="start-workout-btn" :aria-label="`Iniciar entrenamiento ${selectedWod.name}`">
             🚀 Iniciar Entrenamiento
           </button>
-        </div>
+        </footer>
       </div>
     </div>
   </div>
@@ -129,6 +128,13 @@ export default {
     },
     selectWod(wod) {
       this.selectedWod = wod;
+      this.$nextTick(() => {
+        // Focus management for accessibility
+        const modal = document.querySelector('.modal-content');
+        if (modal) {
+          modal.focus();
+        }
+      });
     },
     closeModal() {
       this.selectedWod = null;
@@ -137,45 +143,68 @@ export default {
       alert(`¡Iniciando entrenamiento: ${this.selectedWod.name}! 💪`);
       this.closeModal();
       // Aquí puedes agregar lógica para temporizador, registro de progreso, etc.
+    },
+    handleKeydown(event) {
+      // ESC key to close modal
+      if (event.key === 'Escape' && this.selectedWod) {
+        this.closeModal();
+      }
     }
   },
   mounted() {
     this.fetchWods();
+    // Add keyboard event listener for accessibility
+    document.addEventListener('keydown', this.handleKeydown);
+  },
+  beforeUnmount() {
+    // Clean up event listener
+    document.removeEventListener('keydown', this.handleKeydown);
   }
 };
 </script>
 
 <style scoped>
 .crossfit-wods {
-  padding: 20px;
+  padding: var(--spacing-xl, 32px) var(--spacing-lg, 24px);
   max-width: 1200px;
   margin: 0 auto;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
 }
 
 .wods-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
-  padding-bottom: 15px;
-  border-bottom: 3px solid #e74c3c;
+  margin-bottom: var(--spacing-xl, 32px);
+  padding-bottom: var(--spacing-md, 16px);
+  border-bottom: 3px solid var(--color-accent, #e74c3c);
+  flex-wrap: wrap;
+  gap: var(--spacing-md, 16px);
 }
 
 .wods-header h2 {
-  color: #2c3e50;
-  font-size: 2rem;
+  color: var(--color-text, #2c3e50);
+  font-size: var(--font-size-2xl, 24px);
   margin: 0;
+  font-weight: 600;
 }
 
 .refresh-btn {
-  background: linear-gradient(135deg, #e74c3c, #c0392b);
-  color: white;
+  background: linear-gradient(135deg, var(--color-accent, #e74c3c), var(--color-accent-dark, #c0392b));
+  color: var(--color-white, #ffffff);
   border: none;
-  padding: 10px 20px;
-  border-radius: 25px;
+  min-height: var(--touch-target-min, 44px);
+  min-width: var(--touch-target-min, 44px);
+  padding: var(--spacing-sm, 12px) var(--spacing-lg, 24px);
+  border-radius: 8px;
   cursor: pointer;
-  font-weight: bold;
-  transition: all 0.3s ease;
+  font-weight: 600;
+  font-size: var(--font-size-base, 16px);
+  transition: var(--transition-base, all 0.3s ease);
+  border: 2px solid transparent;
 }
 
 .refresh-btn:hover:not(:disabled) {
@@ -183,24 +212,32 @@ export default {
   box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
 }
 
+.refresh-btn:focus {
+  outline: none;
+  border-color: var(--color-white, #ffffff);
+  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.3);
+}
+
 .refresh-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+  transform: none;
 }
 
 .loading {
   text-align: center;
-  padding: 50px;
+  padding: var(--spacing-2xl, 48px);
+  font-size: var(--font-size-base, 16px);
 }
 
 .spinner {
   width: 50px;
   height: 50px;
   border: 5px solid #f3f3f3;
-  border-top: 5px solid #e74c3c;
+  border-top: 5px solid var(--color-accent, #e74c3c);
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  margin: 0 auto 20px;
+  margin: 0 auto var(--spacing-lg, 24px);
 }
 
 @keyframes spin {
@@ -210,254 +247,96 @@ export default {
 
 .error {
   text-align: center;
-  padding: 30px;
-  background: #fee;
-  border: 1px solid #fcc;
-  border-radius: 10px;
-  margin: 20px 0;
+  padding: var(--spacing-xl, 32px);
+  background: rgba(254, 238, 238, 0.95);
+  border: 2px solid #fcc;
+  border-radius: 12px;
+  margin: var(--spacing-lg, 24px) 0;
+  font-size: var(--font-size-base, 16px);
+  backdrop-filter: blur(5px);
 }
 
 .retry-btn {
-  background: #e74c3c;
-  color: white;
+  background: var(--color-accent, #e74c3c);
+  color: var(--color-white, #ffffff);
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.wods-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 25px;
-  margin-top: 20px;
-}
-
-.wod-card {
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-  overflow: hidden;
-  transition: all 0.3s ease;
-  border: 1px solid #eee;
-}
-
-.wod-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-}
-
-.wod-header {
-  background: linear-gradient(135deg, #e74c3c, #c0392b);
-  color: white;
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.wod-header h3 {
-  margin: 0;
-  font-size: 1.3rem;
-}
-
-.wod-mode {
-  background: rgba(255,255,255,0.2);
-  padding: 5px 12px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: bold;
-}
-
-.wod-content {
-  padding: 20px;
-}
-
-.wod-equipment {
-  color: #7f8c8d;
-  margin-bottom: 15px;
-}
-
-.wod-exercises h4,
-.wod-trainer h4 {
-  color: #2c3e50;
-  margin-bottom: 10px;
-  margin-top: 15px;
-}
-
-.wod-exercises ul {
-  list-style: none;
-  padding: 0;
-}
-
-.wod-exercises li {
-  background: #f8f9fa;
-  padding: 8px 12px;
-  margin: 5px 0;
-  border-radius: 5px;
-  border-left: 4px solid #e74c3c;
-}
-
-.wod-trainer {
-  background: #e8f5e8;
-  padding: 15px;
-  border-radius: 8px;
-  margin-top: 15px;
-  border-left: 4px solid #27ae60;
-}
-
-.wod-actions {
-  padding: 0 20px 20px;
-}
-
-.select-btn {
-  width: 100%;
-  background: linear-gradient(135deg, #27ae60, #229954);
-  color: white;
-  border: none;
-  padding: 12px;
+  min-height: var(--touch-target-min, 44px);
+  min-width: var(--touch-target-min, 44px);
+  padding: var(--spacing-sm, 12px) var(--spacing-lg, 24px);
   border-radius: 8px;
   cursor: pointer;
-  font-weight: bold;
-  font-size: 1rem;
-  transition: all 0.3s ease;
+  margin-top: var(--spacing-md, 16px);
+  font-size: var(--font-size-base, 16px);
+  font-weight: 600;
+  transition: var(--transition-base, all 0.3s ease);
+  border: 2px solid transparent;
 }
 
-.select-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
+.retry-btn:hover {
+  background: var(--color-accent-dark, #c0392b);
+  transform: translateY(-1px);
+}
+
+.retry-btn:focus {
+  outline: none;
+  border-color: var(--color-accent, #e74c3c);
+  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.3);
 }
 
 .empty-state {
   text-align: center;
-  padding: 60px 20px;
-  color: #7f8c8d;
+  padding: var(--spacing-2xl, 48px);
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  border: 2px dashed #ddd;
+  margin: var(--spacing-lg, 24px) 0;
 }
 
 .empty-state h3 {
-  color: #95a5a6;
-  margin-bottom: 10px;
+  color: var(--color-text, #2c3e50);
+  margin-bottom: var(--spacing-md, 16px);
+  font-size: var(--font-size-xl, 20px);
 }
 
-/* Modal Styles */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+.empty-state p {
+  color: var(--color-text-light, #6c757d);
+  font-size: var(--font-size-base, 16px);
 }
 
-.modal-content {
-  background: white;
-  border-radius: 15px;
-  max-width: 600px;
-  width: 90%;
-  max-height: 80vh;
-  overflow-y: auto;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+/* Accessibility support */
+@media (prefers-reduced-motion: reduce) {
+  .refresh-btn:hover:not(:disabled),
+  .retry-btn:hover {
+    transform: none;
+  }
+  
+  .spinner {
+    animation: none;
+  }
 }
 
-.modal-header {
-  background: linear-gradient(135deg, #e74c3c, #c0392b);
-  color: white;
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+@media (prefers-contrast: high) {
+  .crossfit-wods {
+    border: 2px solid #000000;
+    background: #ffffff;
+  }
+  
+  .error {
+    background: #ffffff;
+    border: 2px solid #000000;
+  }
 }
 
-.modal-header h3 {
-  margin: 0;
-}
-
-.close-btn {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 2rem;
-  cursor: pointer;
-  padding: 0;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal-body {
-  padding: 30px;
-}
-
-.exercises-detail ul {
-  list-style: none;
-  padding: 0;
-}
-
-.exercises-detail li {
-  background: #f8f9fa;
-  padding: 10px 15px;
-  margin: 8px 0;
-  border-radius: 8px;
-  border-left: 4px solid #e74c3c;
-}
-
-.trainer-tips {
-  background: #e8f5e8;
-  padding: 20px;
-  border-radius: 10px;
-  margin-top: 20px;
-  border-left: 4px solid #27ae60;
-}
-
-.modal-footer {
-  padding: 20px 30px;
-  border-top: 1px solid #eee;
-  text-align: center;
-}
-
-.start-workout-btn {
-  background: linear-gradient(135deg, #f39c12, #e67e22);
-  color: white;
-  border: none;
-  padding: 15px 30px;
-  border-radius: 25px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 1.1rem;
-  transition: all 0.3s ease;
-}
-
-.start-workout-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(243, 156, 18, 0.3);
-}
-
-/* Responsive Design */
 @media (max-width: 768px) {
-  .wods-grid {
-    grid-template-columns: 1fr;
+  .crossfit-wods {
+    padding: var(--spacing-lg, 24px) var(--spacing-md, 16px);
+    margin: var(--spacing-md, 16px);
   }
   
   .wods-header {
     flex-direction: column;
-    gap: 15px;
-    text-align: center;
-  }
-  
-  .modal-content {
-    width: 95%;
-    margin: 10px;
-  }
-  
-  .modal-body {
-    padding: 20px;
+    align-items: stretch;
+    gap: var(--spacing-md, 16px);
   }
 }
 </style>

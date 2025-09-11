@@ -410,3 +410,15 @@ Actualiza este roadmap y checklist en cada fase para mantener el seguimiento y f
 - Listo para avanzar a las siguientes fases: refinamiento de pruebas, documentación Swagger y despliegue.
 
 ---
+
+## 📝 Notas de trabajo pendiente y próxima sesión (2025-09-03)
+
+- Consulta el archivo `cypress-e2e-diagnosis.md` para el estado detallado de los tests E2E y recomendaciones inmediatas.
+- Puntos clave para retomar:
+  1. Refinar selectores y textos esperados en los tests Cypress.
+  2. Validar el flujo de login y existencia de usuarios en la base de datos de pruebas.
+  3. Corregir los tests para reflejar la UI actual si es necesario.
+  4. Revisar el manejo de autenticación y navegación tras reload.
+- El proyecto está listo y limpio en la rama `main`, preparado para continuar con el refinamiento de pruebas, documentación Swagger y despliegue.
+
+> Actualiza esta sección al finalizar cada sesión para mantener el seguimiento y facilitar la colaboración.

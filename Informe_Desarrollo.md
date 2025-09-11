@@ -411,14 +411,22 @@ Actualiza este roadmap y checklist en cada fase para mantener el seguimiento y f
 
 ---
 
-## 📝 Notas de trabajo pendiente y próxima sesión (2025-09-03)
+## 📝 Notas de trabajo pendiente y próxima sesión (2025-09-10)
 
-- Consulta el archivo `cypress-e2e-diagnosis.md` para el estado detallado de los tests E2E y recomendaciones inmediatas.
-- Puntos clave para retomar:
-  1. Refinar selectores y textos esperados en los tests Cypress.
-  2. Validar el flujo de login y existencia de usuarios en la base de datos de pruebas.
-  3. Corregir los tests para reflejar la UI actual si es necesario.
-  4. Revisar el manejo de autenticación y navegación tras reload.
-- El proyecto está listo y limpio en la rama `main`, preparado para continuar con el refinamiento de pruebas, documentación Swagger y despliegue.
+**Actualizaciones recientes:**
+- **PR #2 Implementado:** Diseño profesional y mejoras de accesibilidad completadas
+  - Implementado glass-morphism con fondo semi-transparente
+  - Mejoras de accesibilidad: ARIA labels, navegación por teclado, contraste
+  - CSS moderno con variables personalizadas y diseño responsive
+  - Archivos modificados: App.vue, HelloWorld.vue, CrossfitWods.vue
+- **Problema de autenticación detectado:** Usuario admin no puede iniciar sesión
+  - Error: "Error de conexión. Inténtalo de nuevo" en el frontend
+  - Se agregó usuario admin al seed pero persiste el problema de conectividad
+
+**Puntos clave para retomar:**
+- Consulta el archivo `cypress-e2e-diagnosis.md` para el estado detallado de los tests E2E
+- Investigar y resolver el problema de autenticación/conectividad frontend-backend
+- Validar el flujo de login y comunicación entre servicios
+- Continuar con refinamiento de pruebas tras resolver conectividad
 
 > Actualiza esta sección al finalizar cada sesión para mantener el seguimiento y facilitar la colaboración.

@@ -38,11 +38,16 @@ exports.seed = async function (knex) {
     const passwordHashTrainer = await bcrypt.hash(trainerPassword, 10);
     const passwordHashAthlete = await bcrypt.hash(athletePassword, 10);
 
+    // Hash para admin
+    const adminPassword = 'admin123';
+    const passwordHashAdmin = await bcrypt.hash(adminPassword, 10);
+
     // Inserta usuarios
     await knex('users').insert([
         { id: 1, name: 'Carlos Entrenador', email: 'carlos@box.com', password_hash: passwordHashTrainer, role: 'entrenador' },
         { id: 2, name: 'Ana Atleta', email: 'ana@box.com', password_hash: passwordHashAthlete, role: 'atleta' },
-        { id: 3, name: 'Luis Atleta', email: 'luis@box.com', password_hash: passwordHashAthlete, role: 'atleta' }
+        { id: 3, name: 'Luis Atleta', email: 'luis@box.com', password_hash: passwordHashAthlete, role: 'atleta' },
+        { id: 4, name: 'Administrador', email: 'admin@crossfit.com', password_hash: passwordHashAdmin, role: 'entrenador' }
     ]);
 
     // Inserta WODs

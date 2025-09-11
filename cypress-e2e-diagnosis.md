@@ -169,6 +169,23 @@ NODE_ENV=development
 
 ---
 
+## Error de autenticación - 10/09/2025
+
+**Problema detectado:** Usuario admin@crossfit.com no puede iniciar sesión
+- Se agregó el usuario admin al seed (seed_data.js) con contraseña admin123
+- Se ejecutó el seed pero el login sigue fallando con "Error de conexión"
+- El backend está corriendo sin errores aparentes
+- El frontend muestra error de conexión en lugar de credenciales incorrectas
+
+**Acciones realizadas:**
+- Modificado seeds/seed_data.js para incluir admin@crossfit.com
+- Ejecutado npx knex seed:run
+- Backend y frontend están activos
+
+**Estado:** Requiere investigación adicional del flujo de autenticación y conectividad frontend-backend.
+
+---
+
 **Cambios realizados en esta sesión:**
 - Se corrigió la carga de variables de entorno en el backend (`require('dotenv').config()` en `index.js`).
 - Se reiniciaron todos los servicios y se ejecutaron los tests E2E desde cero.

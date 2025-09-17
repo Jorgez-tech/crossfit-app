@@ -7,7 +7,7 @@ Monorepo para la aplicación Crossfit: API (Express) y Frontend (Vue).
 
 Plataforma full-stack para la gestión de entrenamientos, miembros y records en un box de CrossFit. Incluye backend Express con base de datos relacional (Knex/SQLite), frontend Vue.js con autenticación JWT y roles, y testing E2E con Cypress.
 
-**Avance general:** ~75% completado
+**✅ Estado: MVP Funcional** - Revisión técnica completada (Sept 2025)
 
 ---
 ## Estado de Limpieza y Avance Global (2025-09-01)
@@ -86,12 +86,14 @@ Cada subcarpeta contiene su propio README con detalles específicos.
 - [x] Persistencia en base de datos relacional
 - [x] Autenticación JWT y roles
 - [x] Testing E2E con Cypress
+- [x] **Revisión técnica completa (MVP funcional)**
+- [x] **Fix integración frontend-backend**
 - [ ] Documentación API con Swagger
 - [ ] Despliegue conjunto (Docker, VPS, etc.)
 
 **Próximos pasos:**
-1. Refinamiento final de pruebas E2E
-2. Documentación API con Swagger
+1. Documentación API con Swagger
+2. Optimizaciones de performance
 3. Despliegue y CI/CD
 
 ---

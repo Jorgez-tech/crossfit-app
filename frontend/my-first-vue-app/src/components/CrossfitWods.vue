@@ -578,8 +578,6 @@ export default {
 }
 
 .start-workout-btn {
-  width: 100%;
-  max-width: 400px;
   background: linear-gradient(135deg, var(--color-success, #27ae60), var(--color-success-light, #42b983));
   color: #ffffff;
   border: none;
@@ -591,7 +589,10 @@ export default {
   transition: all 0.3s ease;
   min-height: var(--touch-target-min, 44px);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  margin: 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs, 8px);
 }
 
 .start-workout-btn:hover {

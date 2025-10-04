@@ -22,33 +22,39 @@
     <!-- WODs List -->
     <div v-else-if="wods.length > 0" class="wods-grid" role="grid" aria-label="Lista de entrenamientos disponibles">
       <article v-for="wod in wods" :key="wod.id" class="wod-card" role="gridcell">
-        <header class="wod-header">
-          <h3>{{ wod.name }}</h3>
-          <span class="wod-mode" :aria-label="`Modalidad: ${wod.mode}`">{{ wod.mode }}</span>
-        </header>
-        <div class="wod-content">
-          <p class="wod-equipment">
-            <strong>Equipamiento:</strong> 
-            {{ wod.equipment?.join(', ') || 'Sin equipamiento' }}
-          </p>
-          <div class="wod-exercises">
-            <h4>Ejercicios:</h4>
-            <ul role="list">
-              <li v-for="exercise in wod.exercises" :key="exercise">
-                {{ exercise }}
-              </li>
-            </ul>
+        <div class="wod-card-header">
+          <div class="wod-title-section">
+            <h3 class="wod-name">{{ wod.name }}</h3>
+            <span class="wod-type-badge" v-if="getWodType(wod.description)">
+              {{ getWodType(wod.description) }}
+            </span>
           </div>
-          <div class="wod-trainer" v-if="wod.trainerTips">
-            <h4>💡 Consejos del entrenador:</h4>
-            <p>{{ wod.trainerTips }}</p>
+          <div class="wod-meta">
+            <span class="wod-date" v-if="wod.created_at">
+              📅 {{ formatDate(wod.created_at) }}
+            </span>
           </div>
         </div>
-        <footer class="wod-actions">
-          <button @click="selectWod(wod)" class="select-btn" :aria-label="`Seleccionar entrenamiento ${wod.name}`">
-            Seleccionar WOD
+        
+        <div class="wod-card-body">
+          <div class="wod-description" v-if="wod.description">
+            <p class="description-text">{{ wod.description }}</p>
+          </div>
+          
+          <div class="wod-exercises-section">
+            <h4 class="exercises-title">🏋️ Ejercicios</h4>
+            <div class="exercises-content">
+              {{ formatExercises(wod.exercises) }}
+            </div>
+          </div>
+        </div>
+        
+        <div class="wod-card-footer">
+          <button @click="selectWod(wod)" class="wod-action-btn" :aria-label="`Ver detalles de ${wod.name}`">
+            <span class="btn-icon">👁️</span>
+            <span class="btn-text">Ver Detalles</span>
           </button>
-        </footer>
+        </div>
       </article>
     </div>
 
@@ -66,19 +72,10 @@
           <button @click="closeModal" class="close-btn" aria-label="Cerrar ventana de detalles">&times;</button>
         </header>
         <div class="modal-body" role="document">
-          <p><strong>Modo:</strong> {{ selectedWod.mode }}</p>
-          <p><strong>Equipamiento:</strong> {{ selectedWod.equipment?.join(', ') || 'Sin equipamiento' }}</p>
+          <p v-if="selectedWod.description"><strong>Descripción:</strong> {{ selectedWod.description }}</p>
           <div class="exercises-detail">
             <h4>Plan de entrenamiento:</h4>
-            <ul role="list">
-              <li v-for="exercise in selectedWod.exercises" :key="exercise">
-                {{ exercise }}
-              </li>
-            </ul>
-          </div>
-          <div v-if="selectedWod.trainerTips" class="trainer-tips">
-            <h4>💡 Consejos:</h4>
-            <p>{{ selectedWod.trainerTips }}</p>
+            <p>{{ formatExercises(selectedWod.exercises) }}</p>
           </div>
         </div>
         <footer class="modal-footer">
@@ -125,6 +122,28 @@ export default {
       } finally {
         this.loading = false;
       }
+    },
+    formatDate(dateString) {
+      if (!dateString) return 'Sin fecha';
+      const date = new Date(dateString);
+      const options = { year: 'numeric', month: 'short', day: 'numeric' };
+      return date.toLocaleDateString('es-ES', options);
+    },
+    getWodType(description) {
+      if (!description) return null;
+      const descLower = description.toLowerCase();
+      if (descLower.includes('amrap')) return 'AMRAP';
+      if (descLower.includes('for time') || descLower.includes('por tiempo')) return 'For Time';
+      if (descLower.includes('emom')) return 'EMOM';
+      if (descLower.includes('tabata')) return 'Tabata';
+      if (descLower.includes('rondas')) return 'Rondas';
+      return null;
+    },
+    formatExercises(exercises) {
+      if (!exercises) return 'No especificado';
+      if (typeof exercises === 'string') return exercises;
+      if (Array.isArray(exercises)) return exercises.join(', ');
+      return JSON.stringify(exercises);
     },
     selectWod(wod) {
       this.selectedWod = wod;
@@ -303,10 +322,285 @@ export default {
   font-size: var(--font-size-base, 16px);
 }
 
+/* WODs Grid Layout */
+.wods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--spacing-xl, 32px);
+  margin-top: var(--spacing-xl, 32px);
+}
+
+/* WOD Card Styles */
+.wod-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.wod-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15), 0 6px 12px rgba(0, 0, 0, 0.1);
+  border-color: var(--color-accent, #e74c3c);
+}
+
+/* Card Header */
+.wod-card-header {
+  background: linear-gradient(135deg, var(--color-accent, #e74c3c), var(--color-accent-dark, #c0392b));
+  padding: var(--spacing-lg, 24px);
+  color: white;
+}
+
+.wod-title-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-sm, 12px);
+  margin-bottom: var(--spacing-sm, 12px);
+}
+
+.wod-name {
+  font-size: var(--font-size-xl, 20px);
+  font-weight: 700;
+  margin: 0;
+  color: white;
+  line-height: 1.3;
+  flex: 1;
+}
+
+.wod-type-badge {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  padding: var(--spacing-xs, 8px) var(--spacing-sm, 12px);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.wod-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md, 16px);
+  font-size: 14px;
+  opacity: 0.95;
+}
+
+.wod-date {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs, 8px);
+}
+
+/* Card Body */
+.wod-card-body {
+  padding: var(--spacing-lg, 24px);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md, 16px);
+}
+
+.wod-description {
+  padding-bottom: var(--spacing-md, 16px);
+  border-bottom: 2px solid rgba(231, 76, 60, 0.1);
+}
+
+.description-text {
+  margin: 0;
+  color: var(--color-text, #2c3e50);
+  font-size: var(--font-size-base, 16px);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.wod-exercises-section {
+  flex: 1;
+}
+
+.exercises-title {
+  font-size: var(--font-size-base, 16px);
+  font-weight: 600;
+  color: var(--color-text, #2c3e50);
+  margin: 0 0 var(--spacing-sm, 12px) 0;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs, 8px);
+}
+
+.exercises-content {
+  background: rgba(39, 174, 96, 0.05);
+  padding: var(--spacing-md, 16px);
+  border-radius: 8px;
+  border-left: 4px solid var(--color-success, #27ae60);
+  color: var(--color-text, #2c3e50);
+  font-size: 15px;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+/* Card Footer */
+.wod-card-footer {
+  padding: var(--spacing-md, 16px) var(--spacing-lg, 24px);
+  background: rgba(0, 0, 0, 0.02);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.wod-action-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--color-success, #27ae60), var(--color-success-light, #42b983));
+  color: white;
+  border: none;
+  padding: var(--spacing-sm, 12px) var(--spacing-lg, 24px);
+  border-radius: 8px;
+  font-size: var(--font-size-base, 16px);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm, 12px);
+  min-height: var(--touch-target-min, 44px);
+  box-shadow: 0 2px 8px rgba(39, 174, 96, 0.2);
+}
+
+.wod-action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(39, 174, 96, 0.3);
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+
+.wod-action-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.3), 0 6px 16px rgba(39, 174, 96, 0.3);
+}
+
+.wod-action-btn:active {
+  transform: translateY(0);
+}
+
+.btn-icon {
+  font-size: 18px;
+}
+
+.btn-text {
+  font-weight: 600;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--spacing-lg, 24px);
+}
+
+.modal-content {
+  background: white;
+  border-radius: 16px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+  background: linear-gradient(135deg, var(--color-accent, #e74c3c), var(--color-accent-dark, #c0392b));
+  color: white;
+  padding: var(--spacing-lg, 24px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 16px 16px 0 0;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: var(--font-size-xl, 20px);
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 32px;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.modal-body {
+  padding: var(--spacing-lg, 24px);
+}
+
+.modal-body p {
+  margin-bottom: var(--spacing-md, 16px);
+}
+
+.exercises-detail h4 {
+  color: var(--color-text, #2c3e50);
+  margin-bottom: var(--spacing-sm, 12px);
+}
+
+.modal-footer {
+  padding: var(--spacing-lg, 24px);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.start-workout-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--color-success, #27ae60), var(--color-success-light, #42b983));
+  color: white;
+  border: none;
+  padding: var(--spacing-md, 16px) var(--spacing-lg, 24px);
+  border-radius: 8px;
+  font-size: var(--font-size-base, 16px);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: var(--touch-target-min, 44px);
+}
+
+.start-workout-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(39, 174, 96, 0.3);
+}
+
 /* Accessibility support */
 @media (prefers-reduced-motion: reduce) {
   .refresh-btn:hover:not(:disabled),
-  .retry-btn:hover {
+  .retry-btn:hover,
+  .wod-card:hover,
+  .wod-action-btn:hover,
+  .wod-action-btn:active,
+  .start-workout-btn:hover {
     transform: none;
   }
   
@@ -337,6 +631,20 @@ export default {
     flex-direction: column;
     align-items: stretch;
     gap: var(--spacing-md, 16px);
+  }
+  
+  .wods-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg, 24px);
+  }
+  
+  .wod-title-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .wod-type-badge {
+    align-self: flex-start;
   }
 }
 </style>

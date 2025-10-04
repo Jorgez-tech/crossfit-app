@@ -54,11 +54,21 @@ export default {
 }
 
 .hero-image {
+  width: 100%;
   max-width: 100%;
   height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center;
   margin-bottom: var(--spacing-xl, 32px);
   border-radius: 8px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-image:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .contact-section {
@@ -164,6 +174,14 @@ export default {
 
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
+  .hero-image {
+    transition: none;
+  }
+  
+  .hero-image:hover {
+    transform: none;
+  }
+  
   .social-links a {
     transition: none;
   }

@@ -154,26 +154,47 @@ nav a, .logout-btn {
   min-width: var(--touch-target-min);
   padding: var(--spacing-sm) var(--spacing-lg);
   border-radius: 8px;
-  transition: var(--transition-base);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   background: rgba(255, 255, 255, 0.1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Smooth hover effect with elevation */
+nav a::before, .logout-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+nav a:hover::before, .logout-btn:hover::before {
+  opacity: 1;
 }
 
 /* Focus indicators for accessibility */
 nav a:focus, .logout-btn:focus {
   outline: none;
   border-color: var(--color-white);
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
-  transform: translateY(-1px);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3), 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
 }
 
 nav a:hover, .logout-btn:hover {
   background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-1px);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
   text-decoration: none;
 }
 
@@ -260,6 +281,11 @@ footer {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  
+  nav a:hover, .logout-btn:hover,
+  nav a:focus, .logout-btn:focus {
+    transform: none;
   }
   
   #app {

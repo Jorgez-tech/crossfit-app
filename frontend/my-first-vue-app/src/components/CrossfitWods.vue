@@ -572,20 +572,26 @@ export default {
 .modal-footer {
   padding: var(--spacing-lg, 24px);
   border-top: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .start-workout-btn {
   width: 100%;
+  max-width: 400px;
   background: linear-gradient(135deg, var(--color-success, #27ae60), var(--color-success-light, #42b983));
-  color: white;
+  color: #ffffff;
   border: none;
   padding: var(--spacing-md, 16px) var(--spacing-lg, 24px);
   border-radius: 8px;
   font-size: var(--font-size-base, 16px);
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
   min-height: var(--touch-target-min, 44px);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  margin: 0 auto;
 }
 
 .start-workout-btn:hover {
@@ -645,6 +651,24 @@ export default {
   
   .wod-type-badge {
     align-self: flex-start;
+  }
+  
+  .modal-content {
+    max-height: 85vh;
+    margin-bottom: 60px;
+  }
+  
+  .modal-footer {
+    padding: var(--spacing-md, 16px);
+    position: sticky;
+    bottom: 0;
+    background: white;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .start-workout-btn {
+    font-size: var(--font-size-lg, 18px);
+    padding: var(--spacing-md, 16px);
   }
 }
 </style>

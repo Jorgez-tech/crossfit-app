@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  api:
+    build: ./api/crossfit-wod-api
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      JWT_SECRET: ${JWT_SECRET:-super_secret_key}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      SWAGGER_BASE_URL: ${SWAGGER_BASE_URL:-http://localhost:3000}
+    volumes:
+      - ./api/crossfit-wod-api/ar360.db:/app/ar360.db
+    ports:
+      - "3000:3000"
+
+  frontend:
+    build:
+      context: ./frontend/my-first-vue-app
+      args:
+        VUE_APP_API_URL: ${VUE_APP_API_URL:-http://localhost:3000/api/v1}
+    ports:
+      - "8080:80"
+    depends_on:
+      - api

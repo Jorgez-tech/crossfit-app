@@ -1,0 +1,108 @@
+paths:
+  /api/v1/records:
+    get:
+      tags:
+        - Records
+      summary: Listar todos los records
+      responses:
+        '200':
+          description: Lista de records
+    post:
+      tags:
+        - Records
+      summary: Crear un record
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user_id
+                - wod_id
+                - result
+              properties:
+                user_id:
+                  type: integer
+                wod_id:
+                  type: integer
+                result:
+                  type: string
+                notes:
+                  type: string
+                date:
+                  type: string
+                  format: date
+      responses:
+        '201':
+          description: Record creado
+        '400':
+          description: Datos inválidos
+  /api/v1/records/{recordId}:
+    get:
+      tags:
+        - Records
+      summary: Obtener un record por ID
+      parameters:
+        - in: path
+          name: recordId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Record encontrado
+        '404':
+          description: Record no encontrado
+    patch:
+      tags:
+        - Records
+      summary: Actualizar un record
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: recordId
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                result:
+                  type: string
+                notes:
+                  type: string
+                date:
+                  type: string
+                  format: date
+      responses:
+        '200':
+          description: Record actualizado
+        '400':
+          description: Datos inválidos
+        '404':
+          description: Record no encontrado
+    delete:
+      tags:
+        - Records
+      summary: Eliminar un record
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: recordId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Eliminado correctamente
+        '404':
+          description: Record no encontrado

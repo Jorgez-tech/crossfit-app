@@ -3,9 +3,10 @@
 
 
 const authService = require('../services/authService');
+const logger = require('../utils/logger');
 
 module.exports = {
-    async register(req, res) {
+    async register(req, res, next) {
         try {
             const { name, email, password, role } = req.body;
             const user = await authService.register({ name, email, password, role });
@@ -14,13 +15,11 @@ module.exports = {
                 data: { user }
             });
         } catch (error) {
-            res.status(error.status || 500).json({
-                status: "ERROR",
-                message: error.message || 'Error en registro'
-            });
+            logger.warn('Register failed', { error });
+            next(error);
         }
     },
-    async login(req, res) {
+    async login(req, res, next) {
         try {
             const { email, password } = req.body;
             const result = await authService.login({ email, password });
@@ -29,10 +28,8 @@ module.exports = {
                 data: result
             });
         } catch (error) {
-            res.status(error.status || 500).json({
-                status: "ERROR",
-                message: error.message || 'Error en login'
-            });
+            logger.warn('Login failed', { error });
+            next(error);
         }
     }
 };

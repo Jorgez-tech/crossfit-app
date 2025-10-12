@@ -1,0 +1,98 @@
+paths:
+  /api/v1/members:
+    get:
+      tags:
+        - Miembros
+      summary: Listar todos los miembros
+      responses:
+        '200':
+          description: Lista de miembros
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: OK
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Member'
+    post:
+      tags:
+        - Miembros
+      summary: Crear un nuevo miembro
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberCreateRequest'
+      responses:
+        '201':
+          description: Miembro creado
+        '400':
+          description: Datos inválidos
+        '403':
+          description: Acceso denegado
+  /api/v1/members/{memberId}:
+    get:
+      tags:
+        - Miembros
+      summary: Obtener un miembro por ID
+      parameters:
+        - in: path
+          name: memberId
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Miembro encontrado
+        '404':
+          description: Miembro no encontrado
+    patch:
+      tags:
+        - Miembros
+      summary: Actualizar un miembro
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: memberId
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberUpdateRequest'
+      responses:
+        '200':
+          description: Miembro actualizado
+        '400':
+          description: Datos inválidos
+        '404':
+          description: Miembro no encontrado
+    delete:
+      tags:
+        - Miembros
+      summary: Eliminar un miembro
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: memberId
+          schema:
+            type: integer
+          required: true
+      responses:
+        '204':
+          description: Eliminado correctamente
+        '404':
+          description: Miembro no encontrado

@@ -1,0 +1,126 @@
+paths:
+  /api/v1/workouts:
+    get:
+      tags:
+        - Workouts
+      summary: Listar todos los WODs
+      responses:
+        '200':
+          description: Lista de WODs disponible
+    post:
+      tags:
+        - Workouts
+      summary: Crear un nuevo WOD
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - exercises
+              properties:
+                name:
+                  type: string
+                  example: Fran
+                description:
+                  type: string
+                trainerTips:
+                  type: string
+                exercises:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '201':
+          description: WOD creado correctamente
+        '400':
+          description: Datos inválidos
+        '403':
+          description: Acceso denegado
+  /api/v1/workouts/{workoutId}:
+    get:
+      tags:
+        - Workouts
+      summary: Obtener un WOD por ID
+      parameters:
+        - in: path
+          name: workoutId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: WOD encontrado
+        '404':
+          description: WOD no encontrado
+    patch:
+      tags:
+        - Workouts
+      summary: Actualizar un WOD existente
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: workoutId
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                trainerTips:
+                  type: string
+                exercises:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: WOD actualizado
+        '400':
+          description: Datos inválidos
+        '404':
+          description: WOD no encontrado
+    delete:
+      tags:
+        - Workouts
+      summary: Eliminar un WOD
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: workoutId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Eliminado correctamente
+        '404':
+          description: WOD no encontrado
+  /api/v1/workouts/{workoutId}/records:
+    get:
+      tags:
+        - Workouts
+      summary: Obtener los records asociados a un WOD
+      parameters:
+        - in: path
+          name: workoutId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Records encontrados

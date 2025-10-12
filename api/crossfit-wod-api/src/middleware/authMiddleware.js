@@ -6,11 +6,11 @@ if (!JWT_SECRET) {
     throw new Error('Environment variable JWT_SECRET is required for authMiddleware');
 }
 
-module.exports = function (req, res, next) {
+module.exports = function (req, _res, next) {
     try {
         const authHeader = req.headers.authorization || req.headers.Authorization;
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            return res.status(401).json({ message: 'Token missing or malformed' });
+            return next({ status: 401, message: 'Token missing or malformed' });
         }
         const token = authHeader.split(' ')[1];
         const decoded = jwt.verify(token, JWT_SECRET);
@@ -18,6 +18,6 @@ module.exports = function (req, res, next) {
         req.user = decoded;
         next();
     } catch (error) {
-        return res.status(401).json({ message: 'Invalid or expired token' });
+        return next({ status: 401, message: 'Invalid or expired token' });
     }
 };

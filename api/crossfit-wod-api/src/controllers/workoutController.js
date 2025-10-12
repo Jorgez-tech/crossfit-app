@@ -1,123 +1,51 @@
 // In src/controllers/workoutController.js
 const workoutService = require("../services/workoutService");
 
-const getAllWorkouts = async (req, res) => {
+const getAllWorkouts = async (_req, res, next) => {
   try {
     const allWorkouts = await workoutService.getAllWorkouts();
     res.send({ status: "OK", data: allWorkouts });
   } catch (error) {
-    res
-      .status(error?.status || 500)
-      .send({ status: "FAILED", data: { error: error?.message || error } });
+    next(error);
   }
 };
 
-const getOneWorkout = async (req, res) => {
-  const { workoutId } = req.params;
-  if (!workoutId) {
-    return res
-      .status(400)
-      .send({
-        status: "FAILED",
-        data: { error: "Parameter ':workoutId' can not be empty" },
-      });
-  }
+const getOneWorkout = async (req, res, next) => {
   try {
-    const workout = await workoutService.getOneWorkout(workoutId);
-    if (!workout) {
-      return res.status(404).send({
-        status: "FAILED",
-        data: { error: `Workout with ID ${workoutId} not found` },
-      });
-    }
+    const workout = await workoutService.getOneWorkout(req.params.workoutId);
     res.send({ status: "OK", data: workout });
   } catch (error) {
-    res
-      .status(error?.status || 500)
-      .send({ status: "FAILED", data: { error: error?.message || error } });
+    next(error);
   }
 };
 
-const createNewWorkout = async (req, res) => {
-  const { body } = req;
-  if (!body.name || !body.exercises) {
-    return res
-      .status(400)
-      .send({
-        status: "FAILED",
-        data: {
-          error:
-            "One of the following keys is missing or is empty in request body: 'name', 'exercises'",
-        },
-      });
-  }
-  const newWorkout = {
-    name: body.name,
-    description: body.description || body.trainerTips,
-    exercises: body.exercises,
-    created_by: body.created_by,
-    createdAt: new Date().toISOString(),
-  };
+const createNewWorkout = async (req, res, next) => {
   try {
-    const createdWorkout = await workoutService.createNewWorkout(newWorkout);
+    const createdWorkout = await workoutService.createNewWorkout({
+      ...req.body,
+      createdAt: new Date().toISOString()
+    });
     res.status(201).send({ status: "OK", data: createdWorkout });
   } catch (error) {
-    res
-      .status(error?.status || 500)
-      .send({ status: "FAILED", data: { error: error?.message || error } });
+    next(error);
   }
 };
 
-const updateOneWorkout = async (req, res) => {
-  const { workoutId } = req.params;
-  const { body } = req;
-  if (!workoutId) {
-    return res
-      .status(400)
-      .send({
-        status: "FAILED",
-        data: { error: "Parameter ':workoutId' can not be empty" },
-      });
-  }
+const updateOneWorkout = async (req, res, next) => {
   try {
-    const updatedWorkout = await workoutService.updateOneWorkout(workoutId, body);
-    if (!updatedWorkout) {
-      return res.status(404).send({
-        status: "FAILED",
-        data: { error: `Workout with ID ${workoutId} not found` },
-      });
-    }
+    const updatedWorkout = await workoutService.updateOneWorkout(req.params.workoutId, req.body);
     res.send({ status: "OK", data: updatedWorkout });
   } catch (error) {
-    res
-      .status(error?.status || 500)
-      .send({ status: "FAILED", data: { error: error?.message || error } });
+    next(error);
   }
 };
 
-const deleteOneWorkout = async (req, res) => {
-  const { workoutId } = req.params;
-  if (!workoutId) {
-    return res
-      .status(400)
-      .send({
-        status: "FAILED",
-        data: { error: "Parameter ':workoutId' can not be empty" },
-      });
-  }
+const deleteOneWorkout = async (req, res, next) => {
   try {
-    const deleted = await workoutService.deleteOneWorkout(workoutId);
-    if (!deleted) {
-      return res.status(404).send({
-        status: "FAILED",
-        data: { error: `Workout with ID ${workoutId} not found` },
-      });
-    }
+    await workoutService.deleteOneWorkout(req.params.workoutId);
     res.status(204).send();
   } catch (error) {
-    res
-      .status(error?.status || 500)
-      .send({ status: "FAILED", data: { error: error?.message || error } });
+    next(error);
   }
 };
 

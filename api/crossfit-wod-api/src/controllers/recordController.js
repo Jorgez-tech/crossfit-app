@@ -1,124 +1,57 @@
 // In src/controllers/recordController.js
 const recordService = require("../services/recordService");
 
-const getRecordForWorkout = async (req, res) => {
-  const { workoutId } = req.params;
-  if (!workoutId) {
-    return res.status(400).send({
-      status: "FAILED",
-      data: { error: "Parameter 'workoutId' is required" },
-    });
-  }
-
+const getRecordForWorkout = async (req, res, next) => {
   try {
-    const records = await recordService.getRecordForWorkout(workoutId);
+    const records = await recordService.getRecordForWorkout(req.params.workoutId);
     res.send({ status: "OK", data: records });
   } catch (error) {
-    res
-      .status(error?.status || 500)
-      .send({ status: "FAILED", data: { error: error?.message || error } });
+    next(error);
   }
 };
 
-const getAllRecords = async (req, res) => {
+const getAllRecords = async (_req, res, next) => {
   try {
     const allRecords = await recordService.getAllRecords();
     res.send({ status: "OK", data: allRecords });
   } catch (error) {
-    res
-      .status(error?.status || 500)
-      .send({ status: "FAILED", data: { error: error?.message || error } });
+    next(error);
   }
 };
 
-const getOneRecord = async (req, res) => {
-  const { recordId } = req.params;
-  if (!recordId) {
-    return res
-      .status(400)
-      .send({
-        status: "FAILED",
-        data: { error: "Parameter ':recordId' can not be empty" },
-      });
-  }
+const getOneRecord = async (req, res, next) => {
   try {
-    const record = await recordService.getOneRecord(recordId);
+    const record = await recordService.getOneRecord(req.params.recordId);
     res.send({ status: "OK", data: record });
   } catch (error) {
-    res
-      .status(error?.status || 500)
-      .send({ status: "FAILED", data: { error: error?.message || error } });
+    next(error);
   }
 };
 
-const createNewRecord = async (req, res) => {
-  const { body } = req;
-  if (!body.user_id || !body.wod_id || !body.result) {
-    return res
-      .status(400)
-      .send({
-        status: "FAILED",
-        data: {
-          error:
-            "One of the following keys is missing or is empty in request body: 'user_id', 'wod_id', 'result'",
-        },
-      });
-  }
-  const newRecord = {
-    user_id: body.user_id,
-    wod_id: body.wod_id,
-    result: body.result,
-    notes: body.notes,
-    date: body.date,
-  };
+const createNewRecord = async (req, res, next) => {
   try {
-    const createdRecord = await recordService.createNewRecord(newRecord);
+    const createdRecord = await recordService.createNewRecord(req.body);
     res.status(201).send({ status: "OK", data: createdRecord });
   } catch (error) {
-    res
-      .status(error?.status || 500)
-      .send({ status: "FAILED", data: { error: error?.message || error } });
+    next(error);
   }
 };
 
-const updateOneRecord = async (req, res) => {
-  const { recordId } = req.params;
-  const { body } = req;
-  if (!recordId) {
-    return res
-      .status(400)
-      .send({
-        status: "FAILED",
-        data: { error: "Parameter ':recordId' can not be empty" },
-      });
-  }
+const updateOneRecord = async (req, res, next) => {
   try {
-    const updatedRecord = await recordService.updateOneRecord(recordId, body);
+    const updatedRecord = await recordService.updateOneRecord(req.params.recordId, req.body);
     res.send({ status: "OK", data: updatedRecord });
   } catch (error) {
-    res
-      .status(error?.status || 500)
-      .send({ status: "FAILED", data: { error: error?.message || error } });
+    next(error);
   }
 };
 
-const deleteOneRecord = async (req, res) => {
-  const { recordId } = req.params;
-  if (!recordId) {
-    return res
-      .status(400)
-      .send({
-        status: "FAILED",
-        data: { error: "Parameter ':recordId' can not be empty" },
-      });
-  }
+const deleteOneRecord = async (req, res, next) => {
   try {
-    await recordService.deleteOneRecord(recordId);
-    res.status(204).send({ status: "OK" });
+    await recordService.deleteOneRecord(req.params.recordId);
+    res.status(204).send();
   } catch (error) {
-    res
-      .status(error?.status || 500)
-      .send({ status: "FAILED", data: { error: error?.message || error } });
+    next(error);
   }
 };
 
@@ -128,5 +61,5 @@ module.exports = {
   createNewRecord,
   updateOneRecord,
   deleteOneRecord,
-  getRecordForWorkout, // ya implementado
+  getRecordForWorkout,
 };

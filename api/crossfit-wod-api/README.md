@@ -9,7 +9,7 @@ API RESTful para la gestión de Workouts (WODs), Members y Records de CrossFit. 
 - Autenticación y autorización por roles (JWT)
 - Validación robusta y manejo de errores
 - Testing unitario y de integración
-- Documentación y scripts compartidos
+- Documentación Swagger y scripts compartidos
 
 ---
 ## Instalación y Ejecución
@@ -42,7 +42,7 @@ El servidor escucha en `http://localhost:3000`.
 - `/api/v1/records` - CRUD de records
 - Autenticación y roles protegidos por JWT
 
-Consulta el informe de desarrollo y la documentación Swagger (próximamente) para detalles completos.
+Documentación interactiva disponible en `http://localhost:3000/docs` (Swagger UI). Revisa el informe de desarrollo para más contexto.
 
 ---
 ## Testing
@@ -67,10 +67,10 @@ Consulta el informe de desarrollo y la documentación Swagger (próximamente) pa
 ---
 ## Mejoras Futuras
 
-- [ ] Documentación Swagger
+- [x] Documentación Swagger
 - [ ] Paginación y filtros avanzados
-- [ ] Despliegue con Docker
-- [ ] Logging y monitoreo
+- [x] Despliegue con Docker
+- [x] Logging estructurado con Winston
 
 ---
 ## Contribución

@@ -8,6 +8,7 @@ Monorepo para la aplicación Crossfit: API (Express) y Frontend (Vue).
 Plataforma full-stack para la gestión de entrenamientos, miembros y records en un box de CrossFit. Incluye backend Express con base de datos relacional (Knex/SQLite), frontend Vue.js con autenticación JWT y roles, y testing E2E con Cypress.
 
 **✅ Estado: MVP Funcional** - Revisión técnica completada (Sept 2025)
+**🆕 Octubre 2025:** Documentación Swagger, validaciones backend, suite E2E extendida y Docker para deploy
 
 ---
 ## Estado de Limpieza y Avance Global (2025-09-01)
@@ -71,13 +72,15 @@ Cada subcarpeta contiene su propio README con detalles específicos.
 ## Guía de Pruebas
 
 - **Backend:**
-  - Ejecuta `npm test` en `api/crossfit-wod-api` para pruebas unitarias/integración.
+  - `npm test` en `api/crossfit-wod-api` para tests unitarios/integración.
+  - `npm run migrate` / `npm run seed` para preparar la base de datos.
 - **Frontend:**
-  - Ejecuta `npm run cypress:open` en `frontend/my-first-vue-app/cypress` para pruebas E2E.
+  - `npm run cy:open` o `npm run cy:run` en `frontend/my-first-vue-app`.
+  - Nuevo spec `05-api-validation.cy.js` valida contratos/errores del backend.
 - **Base de datos:**
-  - Usa `scripts/check_db.js` para verificar la integridad.
+  - `node scripts/check_db.js` asegura integridad (desde `api/crossfit-wod-api`).
 - **Cobertura:**
-  - Ejecuta `npm run coverage` en el backend para reporte de cobertura.
+  - `npm run coverage` en el backend para reporte actualizado.
 
 ---
 ## Estado actual y Roadmap
@@ -88,13 +91,29 @@ Cada subcarpeta contiene su propio README con detalles específicos.
 - [x] Testing E2E con Cypress
 - [x] **Revisión técnica completa (MVP funcional)**
 - [x] **Fix integración frontend-backend**
-- [ ] Documentación API con Swagger
-- [ ] Despliegue conjunto (Docker, VPS, etc.)
+- [x] Documentación API con Swagger (`http://localhost:3000/docs`)
+- [x] Preparación de despliegue con Docker (`docker-compose.yml`)
+- [ ] Optimizaciones de performance
 
 **Próximos pasos:**
-1. Documentación API con Swagger
-2. Optimizaciones de performance
-3. Despliegue y CI/CD
+1. Optimizaciones de performance
+2. Pipeline CI/CD y monitoreo
+3. Ajustes UI/UX finales
+
+---
+## Docker y Despliegue
+
+1. Construir y levantar stack completo:
+  ```cmd
+  docker-compose up --build
+  ```
+2. Servicios disponibles:
+  - API: `http://localhost:3000` (Swagger en `/docs`)
+  - Frontend: `http://localhost:8080`
+3. Variables configurables vía `.env` o variables de entorno:
+  - `JWT_SECRET`, `LOG_LEVEL`, `SWAGGER_BASE_URL`, `VUE_APP_API_URL`
+
+> El volumen monta `ar360.db` para persistir datos fuera del contenedor.
 
 ---
 ## Decisiones técnicas

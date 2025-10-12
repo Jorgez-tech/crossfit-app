@@ -243,12 +243,14 @@
 import { ref, reactive, onMounted, computed } from 'vue';
 import { useAuthStore, useMemberStore } from '../stores/main';
 import apiService from '../services/api';
+import logger from '../utils/logger';
 
 export default {
   name: 'MembersList',
   setup() {
     const authStore = useAuthStore();
     const memberStore = useMemberStore();
+    const log = logger.scoped('MembersList');
     
     const loading = ref(false);
     const error = ref('');
@@ -296,7 +298,7 @@ export default {
           memberStore.setMembers(response.data.data);
         }
       } catch (err) {
-        console.error('Error cargando miembros:', err);
+        log.error('Error cargando miembros', err);
         error.value = 'Error al cargar los miembros';
       } finally {
         loading.value = false;
@@ -321,7 +323,7 @@ export default {
           cancelCreate();
         }
       } catch (err) {
-        console.error('Error creando miembro:', err);
+        log.error('Error creando miembro', err);
         if (err.response && err.response.data && err.response.data.data) {
           error.value = err.response.data.data.error || 'Error al crear el miembro';
         } else {
@@ -375,7 +377,7 @@ export default {
           closeEditModal();
         }
       } catch (err) {
-        console.error('Error actualizando miembro:', err);
+        log.error('Error actualizando miembro', err);
         error.value = 'Error al actualizar el miembro';
       } finally {
         loading.value = false;
@@ -391,7 +393,7 @@ export default {
         await apiService.deleteMember(memberId);
         await loadMembers();
       } catch (err) {
-        console.error('Error eliminando miembro:', err);
+        log.error('Error eliminando miembro', err);
         error.value = 'Error al eliminar el miembro';
       }
     };

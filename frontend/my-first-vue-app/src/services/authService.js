@@ -1,6 +1,8 @@
 import axios from 'axios';
+import logger from '../utils/logger';
 
 const API_BASE_URL = process.env.VUE_APP_API_URL || 'http://localhost:3000/api/v1';
+const log = logger.scoped('AuthService');
 
 // Cliente axios específico para autenticación
 const authClient = axios.create({
@@ -26,7 +28,7 @@ class AuthService {
             }
             return response.data;
         } catch (error) {
-            console.error('Error en registro:', error);
+            log.error('Error en registro', error);
             throw error;
         }
     }
@@ -40,7 +42,7 @@ class AuthService {
             }
             return response.data;
         } catch (error) {
-            console.error('Error en login:', error);
+            log.error('Error en login', error);
             throw error;
         }
     }

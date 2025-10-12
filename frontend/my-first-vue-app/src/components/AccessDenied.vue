@@ -151,6 +151,7 @@
 import { computed } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useAuthStore } from '../stores/main';
+import logger from '../utils/logger';
 
 export default {
   name: 'AccessDenied',
@@ -158,6 +159,7 @@ export default {
     const router = useRouter();
     const route = useRoute();
     const authStore = useAuthStore();
+    const log = logger.scoped('AccessDenied');
     
     const isDevelopment = process.env.NODE_ENV === 'development';
     
@@ -210,12 +212,12 @@ export default {
 
     const getRecommendedRoute = () => {
       if (!authStore.isAuthenticated) return '/login';
-      return authStore.user?.role === 'entrenador' ? '/trainer' : '/athlete';
+  return authStore.user?.role === 'entrenador' ? '/trainer' : '/athlete';
     };
 
     const getRecommendedRouteText = () => {
       if (!authStore.isAuthenticated) return 'Login';
-      return authStore.user?.role === 'entrenador' ? 'Panel de Entrenador' : 'Panel de Atleta';
+  return authStore.user?.role === 'entrenador' ? 'Panel de Entrenador' : 'Panel de Atleta';
     };
 
     const goBack = () => {
@@ -246,7 +248,7 @@ export default {
         userAgent: navigator.userAgent
       };
       
-      console.log('Reporte de problema:', issueData);
+      log.info('Reporte de problema generado', issueData);
       alert('Reporte enviado.\n\nLa información del problema ha sido registrada para revisión.');
     };
 

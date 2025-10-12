@@ -1,11 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { useAuthStore } from './stores/main';
+import logger from './utils/logger';
 
 // Importaciones de componentes
 import HomeView from './components/HelloWorld.vue';
 import CrossfitWods from './components/CrossfitWods.vue';
 import LoginComponent from './components/LoginComponent.vue';
 import Dashboard from './components/Dashboard.vue';
+
+const log = logger.scoped('Router');
 
 const routes = [
   {
@@ -188,7 +191,7 @@ router.beforeEach(async (to, from, next) => {
     const requiresRole = to.matched.find(record => record.meta.requiresRole)?.meta.requiresRole;
     const requiredPermissions = to.matched.find(record => record.meta.permissions)?.meta.permissions;
 
-    console.log('Navegación:', {
+    log.debug('Intento de navegación', {
       to: to.path,
       requiresAuth,
       isAuthenticated: authStore.isAuthenticated,
@@ -199,7 +202,7 @@ router.beforeEach(async (to, from, next) => {
 
     // 1. Verificar autenticación
     if (requiresAuth && !authStore.isAuthenticated) {
-      console.warn('Acceso denegado: usuario no autenticado');
+      log.warn('Acceso denegado: usuario no autenticado');
       return next({
         path: '/login',
         query: { redirect: to.fullPath }
@@ -215,7 +218,7 @@ router.beforeEach(async (to, from, next) => {
 
     // 3. Verificar rol específico
     if (requiresRole && authStore.user?.role !== requiresRole) {
-      console.warn('Acceso denegado: rol insuficiente', {
+      log.warn('Acceso denegado por rol insuficiente', {
         required: requiresRole,
         actual: authStore.user?.role
       });
@@ -224,7 +227,7 @@ router.beforeEach(async (to, from, next) => {
 
     // 4. Verificar permisos específicos
     if (requiredPermissions && !hasPermission(authStore.user?.role, requiredPermissions)) {
-      console.warn('Acceso denegado: permisos insuficientes', {
+      log.warn('Acceso denegado por permisos insuficientes', {
         required: requiredPermissions,
         userRole: authStore.user?.role
       });
@@ -242,7 +245,7 @@ router.beforeEach(async (to, from, next) => {
     next();
 
   } catch (error) {
-    console.error('Error en guard de navegación:', error);
+    log.error('Error en guard de navegación', error);
     // En caso de error, redirigir a login
     authStore.logout();
     next('/login');
@@ -257,6 +260,6 @@ router.afterEach((to) => {
   }
 });
 
-console.log('Router configurado con', routes.length, 'rutas y guards avanzados de autenticación y permisos');
+log.info('Router configurado', { rutas: routes.length });
 
 export default router;

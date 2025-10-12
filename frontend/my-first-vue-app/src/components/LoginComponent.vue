@@ -107,12 +107,14 @@
 import { ref, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../stores/main';
+import logger from '../utils/logger';
 
 export default {
   name: 'LoginComponent',
   setup() {
     const router = useRouter();
     const authStore = useAuthStore();
+    const log = logger.scoped('LoginComponent');
     
     const isRegisterMode = ref(false);
     const loading = ref(false);
@@ -184,7 +186,7 @@ export default {
           }, 1000);
         }
       } catch (err) {
-        console.error('Error de autenticación:', err);
+        log.error('Error de autenticación', err);
         if (err.response && err.response.data && err.response.data.data) {
           error.value = err.response.data.data.error || 'Error en la autenticación';
         } else {

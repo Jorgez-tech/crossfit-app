@@ -90,6 +90,9 @@
 
 <script>
 import apiService from '../services/api.js';
+import logger from '../utils/logger.js';
+
+const log = logger.scoped('CrossfitWods');
 
 export default {
   name: 'CrossfitWods',
@@ -108,17 +111,11 @@ export default {
       
       try {
         const response = await apiService.getWods();
-        console.log('Respuesta completa de la API:', response);
-        console.log('Datos recibidos:', response.data);
-        console.log('Array de WODs:', response.data.data);
-        
-        // La API devuelve: { status: 'OK', data: [array de WODs] }
-        // Necesitamos acceder a response.data.data para obtener el array
         this.wods = response.data.data || [];
-        console.log('WODs asignados (corregido):', this.wods);
+        log.debug('WODs cargados correctamente', { cantidad: this.wods.length });
       } catch (error) {
         this.error = error.response?.data?.message || 'Error de conexión con la API';
-        console.error('Error fetching WODs:', error);
+        log.error('Error al obtener WODs', error);
       } finally {
         this.loading = false;
       }

@@ -194,10 +194,11 @@
 </template>
 
 <script>
-import { ref, reactive, onMounted, computed } from 'vue';
+import { ref, reactive, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore, useWodStore, useMemberStore, useRecordStore } from '../stores/main';
 import apiService from '../services/api';
+import logger from '../utils/logger';
 
 export default {
   name: 'UserProfile',
@@ -233,6 +234,8 @@ export default {
     
     const recentActivity = ref([]);
 
+    const log = logger.scoped('UserProfile');
+
     const loadUserData = async () => {
       try {
         // Cargar datos necesarios para estadísticas
@@ -250,7 +253,7 @@ export default {
         editForm.email = authStore.user?.email || '';
         
       } catch (error) {
-        console.error('Error cargando datos del usuario:', error);
+        log.error('Error cargando datos del usuario', error);
       }
     };
 
@@ -261,7 +264,7 @@ export default {
           recordStore.setRecords(response.data.data);
         }
       } catch (error) {
-        console.error('Error cargando records:', error);
+        log.error('Error cargando records', error);
       }
     };
 
@@ -272,7 +275,7 @@ export default {
           wodStore.setWods(response.data.data);
         }
       } catch (error) {
-        console.error('Error cargando WODs:', error);
+        log.error('Error cargando WODs', error);
       }
     };
 
@@ -285,7 +288,7 @@ export default {
           memberStore.setMembers(response.data.data);
         }
       } catch (error) {
-        console.error('Error cargando miembros:', error);
+        log.error('Error cargando miembros', error);
       }
     };
 
@@ -373,7 +376,7 @@ export default {
         alert('Perfil actualizado exitosamente');
         
       } catch (error) {
-        console.error('Error actualizando perfil:', error);
+        log.error('Error actualizando perfil', error);
         alert('Error al actualizar el perfil');
       } finally {
         updating.value = false;
@@ -398,7 +401,7 @@ export default {
         alert('Contraseña cambiada exitosamente');
         
       } catch (error) {
-        console.error('Error cambiando contraseña:', error);
+        log.error('Error cambiando contraseña', error);
         alert('Error al cambiar la contraseña');
       } finally {
         changingPassword.value = false;

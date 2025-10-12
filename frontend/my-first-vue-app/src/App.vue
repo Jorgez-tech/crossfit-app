@@ -35,19 +35,21 @@
 <script>
 import { useAuthStore } from './stores/main';
 import { useRouter } from 'vue-router';
+import logger from './utils/logger';
 
 export default {
   name: 'App',
   setup() {
     const authStore = useAuthStore();
     const router = useRouter();
+    const log = logger.scoped('App');
 
     const handleLogout = async () => {
       try {
         await authStore.logout();
         router.push('/login');
       } catch (error) {
-        console.error('Error en logout:', error);
+        log.error('Error durante el cierre de sesión', error);
       }
     };
 

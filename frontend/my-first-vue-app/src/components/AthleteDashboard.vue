@@ -297,6 +297,7 @@
 import { ref, reactive, onMounted, computed } from 'vue';
 import { useAuthStore, useWodStore, useMemberStore, useRecordStore } from '../stores/main';
 import apiService from '../services/api';
+import logger from '../utils/logger';
 
 export default {
   name: 'AthleteDashboard',
@@ -305,6 +306,7 @@ export default {
     const wodStore = useWodStore();
     const memberStore = useMemberStore();
     const recordStore = useRecordStore();
+    const log = logger.scoped('AthleteDashboard');
     
     const loading = reactive({
       wods: false,
@@ -352,8 +354,8 @@ export default {
       recordStore.records.filter(record => record.user_id === authStore.user?.id)
     );
     
-    const recentRecords = computed(() => 
-      myRecords.value
+    const recentRecords = computed(() =>
+      [...myRecords.value]
         .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
         .slice(0, 5)
     );
@@ -409,7 +411,7 @@ export default {
         setTodayWod();
         loadMotivation();
       } catch (error) {
-        console.error('Error cargando datos del dashboard:', error);
+        log.error('Error cargando datos del dashboard', error);
       }
     };
 
@@ -421,7 +423,7 @@ export default {
           wodStore.setWods(response.data.data);
         }
       } catch (error) {
-        console.error('Error cargando WODs:', error);
+        log.error('Error cargando WODs', error);
       } finally {
         loading.wods = false;
       }
@@ -435,7 +437,7 @@ export default {
           recordStore.setRecords(response.data.data);
         }
       } catch (error) {
-        console.error('Error cargando records:', error);
+        log.error('Error cargando records', error);
       } finally {
         loading.records = false;
       }
@@ -448,7 +450,7 @@ export default {
           memberStore.setMembers(response.data.data);
         }
       } catch (error) {
-        console.error('Error cargando miembros:', error);
+        log.error('Error cargando miembros', error);
       }
     };
 
@@ -528,7 +530,7 @@ export default {
           closeRecordModal();
         }
       } catch (error) {
-        console.error('Error registrando record:', error);
+        log.error('Error registrando record', error);
         alert('Error al registrar el record');
       } finally {
         submittingRecord.value = false;
@@ -549,13 +551,13 @@ export default {
 
     const startWod = (wod) => {
       // Implementar cronómetro o lógica de WOD
-      console.log('Iniciando WOD:', wod);
+      log.debug('Iniciando WOD', wod);
       alert(`¡Iniciando ${wod.name}! Dale con todo 💪`);
     };
 
     const viewWodDetails = (wod) => {
       // Navegar a detalles del WOD
-      console.log('Ver detalles del WOD:', wod);
+      log.debug('Ver detalles del WOD', wod);
     };
 
     const getWodAttempts = (wodId) => {

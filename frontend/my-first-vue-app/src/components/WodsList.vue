@@ -178,12 +178,14 @@
 import { ref, reactive, onMounted, computed } from 'vue';
 import { useAuthStore, useWodStore } from '../stores/main';
 import apiService from '../services/api';
+import logger from '../utils/logger';
 
 export default {
   name: 'WodsList',
   setup() {
     const authStore = useAuthStore();
     const wodStore = useWodStore();
+    const log = logger.scoped('WodsList');
     
     const loading = ref(false);
     const error = ref('');
@@ -214,7 +216,7 @@ export default {
           wodStore.setWods(response.data.data);
         }
       } catch (err) {
-        console.error('Error cargando WODs:', err);
+        log.error('Error cargando WODs', err);
         error.value = 'Error al cargar los WODs';
       } finally {
         loading.value = false;
@@ -242,7 +244,7 @@ export default {
           cancelCreate();
         }
       } catch (err) {
-        console.error('Error creando WOD:', err);
+        log.error('Error creando WOD', err);
         error.value = 'Error al crear el WOD';
       } finally {
         loading.value = false;
@@ -269,7 +271,7 @@ export default {
     };
 
     const editWod = (wod) => {
-      console.log('Editar WOD:', wod.id);
+      log.debug('Editar WOD solicitado', { id: wod.id });
       // TODO: Implementar edición
     };
 
@@ -282,7 +284,7 @@ export default {
         await apiService.deleteWod(wodId);
         await loadWods(); // Recargar lista
       } catch (err) {
-        console.error('Error eliminando WOD:', err);
+        log.error('Error eliminando WOD', err);
         error.value = 'Error al eliminar el WOD';
       }
     };

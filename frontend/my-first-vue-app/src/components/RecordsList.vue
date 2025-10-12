@@ -222,12 +222,14 @@
 import { ref, reactive, onMounted, computed } from 'vue';
 import { useAuthStore, useRecordStore } from '../stores/main';
 import apiService from '../services/api';
+import logger from '../utils/logger';
 
 export default {
   name: 'RecordsList',
   setup() {
     const authStore = useAuthStore();
     const recordStore = useRecordStore();
+    const log = logger.scoped('RecordsList');
     
     const loading = ref(false);
     const error = ref('');
@@ -256,7 +258,7 @@ export default {
     );
     
     const filteredRecords = computed(() => {
-      let filtered = records.value;
+      let filtered = [...records.value];
       
       // Filtrar por usuario si no es entrenador (solo sus propios records)
       if (!authStore.isTrainer) {
@@ -276,14 +278,15 @@ export default {
       // Filtrar por fecha
       if (dateFilter.value) {
         const now = new Date();
+        const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+
         filtered = filtered.filter(record => {
           const recordDate = new Date(record.date);
-          
+
           switch (dateFilter.value) {
             case 'today':
               return recordDate.toDateString() === now.toDateString();
             case 'week':
-              const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
               return recordDate >= weekAgo;
             case 'month':
               return recordDate.getMonth() === now.getMonth() && 
@@ -310,7 +313,7 @@ export default {
           recordStore.setRecords(response.data.data);
         }
       } catch (err) {
-        console.error('Error cargando records:', err);
+        log.error('Error cargando records', err);
         error.value = 'Error al cargar los records';
       } finally {
         loading.value = false;
@@ -324,7 +327,7 @@ export default {
           availableWods.value = response.data.data;
         }
       } catch (err) {
-        console.error('Error cargando WODs:', err);
+        log.error('Error cargando WODs', err);
       }
     };
 
@@ -337,7 +340,7 @@ export default {
           availableUsers.value = response.data.data;
         }
       } catch (err) {
-        console.error('Error cargando usuarios:', err);
+        log.error('Error cargando usuarios', err);
       }
     };
 
@@ -357,7 +360,7 @@ export default {
           cancelCreate();
         }
       } catch (err) {
-        console.error('Error creando record:', err);
+        log.error('Error creando record', err);
         error.value = 'Error al crear el record';
       } finally {
         loading.value = false;
@@ -401,7 +404,7 @@ export default {
           closeEditModal();
         }
       } catch (err) {
-        console.error('Error actualizando record:', err);
+        log.error('Error actualizando record', err);
         error.value = 'Error al actualizar el record';
       } finally {
         loading.value = false;
@@ -417,7 +420,7 @@ export default {
         await apiService.deleteRecord(recordId);
         await loadRecords();
       } catch (err) {
-        console.error('Error eliminando record:', err);
+        log.error('Error eliminando record', err);
         error.value = 'Error al eliminar el record';
       }
     };

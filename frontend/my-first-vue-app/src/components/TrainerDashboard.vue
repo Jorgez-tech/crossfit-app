@@ -248,6 +248,7 @@
 import { ref, reactive, onMounted, computed } from 'vue';
 import { useAuthStore, useWodStore, useMemberStore, useRecordStore } from '../stores/main';
 import apiService from '../services/api';
+import logger from '../utils/logger';
 
 export default {
   name: 'TrainerDashboard',
@@ -256,6 +257,7 @@ export default {
     const wodStore = useWodStore();
     const memberStore = useMemberStore();
     const recordStore = useRecordStore();
+    const log = logger.scoped('TrainerDashboard');
     
     const loading = reactive({
       wods: false,
@@ -324,7 +326,7 @@ export default {
         
         calculateStats();
       } catch (error) {
-        console.error('Error cargando datos del dashboard:', error);
+        log.error('Error cargando datos del dashboard', error);
       }
     };
 
@@ -336,7 +338,7 @@ export default {
           wodStore.setWods(response.data.data);
         }
       } catch (error) {
-        console.error('Error cargando WODs:', error);
+        log.error('Error cargando WODs', error);
       } finally {
         loading.wods = false;
       }
@@ -350,7 +352,7 @@ export default {
           memberStore.setMembers(response.data.data);
         }
       } catch (error) {
-        console.error('Error cargando miembros:', error);
+        log.error('Error cargando miembros', error);
       } finally {
         loading.members = false;
       }
@@ -364,7 +366,7 @@ export default {
           recordStore.setRecords(response.data.data);
         }
       } catch (error) {
-        console.error('Error cargando records:', error);
+        log.error('Error cargando records', error);
       } finally {
         loading.records = false;
       }
@@ -399,7 +401,7 @@ export default {
           closeCreateWodModal();
         }
       } catch (error) {
-        console.error('Error creando WOD:', error);
+        log.error('Error creando WOD', error);
         alert('Error al crear el WOD');
       } finally {
         creatingWod.value = false;
@@ -413,7 +415,7 @@ export default {
 
     const viewMemberDetails = (member) => {
       // Implementar vista detallada del miembro
-      console.log('Ver detalles de:', member);
+      log.debug('Solicitud de detalle de miembro', { id: member.id });
     };
 
     const getWodRecordsCount = (wodId) => {

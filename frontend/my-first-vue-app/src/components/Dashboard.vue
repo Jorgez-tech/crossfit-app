@@ -84,16 +84,18 @@
 </template>
 
 <script>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../stores/main';
 import apiService from '../services/api';
+import logger from '../utils/logger';
 
 export default {
-  name: 'Dashboard',
+  name: 'DashboardHome',
   setup() {
     const router = useRouter();
     const authStore = useAuthStore();
+    const log = logger.scoped('Dashboard');
     
     const stats = ref({
       totalWods: 0,
@@ -132,7 +134,7 @@ export default {
           }
         }
       } catch (error) {
-        console.error('Error cargando datos del dashboard:', error);
+        log.error('Fallo cargando datos del dashboard', error);
       } finally {
         loading.value = false;
       }

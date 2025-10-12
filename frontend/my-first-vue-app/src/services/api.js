@@ -1,5 +1,8 @@
 import axios from 'axios';
 import authService from './authService';
+import logger from '../utils/logger';
+
+const log = logger.scoped('ApiService');
 
 // Configuración base de la API
 const apiClient = axios.create({
@@ -28,7 +31,7 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
     response => response,
     error => {
-        console.error('API Error:', error.message);
+        log.error('Error en llamada a la API', error);
 
         // Si es error 401 (no autorizado), cerrar sesión
         if (error.response && error.response.status === 401) {

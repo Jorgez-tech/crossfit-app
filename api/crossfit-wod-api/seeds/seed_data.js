@@ -10,6 +10,8 @@
  * en la salida estándar (solo para uso local).
  */
 
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 
@@ -25,13 +27,16 @@ exports.seed = async function (knex) {
     await knex('users').del();
 
     // Leer contraseñas desde variables de entorno o generarlas en tiempo de ejecución
-    const trainerPassword = process.env.DEV_TRAINER_PASSWORD || genPassword(12);
-    const athletePassword = process.env.DEV_ATHLETE_PASSWORD || genPassword(12);
+    const trainerPassword = process.env.DEV_TRAINER_PASSWORD || 'trainer123';
+    const athletePassword = process.env.DEV_ATHLETE_PASSWORD || 'athlete123';
 
-    // Aviso: solo imprimimos las credenciales cuando no vienen de variables de entorno
-    if (!process.env.DEV_TRAINER_PASSWORD || !process.env.DEV_ATHLETE_PASSWORD) {
-        console.log('Seed: credenciales generadas para desarrollo (no están en el repo):');
+    // Aviso: solo imprimimos las credenciales cuando provienen de valores por defecto
+    if (!process.env.DEV_TRAINER_PASSWORD) {
+        console.log('Seed: usando contraseña por defecto para entrenador (configura DEV_TRAINER_PASSWORD para sobreescribir).');
         console.log(`  entrenador -> email: carlos@box.com  password: ${trainerPassword}`);
+    }
+    if (!process.env.DEV_ATHLETE_PASSWORD) {
+        console.log('Seed: usando contraseña por defecto para atleta (configura DEV_ATHLETE_PASSWORD para sobreescribir).');
         console.log(`  atleta     -> email: ana@box.com     password: ${athletePassword}`);
     }
 

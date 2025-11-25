@@ -1,23 +1,8 @@
 <template>
   <div class="home">
-    <h2 class="main-title">
-      🔥 Prepárate para superar tu próximo WOD
-    </h2>
-    <img 
-      src="@/assets/alto-rendimiento.png" 
-      alt="Imagen motivacional de alto rendimiento: atletas entrenando CrossFit con determinación y profesionalismo" 
-      class="hero-image" 
-    />
-    <section class="contact-section">
-      <h3>Contacto y Redes Sociales</h3>
-      <ul role="list" class="social-links">
-        <li><a href="mailto:tu-correo@ejemplo.com" target="_blank" rel="noopener" aria-label="Enviar correo electrónico">📧 Correo</a></li>
-        <li><a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Seguir en Facebook">🌐 Facebook</a></li>
-        <li><a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Seguir en Instagram">📸 Instagram</a></li>
-        <li><a href="https://www.twitter.com/" target="_blank" rel="noopener" aria-label="Seguir en Twitter">🐦 Twitter</a></li>
-        <li><a href="https://wa.me/" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">💬 WhatsApp</a></li>
-      </ul>
-    </section>
+    <p class="home-legend">
+      Alto Rendimiento 360 · Donde cada WOD impulsa tu siguiente marca personal.
+    </p>
   </div>
 </template>
 
@@ -36,50 +21,23 @@ export default {
 <style scoped>
 .home {
   padding: var(--spacing-xl, 32px) var(--spacing-lg, 24px);
-  max-width: 1200px;
-  margin: 0 auto;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
+  min-height: calc(10vh - 260px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.main-title {
-  color: #e74c3c;
-  font-size: var(--font-size-2xl, 24px);
+/* contact-section removed */
+
+.home-legend {
+  max-width: 680px;
+  margin: 0;
+  font-size: var(--font-size-2xl, 26px);
   font-weight: 600;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  margin-bottom: var(--spacing-lg, 24px);
   line-height: 1.4;
-}
-
-.hero-image {
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  object-position: center;
-  margin-bottom: var(--spacing-xl, 32px);
-  border-radius: 8px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.hero-image:hover {
-  transform: scale(1.02);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-}
-
-.contact-section {
-  margin-top: var(--spacing-xl, 32px);
-}
-
-.contact-section h3 {
-  font-size: var(--font-size-xl, 20px);
-  color: var(--color-text, #2c3e50);
-  margin-bottom: var(--spacing-lg, 24px);
-  font-weight: 600;
+  text-align: center;
+  color: rgba(199, 198, 198, 0.92);
+  text-shadow: 0 6px 18px rgba(15, 23, 42, 0.45);
 }
 
 .social-links {
@@ -128,16 +86,6 @@ export default {
 
 /* High contrast mode support */
 @media (prefers-contrast: high) {
-  .home {
-    background: #ffffff;
-    border: 2px solid #000000;
-  }
-  
-  .main-title {
-    color: #000000;
-    text-shadow: none;
-  }
-  
   .social-links a {
     background: #ffffff;
     color: #000000;
@@ -154,11 +102,14 @@ export default {
 @media (max-width: 768px) {
   .home {
     padding: var(--spacing-lg, 24px) var(--spacing-md, 16px);
-    margin: var(--spacing-md, 16px);
+    min-height: calc(100vh - 220px);
   }
-  
-  .main-title {
-    font-size: var(--font-size-xl, 20px);
+
+  /* contact-section removed */
+
+  .home-legend {
+    font-size: var(--font-size-xl, 22px);
+    padding: 0 var(--spacing-md, 16px);
   }
   
   .social-links {
@@ -174,14 +125,6 @@ export default {
 
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
-  .hero-image {
-    transition: none;
-  }
-  
-  .hero-image:hover {
-    transform: none;
-  }
-  
   .social-links a {
     transition: none;
   }

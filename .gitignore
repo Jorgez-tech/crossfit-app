@@ -1,4 +1,3 @@
-node_modules/
 frontend/my-first-vue-app/dist/
 
 # Local env and DB
@@ -9,3 +8,63 @@ frontend/my-first-vue-app/dist/
 .vscode/
 .vs/
 *.log
+
+###########################################################
+# Global ignores
+###########################################################
+node_modules/
+dist/
+build/
+coverage/
+.env
+*.env*
+*.db
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# IDE/editor config
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS files
+.DS_Store
+Thumbs.db
+
+###########################################################
+# API specific
+###########################################################
+api/node_modules/
+api/dist/
+api/build/
+api/coverage/
+api/.env
+api/*.db
+api/*.log
+
+###########################################################
+# Frontend specific
+###########################################################
+frontend/my-first-vue-app/node_modules/
+frontend/my-first-vue-app/dist/
+frontend/my-first-vue-app/.env*
+frontend/my-first-vue-app/*.log
+
+# Others
+*.bak
+*.backup
+.cache/
+.parcel-cache/
+.nyc_output/
+
+# Ignore test screenshots and videos
+frontend/my-first-vue-app/cypress/screenshots/
+frontend/my-first-vue-app/cypress/videos/

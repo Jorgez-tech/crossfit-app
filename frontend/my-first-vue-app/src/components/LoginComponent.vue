@@ -187,9 +187,14 @@ export default {
         }
       } catch (err) {
         log.error('Error de autenticación', err);
-        if (err.response && err.response.data && err.response.data.data) {
-          error.value = err.response.data.data.error || 'Error en la autenticación';
+        // El backend responde con { status: 'ERROR', message, details }
+        // También soportamos el caso legacy con data.data.error
+        const apiMessage = err.response?.data?.message || err.response?.data?.details || err.response?.data?.data?.error;
+        if (apiMessage) {
+          // Mostrar el mensaje devuelto por la API (útil en desarrollo)
+          error.value = apiMessage;
         } else {
+          // Fallback genérico cuando no hay respuesta o hubo un fallo de red
           error.value = 'Error de conexión. Inténtalo de nuevo.';
         }
       } finally {
@@ -243,6 +248,7 @@ export default {
   font-weight: 600;
   letter-spacing: -0.01em;
   background: linear-gradient(135deg, var(--color-primary, #2563eb), var(--color-accent, #0ea5e9));
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

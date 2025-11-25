@@ -94,45 +94,65 @@
     </div>
     
     <div v-else class="wods-grid">
-      <div 
-        v-for="wod in wods" 
-        :key="wod.id" 
+      <article
+        v-for="wod in wods"
+        :key="wod.id"
         class="wod-card"
         @click="selectWod(wod)"
       >
-        <h3>{{ wod.name }}</h3>
-        <p class="wod-mode">{{ wod.mode }}</p>
-        
-        <div class="wod-equipment" v-if="wod.equipment && wod.equipment.length">
-          <strong>Equipamiento:</strong>
-          <span class="equipment-tags">
-            <span v-for="equipment in wod.equipment" :key="equipment" class="equipment-tag">
-              {{ equipment }}
-            </span>
-          </span>
-        </div>
-        
-        <div class="wod-exercises">
-          <strong>Ejercicios:</strong>
-          <ul>
-            <li v-for="(exercise, index) in wod.exercises.slice(0, 3)" :key="index">
-              {{ exercise }}
-            </li>
-            <li v-if="wod.exercises.length > 3" class="more-exercises">
-              +{{ wod.exercises.length - 3 }} más...
-            </li>
-          </ul>
-        </div>
-        
-        <div class="wod-date">
-          <small>Creado: {{ formatDate(wod.created_at) }}</small>
-        </div>
-        
-        <div v-if="authStore.isTrainer" class="wod-actions">
-          <button @click.stop="editWod(wod)" class="edit-btn">Editar</button>
-          <button @click.stop="deleteWod(wod.id)" class="delete-btn">Eliminar</button>
-        </div>
-      </div>
+        <section class="wod-card-summary">
+          <div class="wod-card-headline">
+            <h3>{{ wod.name }}</h3>
+            <p class="wod-mode">{{ wod.mode || 'Sin modalidad' }}</p>
+          </div>
+
+          <div class="wod-equipment" v-if="wod.equipment && wod.equipment.length">
+            <strong>Equipamiento</strong>
+            <div class="equipment-tags">
+              <span v-for="equipment in wod.equipment" :key="equipment" class="equipment-tag">
+                {{ equipment }}
+              </span>
+            </div>
+          </div>
+
+          <div class="wod-date">
+            <small>Creado: {{ formatDate(wod.created_at) || 'Sin registro' }}</small>
+          </div>
+        </section>
+
+        <section class="wod-card-details">
+          <div class="wod-exercises">
+            <strong>Ejercicios</strong>
+            <ul>
+              <li v-for="(exercise, index) in wod.exercises.slice(0, 3)" :key="index">
+                {{ exercise }}
+              </li>
+              <li v-if="wod.exercises.length > 3" class="more-exercises">
+                +{{ wod.exercises.length - 3 }} más...
+              </li>
+              <li v-if="wod.exercises.length === 0" class="empty-exercise">Sin ejercicios definidos</li>
+            </ul>
+          </div>
+
+          <div class="wod-tips" v-if="wod.trainerTips && wod.trainerTips.length">
+            <strong>Consejos</strong>
+            <ul>
+              <li v-for="(tip, index) in wod.trainerTips.slice(0, 2)" :key="index">
+                {{ tip }}
+              </li>
+              <li v-if="wod.trainerTips.length > 2" class="more-tips">+{{ wod.trainerTips.length - 2 }} más...</li>
+            </ul>
+          </div>
+
+          <div class="wod-card-actions">
+            <button class="view-btn" @click.stop="selectWod(wod)">Ver detalles</button>
+            <div v-if="authStore.isTrainer" class="trainer-actions">
+              <button @click.stop="editWod(wod)" class="edit-btn">Editar</button>
+              <button @click.stop="deleteWod(wod.id)" class="delete-btn">Eliminar</button>
+            </div>
+          </div>
+        </section>
+      </article>
     </div>
 
     <!-- Modal para ver detalles del WOD -->
@@ -187,6 +207,47 @@ export default {
     const wodStore = useWodStore();
     const log = logger.scoped('WodsList');
     
+    const normalizeList = (value) => {
+      if (!value) return [];
+
+      if (Array.isArray(value)) {
+        return value
+          .map(item => {
+            if (item === undefined || item === null) return null;
+            return typeof item === 'string' ? item.trim() : String(item).trim();
+          })
+          .filter(item => item && item.length > 0);
+      }
+
+      if (typeof value === 'string') {
+        const trimmed = value.trim();
+        if (!trimmed) return [];
+
+        if (trimmed.startsWith('[') && trimmed.endsWith(']')) {
+          try {
+            const parsed = JSON.parse(trimmed);
+            return normalizeList(parsed);
+          } catch (parseError) {
+            log.warn('No se pudo parsear la lista JSON', { original: value, error: parseError });
+          }
+        }
+
+        return trimmed
+          .split(/[\r\n,]+/)
+          .map(item => item.trim())
+          .filter(item => item.length > 0);
+      }
+
+      return [];
+    };
+
+    const normalizeWod = (wod) => ({
+      ...wod,
+      equipment: normalizeList(wod?.equipment),
+      exercises: normalizeList(wod?.exercises),
+      trainerTips: normalizeList(wod?.trainerTips)
+    });
+
     const loading = ref(false);
     const error = ref('');
     const showCreateForm = ref(false);
@@ -213,7 +274,8 @@ export default {
       try {
         const response = await apiService.getWods();
         if (response.data.status === 'OK') {
-          wodStore.setWods(response.data.data);
+          const normalized = (response.data.data || []).map(normalizeWod);
+          wodStore.setWods(normalized);
         }
       } catch (err) {
         log.error('Error cargando WODs', err);
@@ -230,11 +292,11 @@ export default {
       try {
         // Preparar datos del WOD
         const wodData = {
-          name: newWod.name,
-          mode: newWod.mode,
-          equipment: equipmentString.value ? equipmentString.value.split(',').map(item => item.trim()) : [],
-          exercises: exercisesString.value.split('\n').filter(line => line.trim()),
-          trainerTips: tipsString.value ? tipsString.value.split('\n').filter(line => line.trim()) : []
+          name: newWod.name.trim(),
+          mode: newWod.mode.trim(),
+          equipment: normalizeList(equipmentString.value),
+          exercises: normalizeList(exercisesString.value),
+          trainerTips: normalizeList(tipsString.value)
         };
         
         const response = await apiService.createWod(wodData);
@@ -263,7 +325,7 @@ export default {
     };
 
     const selectWod = (wod) => {
-      selectedWod.value = wod;
+      selectedWod.value = normalizeWod(wod);
     };
 
     const closeModal = () => {
@@ -464,29 +526,47 @@ export default {
 }
 
 .wod-card {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  gap: 1.5rem;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(44, 62, 80, 0.08);
+  min-height: 220px;
+  align-items: stretch;
 }
 
 .wod-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
 }
 
-.wod-card h3 {
-  margin: 0 0 0.5rem 0;
-  color: #2c3e50;
-  font-size: 1.25rem;
+.wod-card-summary {
+  flex: 1 1 190px;
+  max-width: 210px;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.75rem 1.5rem;
+  justify-content: space-between;
 }
 
-.wod-mode {
-  color: #4CAF50;
-  font-weight: 500;
-  margin: 0 0 1rem 0;
+.wod-card-headline h3 {
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 1.3;
+}
+
+.wod-card-headline .wod-mode {
+  margin: 0.35rem 0 0 0;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 600;
+  font-size: 0.95rem;
 }
 
 .wod-equipment {
@@ -508,31 +588,124 @@ export default {
   font-size: 0.8rem;
 }
 
-.wod-exercises {
-  margin-bottom: 1rem;
-}
-
-.wod-exercises ul {
-  margin: 0.5rem 0 0 0;
-  padding-left: 1.5rem;
-}
-
-.wod-exercises li {
-  margin-bottom: 0.25rem;
-}
-
-.more-exercises {
-  color: #6c757d;
-  font-style: italic;
-}
-
 .wod-date {
   color: #6c757d;
   font-size: 0.9rem;
-  margin-bottom: 1rem;
 }
 
-.wod-actions {
+.wod-card-summary .wod-equipment {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.wod-card-summary .wod-equipment strong {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.wod-card-summary .equipment-tags {
+  gap: 0.4rem;
+  margin-top: 0;
+}
+
+.wod-card-summary .equipment-tag {
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #f8fafc;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  backdrop-filter: blur(4px);
+}
+
+.wod-card-summary .wod-date small {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.85rem;
+}
+
+.wod-card-details {
+  flex: 1 1 auto;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.wod-exercises,
+.wod-tips {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.wod-exercises strong,
+.wod-tips strong {
+  color: #1f2937;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}
+
+.wod-exercises ul,
+.wod-tips ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: #374151;
+  font-size: 0.95rem;
+}
+
+.wod-exercises li,
+.wod-tips li {
+  margin-bottom: 0.35rem;
+}
+
+.more-exercises,
+.more-tips {
+  color: #6b7280;
+  font-style: italic;
+}
+
+.empty-exercise {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: #9ca3af;
+}
+
+.wod-card-actions {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.view-btn {
+  background: linear-gradient(135deg, #059669, #10b981);
+  color: #ffffff;
+  border: none;
+  padding: 0.65rem 1.5rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 8px 18px rgba(16, 185, 129, 0.22);
+}
+
+.view-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(16, 185, 129, 0.28);
+}
+
+.view-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.35), 0 12px 26px rgba(16, 185, 129, 0.25);
+}
+
+.trainer-actions {
   display: flex;
   gap: 0.5rem;
 }
@@ -610,6 +783,17 @@ export default {
   background-color: #5a6268;
 }
 
+@media (max-width: 1024px) {
+  .wod-card {
+    flex-direction: column;
+  }
+
+  .wod-card-summary {
+    flex-basis: auto;
+    border-radius: 12px 12px 0 0;
+  }
+}
+
 @media (max-width: 768px) {
   .wods-container {
     padding: 1rem;
@@ -623,6 +807,32 @@ export default {
 
   .wods-grid {
     grid-template-columns: 1fr;
+  }
+
+  .wod-card {
+    gap: 1rem;
+  }
+
+  .wod-card-details {
+    padding: 1.25rem;
+  }
+
+  .wod-card-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .view-btn {
+    width: 100%;
+  }
+
+  .trainer-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .trainer-actions button {
+    flex: 1 1 48%;
   }
 
   .form-actions {

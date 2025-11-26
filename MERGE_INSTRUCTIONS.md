@@ -1,6 +1,6 @@
 # Instrucciones para Merge - UI Improvements
 
-## 📋 Resumen de Cambios
+## Resumen de Cambios
 
 **Rama:** `feature/ui-improvements`  
 **Commit:** `114adf9`  
@@ -10,7 +10,7 @@
 
 ---
 
-## 🔍 Revisión Pre-Merge
+## Revisión Pre-Merge
 
 ### 1. Verificar que todo funciona
 ```bash
@@ -36,7 +36,7 @@ Sigue la guía en `TESTING_GUIDE.md`
 
 ---
 
-## 🚀 Opción 1: Merge Local (Recomendado para desarrollo individual)
+## Opción 1: Merge Local (Recomendado para desarrollo individual)
 
 ### Paso 1: Actualizar main
 ```bash
@@ -74,7 +74,7 @@ git push origin --delete feature/ui-improvements
 
 ---
 
-## 🌐 Opción 2: Pull Request en GitHub (Recomendado para equipos)
+## Opción 2: Pull Request en GitHub (Recomendado para equipos)
 
 ### Paso 1: Push de la rama feature
 ```bash
@@ -100,10 +100,10 @@ feat: UI improvements - responsive hero, hover effects, and WOD cards
 
 **Descripción:**
 ```markdown
-## 🎯 Objetivo
+## Objetivo
 Implementar mejoras visuales en la interfaz de usuario para mejorar la experiencia del usuario.
 
-## ✨ Cambios Implementados
+## Cambios Implementados
 
 ### 1. Home - Imagen Hero Responsive
 - Imagen ajustada con aspect-ratio 16:9
@@ -126,30 +126,30 @@ Implementar mejoras visuales en la interfaz de usuario para mejorar la experienc
 - Efectos hover con elevación
 - Modal de detalles mejorado
 
-## 📱 Responsive
+## Responsive
 - Desktop: 3-4 cards por fila
 - Tablet: 2 cards por fila
 - Mobile: 1 card por fila
 
-## ♿ Accesibilidad
+## Accesibilidad
 - Soporte para prefers-reduced-motion
 - Soporte para prefers-contrast: high
 - Touch targets mínimo 44px (WCAG 2.1 AA)
 - ARIA labels en todos los botones
 
-## 📁 Archivos Modificados
+## Archivos Modificados
 - `frontend/my-first-vue-app/src/components/HelloWorld.vue`
 - `frontend/my-first-vue-app/src/App.vue`
 - `frontend/my-first-vue-app/src/components/CrossfitWods.vue`
 - `UI_IMPROVEMENTS.md` (nuevo)
 
-## 🧪 Testing
+## Testing
 Ver `TESTING_GUIDE.md` para instrucciones detalladas de prueba.
 
-## 📸 Screenshots
+## Screenshots
 [Agregar screenshots aquí]
 
-## ✅ Checklist
+## Checklist
 - [x] Código funciona localmente
 - [x] Sin errores en consola
 - [x] Responsive en todos los breakpoints
@@ -180,7 +180,7 @@ git pull origin main
 
 ---
 
-## 🔄 Opción 3: Squash Merge (Para historial limpio)
+## Opción 3: Squash Merge (Para historial limpio)
 
 Si prefieres un historial más limpio:
 
@@ -209,7 +209,7 @@ git push origin main
 
 ---
 
-## ⚠️ Manejo de Conflictos
+## Manejo de Conflictos
 
 Si hay conflictos durante el merge:
 
@@ -245,7 +245,7 @@ git commit -m "Merge feature/ui-improvements - resolved conflicts"
 
 ---
 
-## 🧹 Limpieza Post-Merge
+## Limpieza Post-Merge
 
 ### Eliminar rama local
 ```bash
@@ -271,7 +271,7 @@ git branch -a
 
 ---
 
-## 📊 Verificación Post-Merge
+## Verificación Post-Merge
 
 ### 1. Verificar que main tiene los cambios
 ```bash
@@ -293,7 +293,7 @@ npm run serve
 
 ---
 
-## 🎯 Checklist Final
+## Checklist Final
 
 Antes de considerar el merge completo:
 
@@ -310,7 +310,7 @@ Antes de considerar el merge completo:
 
 ---
 
-## 🚨 Rollback (Si algo sale mal)
+## Rollback (Si algo sale mal)
 
 ### Opción 1: Revert del merge
 ```bash
@@ -346,7 +346,7 @@ git push origin hotfix/revert-ui-improvements
 
 ---
 
-## 📝 Notas Importantes
+## Notas Importantes
 
 1. **Siempre haz backup** antes de hacer merge importante
 2. **Comunica al equipo** antes de hacer merge a main
@@ -356,9 +356,9 @@ git push origin hotfix/revert-ui-improvements
 
 ---
 
-## 🎉 Después del Merge
+## Después del Merge
 
-1. **Celebra** 🎊 - Has completado una feature importante
+1. **Celebra** - Has completado una feature importante
 2. **Documenta** - Actualiza wikis o documentación del proyecto
 3. **Comunica** - Notifica al equipo sobre los nuevos cambios
 4. **Monitorea** - Observa métricas y feedback de usuarios
@@ -369,4 +369,4 @@ git push origin hotfix/revert-ui-improvements
 **Creado:** 2025-10-03  
 **Rama:** feature/ui-improvements  
 **Commit:** 114adf9  
-**Estado:** ✅ Listo para merge
+**Estado:** Listo para merge

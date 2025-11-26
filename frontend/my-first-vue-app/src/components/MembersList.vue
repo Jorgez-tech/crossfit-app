@@ -164,10 +164,10 @@
         
         <div class="member-actions">
           <button @click="editMember(member)" class="edit-btn" title="Editar">
-            ✏️
+            Editar
           </button>
           <button @click="deleteMember(member.id)" class="delete-btn" title="Eliminar">
-            🗑️
+            Eliminar
           </button>
         </div>
       </div>

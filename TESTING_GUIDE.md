@@ -1,11 +1,11 @@
 # Guía de Pruebas - UI Improvements
 
-## 🎯 Objetivo
+## Objetivo
 Verificar que las mejoras de UI funcionan correctamente en diferentes escenarios y dispositivos.
 
 ---
 
-## 🚀 Cómo Iniciar la Aplicación
+## Cómo Iniciar la Aplicación
 
 ### 1. Backend (API)
 ```bash
@@ -25,9 +25,9 @@ La aplicación debería estar corriendo en `http://localhost:8080`
 
 ---
 
-## ✅ Checklist de Pruebas
+## Checklist de Pruebas
 
-### 📱 Home Page (HelloWorld.vue)
+### Home Page (HelloWorld.vue)
 
 #### Imagen Hero
 - [ ] La imagen se muestra con aspecto 16:9 en desktop
@@ -45,7 +45,7 @@ La aplicación debería estar corriendo en `http://localhost:8080`
 
 ---
 
-### 🧭 Navegación (App.vue)
+### Navegación (App.vue)
 
 #### Efectos Hover en Botones
 - [ ] Al hacer hover, el botón se eleva 3px
@@ -62,7 +62,7 @@ La aplicación debería estar corriendo en `http://localhost:8080`
 
 ---
 
-### 🏋️ CrossFit WODs (CrossfitWods.vue)
+### CrossFit WODs (CrossfitWods.vue)
 
 #### Grid de Cards
 - [ ] Desktop (>1200px): 3-4 cards por fila
@@ -117,7 +117,7 @@ La aplicación debería estar corriendo en `http://localhost:8080`
 
 ---
 
-## 🎨 Pruebas de Accesibilidad
+## Pruebas de Accesibilidad
 
 ### Reduced Motion
 1. Activar "Reduce motion" en el sistema operativo
@@ -146,7 +146,7 @@ La aplicación debería estar corriendo en `http://localhost:8080`
 
 ---
 
-## 📐 Pruebas de Responsive
+## Pruebas de Responsive
 
 ### Breakpoints a Probar
 
@@ -184,7 +184,7 @@ La aplicación debería estar corriendo en `http://localhost:8080`
 
 ---
 
-## 🌐 Navegadores a Probar
+## Navegadores a Probar
 
 - [ ] Chrome (última versión)
 - [ ] Firefox (última versión)
@@ -195,7 +195,7 @@ La aplicación debería estar corriendo en `http://localhost:8080`
 
 ---
 
-## 🐛 Problemas Conocidos a Verificar
+## Problemas Conocidos a Verificar
 
 ### Posibles Issues
 
@@ -221,7 +221,7 @@ La aplicación debería estar corriendo en `http://localhost:8080`
 
 ---
 
-## 📊 Métricas de Éxito
+## Métricas de Éxito
 
 ### Performance
 - [ ] Tiempo de carga < 3 segundos
@@ -240,7 +240,7 @@ La aplicación debería estar corriendo en `http://localhost:8080`
 
 ---
 
-## 🔧 Herramientas de Desarrollo
+## Herramientas de Desarrollo
 
 ### Chrome DevTools
 ```
@@ -263,7 +263,7 @@ Verificar:
 
 ---
 
-## 📸 Screenshots Recomendados
+## Screenshots Recomendados
 
 Tomar screenshots de:
 1. Home con imagen hero (desktop y mobile)
@@ -274,24 +274,24 @@ Tomar screenshots de:
 
 ---
 
-## ✅ Criterios de Aceptación
+## Criterios de Aceptación
 
 Para considerar las mejoras exitosas:
 
-1. ✅ Imagen hero responsive sin distorsión
-2. ✅ Botones de navegación con efectos suaves
-3. ✅ WODs en cards profesionales
-4. ✅ Grid responsive en todos los tamaños
-5. ✅ Información estructurada y legible
-6. ✅ Efectos hover funcionando
-7. ✅ Accesibilidad completa
-8. ✅ Sin errores en consola
-9. ✅ Performance aceptable
-10. ✅ Funciona en todos los navegadores
+1. Imagen hero responsive sin distorsión
+2. Botones de navegación con efectos suaves
+3. WODs en cards profesionales
+4. Grid responsive en todos los tamaños
+5. Información estructurada y legible
+6. Efectos hover funcionando
+7. Accesibilidad completa
+8. Sin errores en consola
+9. Performance aceptable
+10. Funciona en todos los navegadores
 
 ---
 
-## 🚨 Reporte de Bugs
+## Reporte de Bugs
 
 Si encuentras algún problema, documenta:
 
@@ -323,7 +323,7 @@ Si encuentras algún problema, documenta:
 
 ---
 
-## 📝 Notas Adicionales
+## Notas Adicionales
 
 ### Datos de Prueba
 Los WODs de prueba están en:

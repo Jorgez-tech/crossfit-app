@@ -2,7 +2,7 @@
 
 Frontend Vue.js para la gestión y visualización de WODs, miembros y records, integrado con la API CrossFit WOD y autenticación JWT.
 
-## 📋 Resumen Ejecutivo
+## Resumen Ejecutivo
 
 - Visualización y gestión completa de WODs
 - Paneles diferenciados para entrenador y atleta

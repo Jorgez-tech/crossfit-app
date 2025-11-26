@@ -132,11 +132,11 @@
       <h2>Seguridad</h2>
       <div class="security-options">
         <button @click="showChangePassword = true" class="security-btn">
-          <span class="icon">🔐</span>
+          <span class="icon"></span>
           Cambiar Contraseña
         </button>
         <button @click="logout" class="security-btn danger">
-          <span class="icon">🚪</span>
+          <span class="icon"></span>
           Cerrar Sesión
         </button>
       </div>
@@ -329,7 +329,7 @@ export default {
         const wod = wodStore.wods.find(w => w.id === record.wod_id);
         activities.push({
           id: `record-${record.id}`,
-          icon: '🏆',
+          icon: '',
           title: 'Nuevo Record Registrado',
           description: `Completaste ${wod?.name || 'WOD'} con resultado: ${record.result}`,
           date: record.created_at
@@ -345,7 +345,7 @@ export default {
         recentWods.forEach(wod => {
           activities.push({
             id: `wod-${wod.id}`,
-            icon: '💪',
+            icon: '',
             title: 'Nuevo WOD Creado',
             description: `Creaste el WOD "${wod.name}" (${wod.mode})`,
             date: wod.created_at

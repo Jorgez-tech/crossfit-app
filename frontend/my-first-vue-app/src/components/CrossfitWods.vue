@@ -1,7 +1,7 @@
 <template>
   <div class="crossfit-wods">
     <header class="wods-header">
-      <h2>🏋️ CrossFit WODs</h2>
+      <h2>CrossFit WODs</h2>
       <button @click="fetchWods" class="refresh-btn" :disabled="loading" :aria-label="loading ? 'Cargando entrenamientos' : 'Actualizar lista de entrenamientos'">
         {{ loading ? 'Cargando...' : 'Actualizar' }}
       </button>
@@ -15,7 +15,7 @@
 
     <!-- Error state -->
     <div v-else-if="error" class="error" role="alert" aria-live="assertive">
-      <p>❌ Error al cargar los WODs: {{ error }}</p>
+      <p>Error al cargar los WODs: {{ error }}</p>
       <button @click="fetchWods" class="retry-btn" aria-label="Reintentar carga de entrenamientos">Reintentar</button>
     </div>
 
@@ -31,7 +31,7 @@
           </div>
           <div class="wod-meta">
             <span class="wod-date" v-if="wod.created_at">
-              📅 {{ formatDate(wod.created_at) }}
+              {{ formatDate(wod.created_at) }}
             </span>
           </div>
         </div>
@@ -42,7 +42,7 @@
           </div>
           
           <div class="wod-exercises-section">
-            <h4 class="exercises-title">🏋️ Ejercicios</h4>
+            <h4 class="exercises-title">Ejercicios</h4>
             <div class="exercises-content">
               {{ formatExercises(wod.exercises) }}
             </div>
@@ -51,7 +51,7 @@
         
         <div class="wod-card-footer">
           <button @click="selectWod(wod)" class="wod-action-btn" :aria-label="`Ver detalles de ${wod.name}`">
-            <span class="btn-icon">👁️</span>
+            <span class="btn-icon"></span>
             <span class="btn-text">Ver Detalles</span>
           </button>
         </div>
@@ -68,7 +68,7 @@
     <div v-if="selectedWod" class="modal-overlay" @click="closeModal" role="dialog" aria-modal="true" :aria-label="`Detalles del entrenamiento ${selectedWod.name}`">
       <div class="modal-content" @click.stop>
         <header class="modal-header">
-          <h3 id="modal-title">🎯 {{ selectedWod.name }}</h3>
+          <h3 id="modal-title">{{ selectedWod.name }}</h3>
           <button @click="closeModal" class="close-btn" aria-label="Cerrar ventana de detalles">&times;</button>
         </header>
         <div class="modal-body" role="document">
@@ -80,7 +80,7 @@
         </div>
         <footer class="modal-footer">
           <button @click="startWorkout" class="start-workout-btn" :aria-label="`Iniciar entrenamiento ${selectedWod.name}`">
-            🚀 Iniciar Entrenamiento
+            Iniciar Entrenamiento
           </button>
         </footer>
       </div>
@@ -156,7 +156,7 @@ export default {
       this.selectedWod = null;
     },
     startWorkout() {
-      alert(`¡Iniciando entrenamiento: ${this.selectedWod.name}! 💪`);
+      alert(`¡Iniciando entrenamiento: ${this.selectedWod.name}!`);
       this.closeModal();
       // Aquí puedes agregar lógica para temporizador, registro de progreso, etc.
     },

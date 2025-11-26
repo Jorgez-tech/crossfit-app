@@ -13,11 +13,11 @@
           Crear WOD
         </button>
         <button @click="$router.push('/members')" class="action-btn secondary" data-cy="manage-members-link">
-          <span class="icon">👥</span>
+          <span class="icon"></span>
           Gestionar Atletas
         </button>
         <button @click="showReportsModal = true" class="action-btn tertiary">
-          <span class="icon">📊</span>
+          <span class="icon"></span>
           Ver Reportes
         </button>
       </div>
@@ -26,7 +26,7 @@
     <!-- Estadísticas principales -->
     <div class="stats-grid" data-cy="trainer-stats">
       <div class="stat-card">
-        <div class="stat-icon">🏋️‍♂️</div>
+        <div class="stat-icon"></div>
         <div class="stat-content">
           <h3>{{ stats.totalWods }}</h3>
           <p>WODs Creados</p>
@@ -35,7 +35,7 @@
       </div>
       
       <div class="stat-card">
-        <div class="stat-icon">👥</div>
+        <div class="stat-icon"></div>
         <div class="stat-content">
           <h3>{{ stats.totalMembers }}</h3>
           <p>Atletas Activos</p>
@@ -44,7 +44,7 @@
       </div>
       
       <div class="stat-card">
-        <div class="stat-icon">📈</div>
+        <div class="stat-icon"></div>
         <div class="stat-content">
           <h3>{{ stats.totalRecords }}</h3>
           <p>Records Registrados</p>
@@ -53,7 +53,7 @@
       </div>
       
       <div class="stat-card">
-        <div class="stat-icon">⭐</div>
+        <div class="stat-icon"></div>
         <div class="stat-content">
           <h3>{{ stats.averageAttendance }}%</h3>
           <p>Asistencia Promedio</p>
@@ -224,7 +224,7 @@
           <div class="report-card">
             <h3>Asistencia por Semana</h3>
             <div class="chart-placeholder">
-              📊 Gráfico de asistencia
+              Gráfico de asistencia
             </div>
           </div>
           <div class="report-card">

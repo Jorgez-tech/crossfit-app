@@ -3,7 +3,7 @@
 API RESTful para la gestión de Workouts (WODs), Members y Records de CrossFit. Backend Express con base de datos relacional (Knex/SQLite), autenticación JWT y roles, y testing con Jest/Supertest.
 
 ---
-## 📋 Resumen Ejecutivo
+## Resumen Ejecutivo
 
 - CRUD completo para Workouts, Members y Records
 - Autenticación y autorización por roles (JWT)

@@ -1,9 +1,7 @@
 <template>
   <div class="access-denied">
     <div class="access-denied-content">
-      <div class="error-icon">
-        🚫
-      </div>
+      <div class="error-icon"></div>
       
       <h1>Acceso Denegado</h1>
       
@@ -49,7 +47,7 @@
               :key="permission"
               class="permission-item"
             >
-              ✅ {{ getPermissionDisplayName(permission) }}
+              {{ getPermissionDisplayName(permission) }}
             </div>
           </div>
         </div>
@@ -61,7 +59,7 @@
         <div v-if="!authStore.isAuthenticated" class="action-section">
           <p>Inicia sesión para acceder a las funcionalidades de la aplicación:</p>
           <router-link to="/login" class="action-btn primary">
-            <span class="icon">🔑</span>
+            <span class="icon"></span>
             Iniciar Sesión
           </router-link>
         </div>
@@ -74,7 +72,7 @@
               :to="getRecommendedRoute()" 
               class="action-btn primary"
             >
-              <span class="icon">🏠</span>
+              <span class="icon"></span>
               Ir a {{ getRecommendedRouteText() }}
             </router-link>
             
@@ -83,7 +81,7 @@
               to="/wods" 
               class="action-btn secondary"
             >
-              <span class="icon">🏋️‍♂️</span>
+              <span class="icon"></span>
               Ver WODs
             </router-link>
             
@@ -91,7 +89,7 @@
               to="/records" 
               class="action-btn secondary"
             >
-              <span class="icon">📊</span>
+              <span class="icon"></span>
               Mis Records
             </router-link>
             
@@ -99,7 +97,7 @@
               to="/profile" 
               class="action-btn tertiary"
             >
-              <span class="icon">👤</span>
+              <span class="icon"></span>
               Mi Perfil
             </router-link>
           </div>
@@ -109,11 +107,11 @@
           <p>Si crees que deberías tener acceso a esta página:</p>
           <div class="contact-options">
             <button @click="contactAdmin" class="contact-btn">
-              <span class="icon">✉️</span>
+              <span class="icon"></span>
               Contactar Administrador
             </button>
             <button @click="reportIssue" class="contact-btn">
-              <span class="icon">🐛</span>
+              <span class="icon"></span>
               Reportar Problema
             </button>
           </div>
@@ -122,11 +120,11 @@
 
       <div class="back-navigation">
         <button @click="goBack" class="back-btn">
-          <span class="icon">⬅️</span>
+          <span class="icon"></span>
           Volver Atrás
         </button>
         <button @click="goHome" class="home-btn">
-          <span class="icon">🏠</span>
+          <span class="icon"></span>
           Ir al Inicio
         </button>
       </div>

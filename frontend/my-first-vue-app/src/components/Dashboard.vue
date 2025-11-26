@@ -11,17 +11,17 @@
 
     <nav class="dashboard-nav">
       <router-link to="/dashboard" class="nav-item" exact-active-class="active">
-        <i class="icon">🏠</i>
+        <i class="icon"></i>
         Inicio
       </router-link>
       
       <router-link to="/wods" class="nav-item" active-class="active">
-        <i class="icon">💪</i>
+        <i class="icon"></i>
         WODs
       </router-link>
       
       <router-link to="/records" class="nav-item" active-class="active">
-        <i class="icon">🏆</i>
+        <i class="icon"></i>
         Records
       </router-link>
       
@@ -31,7 +31,7 @@
         class="nav-item" 
         active-class="active"
       >
-        <i class="icon">👥</i>
+        <i class="icon"></i>
         Miembros
       </router-link>
     </nav>

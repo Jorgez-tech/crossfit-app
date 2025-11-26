@@ -1,7 +1,7 @@
 # Informe y Guía de Desarrollo
  
 ---
-## 📋 Resumen Ejecutivo
+## Resumen Ejecutivo
 
 **Estado actual:**
 - Plataforma full-stack para gestión de entrenamientos, miembros y records en un box de CrossFit
@@ -10,7 +10,7 @@
 - Infraestructura de testing E2E con Cypress
 - Documentación y scripts compartidos
 
-**Avance general:** ✅ MVP Funcional - Revisión técnica completada (Sept 2025)
+**Avance general:** MVP Funcional - Revisión técnica completada (Sept 2025)
 
 **Próximos pasos:**
 1. Documentación API con Swagger
@@ -18,15 +18,15 @@
 3. Despliegue y CI/CD
 
 ---
-## 🗺️ Roadmap Visual
+## Roadmap Visual
 
 | Fase | Descripción | Estado |
 |------|-------------|--------|
-| 1 | Prototipado y validación | ✔️ |
-| 2 | Integración y mejora estructural | ✔️ |
-| 3 | Testing E2E y data-cy | ⏳ (90%) |
-| 4 | Documentación API (Swagger) | ❌ |
-| 5 | Despliegue y CI/CD | ❌ |
+| 1 | Prototipado y validación | Completado |
+| 2 | Integración y mejora estructural | Completado |
+| 3 | Testing E2E y data-cy | (90%) |
+| 4 | Documentación API (Swagger) | Pendiente |
+| 5 | Despliegue y CI/CD | Pendiente |
 
 ---
 
@@ -101,32 +101,32 @@ Todos los componentes principales cuentan con atributos `data-cy` para facilitar
 
 ## 3. Fases de Desarrollo
 
-### Fase 1: Prototipado y validación ✅ COMPLETADO
+### Fase 1: Prototipado y validación - COMPLETADO
 - Implementación base de API y frontend
 - Pruebas de endpoints y navegación
 - Demo funcional
 
-### Fase 2: Unificación y mejora estructural ✅ COMPLETADO
+### Fase 2: Unificación y mejora estructural - COMPLETADO
 - Integración completa frontend-backend
 - Mejoras en la arquitectura y navegación
 - Sistema de autenticación JWT implementado
 
-### Fase 3: Testing E2E y Atributos data-cy ✅ PRÁCTICAMENTE COMPLETADO (90%)
-- **✅ COMPLETADO:** Configuración de Cypress 15.0.0 para pruebas E2E
-- **✅ COMPLETADO:** Agregados atributos data-cy a componentes principales:
+### Fase 3: Testing E2E y Atributos data-cy - PRÁCTICAMENTE COMPLETADO (90%)
+- **COMPLETADO:** Configuración de Cypress 15.0.0 para pruebas E2E
+- **COMPLETADO:** Agregados atributos data-cy a componentes principales:
   - TrainerDashboard: `data-cy="trainer-dashboard"`, `data-cy="welcome-message"`, `data-cy="create-wod-button"`, `data-cy="manage-members-link"`, `data-cy="trainer-stats"`
   - AthleteDashboard: `data-cy="athlete-dashboard"`, `data-cy="welcome-message"`, `data-cy="record-button"`, `data-cy="athlete-stats"`
   - App.vue: Navegación condicional por autenticación, `data-cy="user-menu"`, `data-cy="logout-button"`
   - LoginComponent: Formularios con atributos data-cy completos
-- **✅ COMPLETADO:** Comandos personalizados de Cypress (loginAsTrainer, loginAsAthlete, mockBackend)
-- **✅ COMPLETADO:** Optimización de interceptors de Cypress y navegación condicional
-- **✅ COMPLETADO:** Suite completa de 5 archivos de pruebas E2E
-- **✅ COMPLETADO:** Commit comprensivo (043281d) con 97 archivos, 5295 insertions
-- **🔄 REQUIERE AJUSTES MENORES:** Algunas pruebas básicas necesitan refinamiento final
+- **COMPLETADO:** Comandos personalizados de Cypress (loginAsTrainer, loginAsAthlete, mockBackend)
+- **COMPLETADO:** Optimización de interceptors de Cypress y navegación condicional
+- **COMPLETADO:** Suite completa de 5 archivos de pruebas E2E
+- **COMPLETADO:** Commit comprensivo (043281d) con 97 archivos, 5295 insertions
+- **REQUIERE AJUSTES MENORES:** Algunas pruebas básicas necesitan refinamiento final
 
 **Estado:** La infraestructura de testing E2E está completamente operativa. Los tests de autenticación funcionan correctamente, todos los componentes críticos tienen atributos testables, y el sistema está preparado para pruebas comprehensivas.
 
-### Fase 4: Documentación API con Swagger 📋 PENDIENTE
+### Fase 4: Documentación API con Swagger - PENDIENTE
 - Migración a monorepo
 - Configuración de scripts y documentación
 - Integración de CI/CD
@@ -164,7 +164,7 @@ Todos los componentes principales cuentan con atributos `data-cy` para facilitar
 - [ ] Documentación API con Swagger
 - [ ] Despliegue conjunto
 
-### 📊 Avance General del Proyecto: ~75% completado
+### Avance General del Proyecto: ~75% completado
 
 **Próximos pasos prioritarios:**
 1. **Refinamiento final de testing E2E** - Ajustar pruebas básicas restantes
@@ -180,7 +180,7 @@ Todos los componentes principales cuentan con atributos `data-cy` para facilitar
 ## 6. Checklist de Funcionalidades y Pruebas
 
 ---
-## ✅ Checklist de Funcionalidades y Pruebas
+## Checklist de Funcionalidades y Pruebas
 
 ### Backend (API)
 - [x] CRUD completo de WODs
@@ -263,7 +263,7 @@ Todos los componentes principales cuentan con atributos `data-cy` para facilitar
 - [x] Esquema de base de datos y datos de prueba
 ### Avance reciente
 
-✔️ Se completó la definición de modelos, el ERD, la migración a base de datos relacional y la carga de datos de prueba mediante seeds y migraciones automatizadas.
+Se completó la definición de modelos, el ERD, la migración a base de datos relacional y la carga de datos de prueba mediante seeds y migraciones automatizadas.
 
 **Cambios recientes (registro):**
 - refactor: `Member`, `Record` y `Workout` migrados de `db.json` a consultas con `knex` (commits 784b0da, c0eb447, f9a6cdc)
@@ -279,26 +279,26 @@ Todos los componentes principales cuentan con atributos `data-cy` para facilitar
 - Scripts usados: `scripts/run_seed_and_check.js`, `scripts/smoke_test.js` (ubicados en `api/crossfit-wod-api/scripts`).
 
 **Avance Completado (2025-08-22):**
-✔️ **Migración completa a base de datos relacional**: Todos los modelos (Member, Record, Workout) ahora usan Knex.js con SQLite en desarrollo.
-✔️ **Sistema de autenticación JWT completo**: Registro, login, middleware de autenticación y autorización por roles implementados.
-✔️ **Seguridad mejorada**: Eliminación de credenciales hardcodeadas, uso obligatorio de variables de entorno.
-✔️ **Limpieza de código**: Eliminación de archivos obsoletos (db.json, utils.js) y actualización de documentación.
-✔️ **Configuración de proyecto**: .gitignore actualizado para excluir artefactos de build y archivos sensibles.
+**Migración completa a base de datos relacional**: Todos los modelos (Member, Record, Workout) ahora usan Knex.js con SQLite en desarrollo.
+**Sistema de autenticación JWT completo**: Registro, login, middleware de autenticación y autorización por roles implementados.
+**Seguridad mejorada**: Eliminación de credenciales hardcodeadas, uso obligatorio de variables de entorno.
+**Limpieza de código**: Eliminación de archivos obsoletos (db.json, utils.js) y actualización de documentación.
+**Configuración de proyecto**: .gitignore actualizado para excluir artefactos de build y archivos sensibles.
 
 **Avance de Integración Frontend Completado (2025-08-22):**
-✔️ **Integración completa con autenticación JWT**: Frontend Vue.js completamente integrado con el backend autenticado.
-✔️ **Servicios de autenticación**: `authService.js` implementado con localStorage, registro, login y logout.
-✔️ **Cliente API con interceptors**: `api.js` configurado con interceptors automáticos para JWT tokens.
-✔️ **Sistema de estado global**: Stores de Pinia para auth, wods, members y records con actions completas.
-✔️ **Guards de navegación**: Router configurado con protección de rutas por autenticación y roles.
-✔️ **Componentes completos implementados**:
+**Integración completa con autenticación JWT**: Frontend Vue.js completamente integrado con el backend autenticado.
+**Servicios de autenticación**: `authService.js` implementado con localStorage, registro, login y logout.
+**Cliente API con interceptors**: `api.js` configurado con interceptors automáticos para JWT tokens.
+**Sistema de estado global**: Stores de Pinia para auth, wods, members y records con actions completas.
+**Guards de navegación**: Router configurado con protección de rutas por autenticación y roles.
+**Componentes completos implementados**:
   - `LoginComponent.vue`: Formularios de login/registro con validación y roles
   - `Dashboard.vue`: Panel principal con estadísticas y navegación contextual
   - `WodsList.vue`: CRUD completo de WODs con autenticación y gestión por roles
   - `MembersList.vue`: Gestión completa de miembros para entrenadores con filtros y búsqueda
   - `RecordsList.vue`: Sistema completo de records con filtros avanzados y CRUD
-✔️ **UI responsive**: Diseño adaptativo para dispositivos móviles con validación de formularios.
-✔️ **Roles diferenciados**: Funcionalidades específicas para entrenadores (gestión completa) y atletas (acceso limitado).
+**UI responsive**: Diseño adaptativo para dispositivos móviles con validación de formularios.
+**Roles diferenciados**: Funcionalidades específicas para entrenadores (gestión completa) y atletas (acceso limitado).
 
 **Estado actual**: La rama `feature/auth-jwt` contiene una aplicación full-stack completamente funcional con autenticación JWT, base de datos relacional, frontend integrado y roles diferenciados. Lista para pruebas E2E y posible merge a main.
 
@@ -312,26 +312,26 @@ Todos los componentes principales cuentan con atributos `data-cy` para facilitar
 - [x] Middleware de roles y seguridad
 - [ ] Documentación de API
 
-✔️ Se implementaron los endpoints de autenticación (registro y login) usando JWT y bcrypt, integrados con la base de datos relacional.
-✔️ Se aplicaron middlewares de autenticación y autorización por roles a todas las rutas protegidas.
-✔️ Migración completa de la capa de datos de JSON a base de datos relacional con Knex.js.
+Se implementaron los endpoints de autenticación (registro y login) usando JWT y bcrypt, integrados con la base de datos relacional.
+Se aplicaron middlewares de autenticación y autorización por roles a todas las rutas protegidas.
+Migración completa de la capa de datos de JSON a base de datos relacional con Knex.js.
 
 **Fase 3:**
 - [x] Servicios frontend y componentes clave
 - [x] Rutas protegidas y paneles por rol
 - [x] Integración completa
 
-✔️ Se implementaron todos los servicios frontend (authService, api service con interceptors).
-✔️ Se crearon todos los componentes principales con autenticación y CRUD completo.
-✔️ Se configuraron rutas protegidas con guards de navegación y roles diferenciados.
-✔️ Integración full-stack completamente funcional con autenticación JWT.
+Se implementaron todos los servicios frontend (authService, api service con interceptors).
+Se crearon todos los componentes principales con autenticación y CRUD completo.
+Se configuraron rutas protegidas con guards de navegación y roles diferenciados.
+Integración full-stack completamente funcional con autenticación JWT.
 
 **Fase 4:**
-- **🔄 EN PROGRESO:** Tests unitarios y E2E (90% completado - infraestructura lista)
-  - ✅ Cypress configurado y operativo
-  - ✅ Tests de autenticación funcionando
-  - 🔧 Refinamiento de pruebas básicas pendiente
-- **📋 PENDIENTE:** CI configurado
+- **EN PROGRESO:** Tests unitarios y E2E (90% completado - infraestructura lista)
+  - Cypress configurado y operativo
+  - Tests de autenticación funcionando
+  - Refinamiento de pruebas básicas pendiente
+- **PENDIENTE:** CI configurado
 
 **Fase 5:**
 - [ ] App desplegada
@@ -394,7 +394,7 @@ Actualiza este roadmap y checklist en cada fase para mantener el seguimiento y f
 ---
 
 ---
-## 🟢 Estado de Limpieza y Avance Global (2025-09-01)
+## Estado de Limpieza y Avance Global (2025-09-01)
 
 **Limpieza y validación profesional completada:**
 - Se eliminaron archivos y carpetas obsoletos (db.json, seeds, migrations vacías, utils.js).
@@ -411,7 +411,7 @@ Actualiza este roadmap y checklist en cada fase para mantener el seguimiento y f
 
 ---
 
-## 📝 Notas de trabajo pendiente y próxima sesión (2025-09-10)
+## Notas de trabajo pendiente y próxima sesión (2025-09-10)
 
 **Actualizaciones recientes:**
 - **PR #2 Implementado:** Diseño profesional y mejoras de accesibilidad completadas
@@ -424,68 +424,68 @@ Actualiza este roadmap y checklist en cada fase para mantener el seguimiento y f
   - Se agregó usuario admin al seed pero persiste el problema de conectividad
 
 **Puntos clave para retomar:**
-- ✅ **RESUELTO:** Problema de autenticación/conectividad frontend-backend
-- ✅ **COMPLETADO:** Validación del flujo de login y comunicación entre servicios
-- ✅ **FUNCIONAL:** Integración completa frontend ↔ backend verificada
+- **RESUELTO:** Problema de autenticación/conectividad frontend-backend
+- **COMPLETADO:** Validación del flujo de login y comunicación entre servicios
+- **FUNCIONAL:** Integración completa frontend ↔ backend verificada
 - Continuar con documentación Swagger y optimizaciones
 
 ---
 
-## 🔍 Revisión Técnica Completa - Septiembre 2025
+## Revisión Técnica Completa - Septiembre 2025
 
-### ✅ **VEREDICTO: MVP FUNCIONAL**
+### **VEREDICTO: MVP FUNCIONAL**
 
 **Fecha de revisión:** 17 de Septiembre, 2025  
 **Metodología:** Análisis funcional completo sin modificaciones  
 **Resultado:** Aplicación completamente operacional para MVP
 
-### 📊 **Estado de Funcionalidades Core**
+### **Estado de Funcionalidades Core**
 
-#### **1. Autenticación Básica** ✅ **FUNCIONA**
-- ✅ Registro de usuarios (POST /api/v1/auth/register)
-- ✅ Login con email/password (POST /api/v1/auth/login)  
-- ✅ JWT generation y validación
-- ✅ Roles (entrenador/atleta) implementados
-- ✅ Backend almacena usuarios con password hash (bcrypt)
-- ✅ Frontend authService configurado correctamente
+#### **1. Autenticación Básica** **FUNCIONA**
+- Registro de usuarios (POST /api/v1/auth/register)
+- Login con email/password (POST /api/v1/auth/login)  
+- JWT generation y validación
+- Roles (entrenador/atleta) implementados
+- Backend almacena usuarios con password hash (bcrypt)
+- Frontend authService configurado correctamente
 
-#### **2. Gestión de WODs** ✅ **FUNCIONA**
-- ✅ Endpoint workouts funcional (GET /api/v1/workouts)
-- ✅ Base de datos tiene tabla 'wods' con data semilla
-- ✅ WODs contienen: id, name, description, exercises, created_by
-- ✅ Frontend tiene componentes para listar WODs
+#### **2. Gestión de WODs** **FUNCIONA**
+- Endpoint workouts funcional (GET /api/v1/workouts)
+- Base de datos tiene tabla 'wods' con data semilla
+- WODs contienen: id, name, description, exercises, created_by
+- Frontend tiene componentes para listar WODs
 
-#### **3. Registro de Resultados** ✅ **FUNCIONA**  
-- ✅ Endpoint records funcional (GET /api/v1/records)
-- ✅ Tabla 'records' con resultados reales
-- ✅ Estructura: user_id, wod_id, result, notes, date
-- ✅ Relaciones entre users ↔ wods ↔ records funcionan
+#### **3. Registro de Resultados** **FUNCIONA**  
+- Endpoint records funcional (GET /api/v1/records)
+- Tabla 'records' con resultados reales
+- Estructura: user_id, wod_id, result, notes, date
+- Relaciones entre users ↔ wods ↔ records funcionan
 
-#### **4. Gestión de Usuarios** ✅ **FUNCIONA**
-- ✅ Endpoint members funcional (GET /api/v1/members)  
-- ✅ 4 usuarios activos (3 de prueba + 1 creado en test)
-- ✅ Roles diferenciados: 1 entrenador, 3 atletas
-- ✅ Passwords hasheadas con bcrypt
+#### **4. Gestión de Usuarios** **FUNCIONA**
+- Endpoint members funcional (GET /api/v1/members)  
+- 4 usuarios activos (3 de prueba + 1 creado en test)
+- Roles diferenciados: 1 entrenador, 3 atletas
+- Passwords hasheadas con bcrypt
 
-### 🏗️ **Arquitectura y Estructura**
+### **Arquitectura y Estructura**
 
-#### **Backend (Express + SQLite + Knex)** ✅ **SÓLIDA**
-- ✅ Servidor arranca en puerto 3000 sin errores
-- ✅ Middlewares configurados: CORS, bodyParser
-- ✅ Estructura modular: controllers/services/routes separados
-- ✅ Base de datos SQLite conecta correctamente
-- ✅ Migraciones aplicadas (6 tablas detectadas)
-- ✅ Seeds con data de prueba cargados
+#### **Backend (Express + SQLite + Knex)** **SÓLIDA**
+- Servidor arranca en puerto 3000 sin errores
+- Middlewares configurados: CORS, bodyParser
+- Estructura modular: controllers/services/routes separados
+- Base de datos SQLite conecta correctamente
+- Migraciones aplicadas (6 tablas detectadas)
+- Seeds con data de prueba cargados
 
-#### **Frontend (Vue 3 + Pinia + Vue Router)** ✅ **FUNCIONAL**
-- ✅ App arranca en puerto 8080 sin errores críticos
-- ✅ Arquitectura Vue 3 + Composition API
-- ✅ Pinia configurado para state management
-- ✅ Router con guards de autenticación por roles
-- ✅ Componentes principales creados y funcionales
-- ✅ Servicios de API (axios) configurados
+#### **Frontend (Vue 3 + Pinia + Vue Router)** **FUNCIONAL**
+- App arranca en puerto 8080 sin errores críticos
+- Arquitectura Vue 3 + Composition API
+- Pinia configurado para state management
+- Router con guards de autenticación por roles
+- Componentes principales creados y funcionales
+- Servicios de API (axios) configurados
 
-### 🔧 **Fix Crítico Aplicado**
+### **Fix Crítico Aplicado**
 
 #### **Problema Identificado:**
 - Frontend authService esperaba formato `{status: "OK", data: {...}}`
@@ -509,60 +509,60 @@ res.status(201).json({                     // Register
 ```
 
 #### **Verificación Exitosa:**
-- ✅ Register devuelve: `{status: "OK", data: {user: {...}}}`
-- ✅ Login devuelve: `{status: "OK", data: {token: "...", user: {...}}}`
+- Register devuelve: `{status: "OK", data: {user: {...}}}`
+- Login devuelve: `{status: "OK", data: {token: "...", user: {...}}}`
 
-### 📋 **Checklist Funcionalidad Básica**
+### **Checklist Funcionalidad Básica**
 
-#### **Backend** ✅ **7/7 COMPLETO**
-- [✅] Server arranca sin errores  
-- [✅] Base de datos se conecta
-- [✅] Endpoints auth funcionan  
-- [✅] Endpoints workouts funcionan
-- [✅] Endpoints results funcionan
-- [✅] JWT se genera y valida
-- [✅] Roles se respetan en API
+#### **Backend** **7/7 COMPLETO**
+- [x] Server arranca sin errores  
+- [x] Base de datos se conecta
+- [x] Endpoints auth funcionan  
+- [x] Endpoints workouts funcionan
+- [x] Endpoints results funcionan
+- [x] JWT se genera y valida
+- [x] Roles se respetan en API
 
-#### **Frontend** ✅ **7/7 COMPLETO**  
-- [✅] App arranca sin errores
-- [✅] Login/logout funcional
-- [✅] Dashboard carga datos
-- [✅] Formularios envían data
-- [✅] Navegación entre páginas  
-- [✅] Datos se muestran correctamente
-- [✅] Responsive básico funciona
+#### **Frontend** **7/7 COMPLETO**  
+- [x] App arranca sin errores
+- [x] Login/logout funcional
+- [x] Dashboard carga datos
+- [x] Formularios envían data
+- [x] Navegación entre páginas  
+- [x] Datos se muestran correctamente
+- [x] Responsive básico funciona
 
-#### **Integración** ✅ **4/4 COMPLETO**
-- [✅] Frontend llama backend correctamente
-- [✅] CORS configurado apropiadamente  
-- [✅] Datos se sincronizan ambos lados
-- [✅] Errores se manejan correctamente
+#### **Integración** **4/4 COMPLETO**
+- [x] Frontend llama backend correctamente
+- [x] CORS configurado apropiadamente  
+- [x] Datos se sincronizan ambos lados
+- [x] Errores se manejan correctamente
 
-### 🚀 **Capacidad de Despliegue**
+### **Capacidad de Despliegue**
 
-#### **Ready for Production** ✅ **SÍ**
-- ✅ Todos los componentes arrancan independientemente
-- ✅ No hay dependencias faltantes críticas  
-- ✅ Configuración environment lista (.env)
-- ✅ Database con schema completo y data semilla
-- ✅ Build scripts configurados (frontend)
-- ✅ CORS preparado para múltiples entornos
+#### **Ready for Production** **SÍ**
+- Todos los componentes arrancan independientemente
+- No hay dependencias faltantes críticas  
+- Configuración environment lista (.env)
+- Database con schema completo y data semilla
+- Build scripts configurados (frontend)
+- CORS preparado para múltiples entornos
 
-### 💡 **Recomendaciones Finales**
+### **Recomendaciones Finales**
 
 #### **PARA LANZAR MVP INMEDIATAMENTE:**
-1. ✅ **COMPLETADO:** Alineación formato de respuesta auth
-2. ✅ **COMPLETADO:** Flujo completo probado y funcional
-3. ✅ **LISTO:** Deploy a staging para validación final
+1. **COMPLETADO:** Alineación formato de respuesta auth
+2. **COMPLETADO:** Flujo completo probado y funcional
+3. **LISTO:** Deploy a staging para validación final
 
 #### **MVP ES VIABLE HOY** 
 La aplicación cumple todos los criterios de funcionalidad básica para un CrossFit Box. Los usuarios pueden:
-- ✅ Registrarse/loguearse 
-- ✅ Ver WODs programados
-- ✅ Registrar resultados  
-- ✅ Ver leaderboards básicos
-- ✅ Diferenciar roles entrenador/atleta
+- Registrarse/loguearse 
+- Ver WODs programados
+- Registrar resultados  
+- Ver leaderboards básicos
+- Diferenciar roles entrenador/atleta
 
-**✅ VEREDICTO FINAL: SHIP IT**
+**VEREDICTO FINAL: SHIP IT**
 
 > Actualiza esta sección al finalizar cada sesión para mantener el seguimiento y facilitar la colaboración.

@@ -3,14 +3,14 @@
     <nav v-if="authStore.isAuthenticated" role="navigation" aria-label="Main navigation">
       <span class="nav-brand" aria-label="Alto Rendimiento">Alto Rendimiento</span>
       <div class="nav-links" role="menubar" aria-label="Primary links">
-        <router-link to="/" aria-label="Go to home page">🏠 Home</router-link>
-        <router-link to="/wods" aria-label="View workouts">🏋️ WODs</router-link>
-        <router-link to="/records" aria-label="View records">📊 Records</router-link>
-        <router-link v-if="authStore.user?.role === 'entrenador'" to="/members" aria-label="Manage members">👥 Members</router-link>
-        <router-link :to="authStore.user?.role === 'entrenador' ? '/trainer' : '/athlete'" aria-label="Go to dashboard">📱 Dashboard</router-link>
-        <router-link to="/profile" aria-label="View profile">👤 Perfil</router-link>
+        <router-link to="/" aria-label="Go to home page">Home</router-link>
+        <router-link to="/wods" aria-label="View workouts">WODs</router-link>
+        <router-link to="/records" aria-label="View records">Records</router-link>
+        <router-link v-if="authStore.user?.role === 'entrenador'" to="/members" aria-label="Manage members">Members</router-link>
+        <router-link :to="authStore.user?.role === 'entrenador' ? '/trainer' : '/athlete'" aria-label="Go to dashboard">Dashboard</router-link>
+        <router-link to="/profile" aria-label="View profile">Perfil</router-link>
         <div data-cy="user-menu">
-          <button @click="handleLogout" class="logout-btn" data-cy="logout-button" aria-label="Log out from application">🚪 Salir</button>
+          <button @click="handleLogout" class="logout-btn" data-cy="logout-button" aria-label="Log out from application">Salir</button>
         </div>
       </div>
     </nav>
@@ -18,9 +18,9 @@
     <nav v-else role="navigation" aria-label="Guest navigation">
       <span class="nav-brand" aria-label="Alto Rendimiento">Alto Rendimiento</span>
       <div class="nav-links" role="menubar" aria-label="Primary links">
-        <router-link to="/" aria-label="Go to home page">🏠 Home</router-link>
-        <router-link to="/crossfit" aria-label="View CrossFit workouts">🏋️ CrossFit WODs</router-link>
-        <router-link to="/login" aria-label="Log in to your account">🔐 Login</router-link>
+        <router-link to="/" aria-label="Go to home page">Home</router-link>
+        <router-link to="/crossfit" aria-label="View CrossFit workouts">CrossFit WODs</router-link>
+        <router-link to="/login" aria-label="Log in to your account">Login</router-link>
       </div>
     </nav>
     

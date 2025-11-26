@@ -1,6 +1,6 @@
-# 🚀 Quick Start - UI Improvements
+# Quick Start - UI Improvements
 
-## ⚡ Inicio Rápido (5 minutos)
+## Inicio Rápido (5 minutos)
 
 ### 1. Ver los cambios
 ```bash
@@ -27,32 +27,32 @@ http://localhost:8080
 
 ---
 
-## 🎯 Qué Probar (2 minutos)
+## Qué Probar (2 minutos)
 
-### ✅ Home
+### Home
 1. Observa la imagen hero - debe ajustarse perfectamente
 2. Haz hover sobre la imagen - debe hacer zoom suave
 3. Redimensiona la ventana - la imagen se ajusta
 
-### ✅ Navegación
+### Navegación
 1. Haz hover sobre los botones - deben elevarse
 2. Observa las sombras - deben aumentar suavemente
 3. Click en "CrossFit WODs"
 
-### ✅ WODs
+### WODs
 1. Observa las cards - deben estar en grid
 2. Haz hover sobre una card - debe elevarse 8px
 3. Click en "Ver Detalles" - debe abrir modal
 4. Verifica que se muestre:
-   - ✅ Nombre del WOD
-   - ✅ Badge de tipo (For Time, Rondas, etc.)
-   - ✅ Fecha en español
-   - ✅ Descripción
-   - ✅ Ejercicios
+   - Nombre del WOD
+   - Badge de tipo (For Time, Rondas, etc.)
+   - Fecha en español
+   - Descripción
+   - Ejercicios
 
 ---
 
-## 📱 Prueba Responsive (1 minuto)
+## Prueba Responsive (1 minuto)
 
 1. Abre DevTools (F12)
 2. Toggle Device Toolbar (Ctrl + Shift + M)
@@ -63,20 +63,20 @@ http://localhost:8080
 
 ---
 
-## ✅ Todo Funciona?
+## Todo Funciona?
 
 Si ves:
-- ✅ Imagen hero responsive
-- ✅ Botones con efectos hover
-- ✅ WODs en cards profesionales
-- ✅ Grid responsive
-- ✅ Modal funcional
+- Imagen hero responsive
+- Botones con efectos hover
+- WODs en cards profesionales
+- Grid responsive
+- Modal funcional
 
 **¡Perfecto! Las mejoras están funcionando correctamente.**
 
 ---
 
-## 🔄 Siguiente Paso
+## Siguiente Paso
 
 ### Opción A: Merge a main
 ```bash
@@ -93,7 +93,7 @@ git push origin feature/ui-improvements
 
 ---
 
-## 📚 Más Información
+## Más Información
 
 - **Detalles completos:** `UI_IMPROVEMENTS.md`
 - **Guía de pruebas:** `TESTING_GUIDE.md`
@@ -101,7 +101,7 @@ git push origin feature/ui-improvements
 
 ---
 
-## 🆘 Problemas?
+## Problemas?
 
 ### WODs no se muestran
 ```bash
@@ -127,4 +127,4 @@ Cmd + Shift + R (Mac)
 
 **Tiempo total:** ~8 minutos  
 **Dificultad:** Fácil  
-**Estado:** ✅ Listo para usar
+**Estado:** Listo para usar

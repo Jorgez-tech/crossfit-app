@@ -9,15 +9,15 @@
       
       <div class="quick-actions">
         <button @click="showRecordModal = true" class="action-btn primary" data-cy="record-button">
-          <span class="icon">📝</span>
+          <span class="icon"></span>
           Registrar Record
         </button>
         <button @click="$router.push('/wods')" class="action-btn secondary">
-          <span class="icon">🏋️‍♂️</span>
+          <span class="icon"></span>
           Ver WODs
         </button>
         <button @click="$router.push('/profile')" class="action-btn tertiary">
-          <span class="icon">👤</span>
+          <span class="icon"></span>
           Mi Perfil
         </button>
       </div>
@@ -26,7 +26,7 @@
     <!-- Estadísticas personales -->
     <div class="stats-grid" data-cy="athlete-stats">
       <div class="stat-card">
-        <div class="stat-icon">🎯</div>
+        <div class="stat-icon"></div>
         <div class="stat-content">
           <h3>{{ personalStats.totalRecords }}</h3>
           <p>Records Registrados</p>
@@ -35,7 +35,7 @@
       </div>
       
       <div class="stat-card">
-        <div class="stat-icon">🔥</div>
+        <div class="stat-icon"></div>
         <div class="stat-content">
           <h3>{{ personalStats.currentStreak }}</h3>
           <p>Días Consecutivos</p>
@@ -44,7 +44,7 @@
       </div>
       
       <div class="stat-card">
-        <div class="stat-icon">📈</div>
+        <div class="stat-icon"></div>
         <div class="stat-content">
           <h3>{{ personalStats.favoriteWodType }}</h3>
           <p>WOD Favorito</p>
@@ -53,7 +53,7 @@
       </div>
       
       <div class="stat-card">
-        <div class="stat-icon">⭐</div>
+        <div class="stat-icon"></div>
         <div class="stat-content">
           <h3>#{{ personalStats.ranking }}</h3>
           <p>Posición en Box</p>
@@ -156,7 +156,7 @@
                 <div class="best-wod">{{ best.wod_name }}</div>
                 <div class="best-result">{{ best.best_result }}</div>
                 <div class="best-improvement" v-if="best.improvement">
-                  <span class="improvement-icon">📈</span>
+                  <span class="improvement-icon"></span>
                   {{ best.improvement }}
                 </div>
               </div>
@@ -465,7 +465,7 @@ export default {
       
       // Calcular racha (simulado)
       personalStats.currentStreak = Math.floor(Math.random() * 10) + 1;
-      personalStats.streakStatus = personalStats.currentStreak > 5 ? '🔥 ¡En racha!' : 'Sigue así';
+      personalStats.streakStatus = personalStats.currentStreak > 5 ? '¡En racha!' : 'Sigue así';
       
       // WOD favorito (más frecuente)
       const wodCounts = {};
@@ -487,7 +487,7 @@ export default {
       // Ranking simulado
       const totalAthletes = memberStore.members.filter(m => m.role === 'atleta').length;
       personalStats.ranking = Math.floor(Math.random() * totalAthletes) + 1;
-      personalStats.rankingTrend = Math.random() > 0.5 ? '↗️ Subiendo' : '↘️ Mantente fuerte';
+      personalStats.rankingTrend = Math.random() > 0.5 ? 'Subiendo' : 'Mantente fuerte';
     };
 
     const setTodayWod = () => {
@@ -552,7 +552,7 @@ export default {
     const startWod = (wod) => {
       // Implementar cronómetro o lógica de WOD
       log.debug('Iniciando WOD', wod);
-      alert(`¡Iniciando ${wod.name}! Dale con todo 💪`);
+      alert(`¡Iniciando ${wod.name}! Dale con todo`);
     };
 
     const viewWodDetails = (wod) => {

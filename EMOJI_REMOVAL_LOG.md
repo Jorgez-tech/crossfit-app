@@ -15,6 +15,8 @@ The following files were updated to remove emojis:
 - `Informe_Desarrollo.md`
 - `frontend/my-first-vue-app/README.md`
 - `frontend/my-first-vue-app/cypress/SOLUCION_PROBLEMAS.md`
+- `frontend/my-first-vue-app/cypress/COMO_USAR_CYPRESS.md`
+- `frontend/my-first-vue-app/cypress/README.md`
 - `api/crossfit-wod-api/README.md`
 
 ### Vue Components

@@ -1,10 +1,10 @@
-# 🚀 Guía Rápida: Cypress Interactivo - Primera Vez
+# Guía Rápida: Cypress Interactivo - Primera Vez
 
-## ✅ Configuración Completada
+## Configuración Completada
 
 ¡El error de configuración se ha solucionado! Ahora Cypress debería abrirse correctamente.
 
-## 📋 Pasos para Ejecutar las Pruebas E2E
+## Pasos para Ejecutar las Pruebas E2E
 
 ### 1. ¿Qué deberías ver en Cypress?
 
@@ -32,11 +32,11 @@ Al abrir Cypress, deberías ver una ventana con:
 
 ### 4. ¿Qué Verás Durante las Pruebas?
 
-- ✅ **Pasos en verde**: Pruebas exitosas
-- ❌ **Pasos en rojo**: Errores (si los hay)
-- 🔄 **Ejecución en tiempo real**: Verás cómo se llena formularios, se hace clic en botones, etc.
-- 📸 **Screenshots automáticos** si hay errores
-- ⏰ **Tiempo de ejecución** de cada prueba
+- **Pasos en verde**: Pruebas exitosas
+- **Pasos en rojo**: Errores (si los hay)
+- **Ejecución en tiempo real**: Verás cómo se llena formularios, se hace clic en botones, etc.
+- **Screenshots automáticos** si hay errores
+- **Tiempo de ejecución** de cada prueba
 
 ### 5. Navegación en Cypress
 
@@ -46,8 +46,8 @@ Al abrir Cypress, deberías ver una ventana con:
 
 ### 6. Estado Actual del Servidor
 
-✅ **Frontend**: Ejecutándose en `http://localhost:8081`
-🔄 **Backend**: No necesario (pruebas usan mocks)
+**Frontend**: Ejecutándose en `http://localhost:8081`
+**Backend**: No necesario (pruebas usan mocks)
 
 ### 7. Pruebas Recomendadas para Empezar
 
@@ -98,7 +98,7 @@ npm run cy:run:integration # Solo flujos
 
 ---
 
-## 🎯 ¡Tu Primer Test!
+## ¡Tu Primer Test!
 
 **Recomendación**: Haz clic en `01-authentication.cy.js` y observa cómo:
 1. Se abre la página de login
@@ -106,14 +106,14 @@ npm run cy:run:integration # Solo flujos
 3. Se hace clic en "Iniciar Sesión"
 4. Se verifica la redirección al dashboard
 
-¡Es fascinante ver las pruebas ejecutándose en tiempo real! 🚀
+¡Es fascinante ver las pruebas ejecutándose en tiempo real!
 
 ---
 
-## 📞 Si Necesitas Ayuda
+## Si Necesitas Ayuda
 
 - **Error de configuración**: Verifica que el servidor esté en puerto 8081
 - **Pruebas fallan**: Es normal, algunos componentes pueden necesitar ajustes
 - **Cypress no abre**: Intenta cerrar y volver a ejecutar `npx cypress open`
 
-**¡Las pruebas E2E están listas para usar! Disfruta viendo la magia de la automatización en acción.** ✨
+**¡Las pruebas E2E están listas para usar! Disfruta viendo la magia de la automatización en acción.**

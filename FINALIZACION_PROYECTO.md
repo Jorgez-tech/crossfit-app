@@ -35,7 +35,7 @@ CrossFit App es una plataforma ligera para boxes y entrenadores que centraliza e
 
 ### Archivos consolidados / eliminados
 
-Se han eliminado archivos de instrucciones temporales o que duplicaban información en la documentación principal: `MERGE_INSTRUCTIONS.md`, `UI_IMPROVEMENTS.md`, `QUICK_START.md` y `cypress-e2e-diagnosis.md` (el diagnóstico crítico y las instrucciones de preparación relevantes se resumen arriba).
+Se han identificado como obsoletos los siguientes archivos de instrucciones temporales, que se recomienda eliminar en una futura limpieza: `MERGE_INSTRUCTIONS.md`, `UI_IMPROVEMENTS.md`, `QUICK_START.md` y `cypress-e2e-diagnosis.md` (el diagnóstico crítico y las instrucciones de preparación relevantes se resumen arriba).
 
 ### Próximos pasos (para tu portafolio)
 

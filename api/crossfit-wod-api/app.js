@@ -17,12 +17,39 @@ const app = express();
 
 // Configurar CORS para permitir conexiones desde la aplicación Vue
 app.use(cors({
-  origin: [
-    'http://localhost:8080',
-    'http://localhost:8081',
-    'http://192.168.100.8:8080',
-    'http://192.168.100.8:8081'
-  ],
+  origin: function (origin, callback) {
+    // Permitir requests sin origen (como curl o apps móviles)
+    if (!origin) return callback(null, true);
+    
+    // Permitir cualquier origen local (localhost o 127.0.0.1) en cualquier puerto
+    if (origin.match(/^http:\/\/localhost:\d+$/) || origin.match(/^http:\/\/127\.0\.0\.1:\d+$/)) {
+      return callback(null, true);
+    }
+    
+    // Permitir la IP específica de la red local
+    if (origin.match(/^http:\/\/192\.168\.100\.8:\d+$/)) {
+      return callback(null, true);
+    }
+    
+    // Lista blanca explícita
+    const allowedOrigins = [
+      'http://localhost:8080',
+      'http://localhost:8081',
+      'http://192.168.100.8:8080',
+      'http://192.168.100.8:8081'
+    ];
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      return callback(null, true);
+    }
+    
+    // En desarrollo, ser permisivo
+    if (process.env.NODE_ENV === 'development') {
+        return callback(null, true);
+    }
+    
+    callback(new Error('Not allowed by CORS'));
+  },
   credentials: true
 }));
 

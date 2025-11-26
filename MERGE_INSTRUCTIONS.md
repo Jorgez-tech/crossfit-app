@@ -1,3 +1,9 @@
+# ⚠️ ARCHIVO OBSOLETO
+
+> **Nota:** Este documento es un artefacto histórico de una fase anterior del desarrollo. Su contenido ha sido consolidado en la documentación principal o ya no es relevante. Se recomienda su eliminación en futuras limpiezas.
+
+---
+
 # Instrucciones para Merge - UI Improvements
 
 ## Resumen de Cambios

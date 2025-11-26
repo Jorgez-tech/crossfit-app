@@ -1,4 +1,5 @@
 describe('Autenticación y Navegación', () => {
+    // Test verificado: 2025-11-26
     beforeEach(() => {
         cy.mockBackend();
     });

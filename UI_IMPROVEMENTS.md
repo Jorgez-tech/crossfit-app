@@ -1,3 +1,9 @@
+# ⚠️ ARCHIVO OBSOLETO
+
+> **Nota:** Este documento es un artefacto histórico de una fase anterior del desarrollo. Su contenido ha sido consolidado en la documentación principal o ya no es relevante. Se recomienda su eliminación en futuras limpiezas.
+
+---
+
 # Mejoras de UI Implementadas - Feature Branch
 
 **Rama:** `feature/ui-improvements`  

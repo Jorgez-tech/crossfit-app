@@ -33,6 +33,11 @@ apiClient.interceptors.response.use(
     error => {
         log.error('Error en llamada a la API', error);
 
+        if (!error.response) {
+            // Error de red o CORS
+            console.error('Error de conexión: Posible problema de CORS o servidor caído.');
+        }
+
         // Si es error 401 (no autorizado), cerrar sesión
         if (error.response && error.response.status === 401) {
             authService.logout();
